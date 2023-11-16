@@ -1,0 +1,27 @@
+body{
+    background-color:yellow;
+}
+p{
+    border: 2em seashell;
+}
+.first{
+    border: 1em outset red;
+    background-color: whitesmoke;
+    text-align: center;
+}
+.left{
+  
+    width: 47%;
+    float: left;
+    padding: 0em;
+    border: 1em outset red;
+    background-color: whitesmoke;
+}
+.right{
+
+    width: 47%;
+    float: right;
+    padding: 0em;
+    border: 1em outset red;
+    background-color: whitesmoke;
+}
