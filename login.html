@@ -62,16 +62,20 @@
 	<img id="image" src="Virginia_Military_Institute_logo.png" />
 		
 		<div id="login">
-		<h2 id="form" style="color: #880207" > Existing User</h2>
+		<h2 id="form" style="color: #880207"> E-Section Marcher</h2>
+        <p id="demo">Click login button to login</p>
 		<form id="form" action="validateLogin.php" method="POST">
 			Email : <input id="text" type="text" name= "email" required>
 			<br>
 			Password: <input id="text" type ="password" name="password" required>
 			<br><br>
-			<input id ="button" type ="submit" name ="login" value= "Log in">
-		</form>
+            <button type ="button" onclick='document.getElementById("demo").innerHTML="Hello Denis!"'>Login</button>	
+        </form>
 		</div>
 		<br>
+
+
+        
 	
 	</body>
 </html>
