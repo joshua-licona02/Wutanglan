@@ -1,8 +1,8 @@
 <?php
-
 session_start();
-?>
 
+
+?>
 <!DOCTYPE html>
 <html lang = "en">
 <head>
@@ -32,7 +32,8 @@ session_start();
         </div> 
         <a href="#news">History</a>
         <a href="#news">Instructions</a>
-        <a id = "logout" href="index.html">Logout</a>
+        <a href="cadetInfo.php">Cadet Info</a>
+        <a id = "logout" href="logout.php">Logout</a>
     </div>
 
     <script>

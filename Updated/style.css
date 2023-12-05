@@ -272,3 +272,30 @@ input{
   background-color: #ffcd00;;
 }
 
+.cadet_info{
+  font-size: 20px;
+}
+
+.cadet_info, .cadet_info tr, .cadet_info td,
+.cadet_info th{
+  border-collapse: collapse;
+  border: solid;
+  text-align: center;
+}
+
+.cadet_info td{
+  padding: 3px;
+}
+
+.cadet_info th{
+  background-color: #ffcd00;;
+}
+
+
+
+
+
+
+
+
+
