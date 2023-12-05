@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -13,7 +16,16 @@
         <h1>E-Section Marcher</h1>
         <h2>Login to VMI Account</h2>
         <h3 style = "color: #ae122a;">Enter @vmi.edu email address</h3>
-    <div class = "loginForm">
+
+        <?php
+                    if(isset($_SESSION["error"])){
+                        $error = $_SESSION["error"];
+                        echo "<h2 style = 'color: #ae122a;''>$error</h2>";
+                    }
+                ?>
+
+
+    <div class = "loginForm" border = "solid">
     <form class = "cadetLogin" action = "validateLogin.php" method="post">
 
      
@@ -29,8 +41,9 @@
             <tr>
                 <td align = "center" colspan="2" class = "submitLine"><input type = "submit" name = "submit" id = "submitBtn"></td>
             </tr>
+            </tr>
         </table>
-    </form>
+    </form>  
     </div>
     <footer class="six" style = "margin-top: 5.5%;">
         <center>
@@ -41,3 +54,7 @@
 
 </body>
 </html>
+
+<?php
+    unset($_SESSION["error"]);
+?>

@@ -1,5 +1,5 @@
 <?php
-	$error="";
+	session_start();
 	$servername = "localhost";
 	$dbname = "capstone";
 	$username = "root";
@@ -17,8 +17,9 @@
 
 	if(isset($_POST['submit'])){
 
-	$email = $_REQUEST['email'];
-	$password = $_REQUEST['password']; 
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+	$error = "Email/password is incorrect. An @vmi.edu email is required for access.";
 
 	$sql = "SELECT * FROM cadets WHERE email = '$email' AND password = '$password'";
 
@@ -32,7 +33,8 @@
 		exit;
 	}
 	else{
-		header("location: index.php");
+		$_SESSION["error"] = $error;
+    	header("location: login.php");
 	}
 }
 ?>
