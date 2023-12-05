@@ -26,10 +26,13 @@
 	$result = $conn->query($sql);
 	
 	if($result->num_rows > 0){
+		while($row = $result->fetch_assoc()) {
+    		$first_name = $row["first_name"];
+  		}
 		
-		$row = $row = $result->fetch_assoc();
-
-		header('Location: cadetHome.html');
+		header('Location: cadetHome.php');
+		$_SESSION['email'] = $email;
+		$_SESSION['first_name'] = $first_name;
 		exit;
 	}
 	else{

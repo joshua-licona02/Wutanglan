@@ -20,7 +20,7 @@ session_start();
         <?php
                     if(isset($_SESSION["error"])){
                         $error = $_SESSION["error"];
-                        echo "<h2 style = 'color: #ae122a;''>$error</h2>";
+                        echo "<h2 style = 'color: #ae122a;'>$error</h2>";
                     }
                 ?>
 

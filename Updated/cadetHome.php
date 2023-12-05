@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang = "en">
 <head>
@@ -52,7 +57,7 @@
     <div>
 
         <center>
-            <h2>Welcome Josh!</h2>
+            <h2>Welcome <?php echo $_SESSION['first_name'] . '!';?></h2>
             <h3>You are a section marcher in the following courses:</h3>
 
             <!--
