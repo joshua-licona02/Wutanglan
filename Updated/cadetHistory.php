@@ -1,7 +1,7 @@
 <?php
-session_start();
-
+    session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang = "en">
 <head>
@@ -18,7 +18,7 @@ session_start();
     </div>
 
     <div class="navbar">
-        <a class = "active">Home</a>
+        <a href = "cadetHome.php">Home</a>
         <div class="dropdown">
             <button class="dropbtn" onclick="myFunction()">Courses
             <i class="fa fa-caret-down"></i>
@@ -29,8 +29,8 @@ session_start();
                 <a href="#">HPW-327-03</a>
             </div>
         </div> 
-        <a href="cadetHistory.php">History</a>
-        <a href="cadetInstructions.php">Instructions</a>
+        <a class = "active">History</a>
+        <a href = "cadetInstructions.php">Instructions</a>
         <a href="cadetInfo.php">Cadet Info</a>
         <a id = "logout" href="logout.php">Logout</a>
     </div>
@@ -54,32 +54,15 @@ session_start();
     </script>
 
 
-    <div>
+    <div style="padding: 2%;">
 
         <center>
-            <h2>Welcome <?php echo $_SESSION['first_name'] . '!';?></h2>
-            <h3>You are a section marcher in the following courses:</h3>
+            
+            <h2>
+                This is a template to view the recently completed section marcher reports done by <?php echo $_SESSION['first_name'];?>.
 
-            <!--
-            Use php to pull courses section marcher in and what section marcher number
+            </h2>
 
-            --> 
-            <table class = "cadet_courses">
-                <tr>
-                    <th>Course Number</th>
-                    <th>Course Title</th>
-                    <th>Instructor</th>
-                    <th>Day/Time</th>
-                    <th>Section Marcher #</th>
-                </tr>
-                <tr>
-                    <td><a>CIS-480-02</a></td>
-                    <td><a>Pre-Capstone</a></td>
-                    <td><a>Dr. Gracanin</a></td>
-                    <td><a>TR (0925-1040)</a></td>
-                    <td><a>1</a></td>
-                </tr>
-            </table>
         </center>
     </div>
 </body>

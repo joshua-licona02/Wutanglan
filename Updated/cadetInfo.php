@@ -62,8 +62,8 @@
                 <a href="#">HPW-327-03</a>
             </div>
         </div> 
-        <a href="#news">History</a>
-        <a href="#news">Instructions</a>
+        <a href="cadetHistory.php">History</a>
+        <a href="cadetInstructions.php">Instructions</a>
         <a class = "active">Cadet Info</a>
         <a id = "logout" href="logout.php">Logout</a>
     </div>
