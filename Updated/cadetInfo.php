@@ -28,12 +28,11 @@
             $first_name = $row["first_name"];
             $last_name = $row["last_name"];
             $rank = $row['rank'];
+            $company = $row['company'];
             $class = $row['class'];
             $major = $row['major'];
         }
     }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -115,6 +114,10 @@
                 <tr>
                     <td style = "font-weight: bold;">Class</td>
                     <td><?php echo $class;?></td>
+                </tr>
+                <tr>
+                    <td style = "font-weight: bold;">Company/Staff</td>
+                    <td><?php echo $company;?></td>
                 </tr>
                 <tr>
                     <td style = "font-weight: bold;">Rank</td>
