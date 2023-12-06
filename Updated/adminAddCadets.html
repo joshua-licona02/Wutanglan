@@ -14,7 +14,7 @@
         <h2>Add Cadets</h2>
         
     <div class = "loginForm" border = "solid">
-    <form class = "addCadet" method="post">
+    <form action = "insertCadet.php" class = "addCadet" method="POST">
 
         <table class = "addCadetTable">
             <tr class="emailLog">
@@ -51,8 +51,6 @@
 			  	</select>
 			  	</td>
             </tr>
-
-
             <tr>
                 <td><label class = "emailLog">Rank: </label></td>
              	<td>
@@ -94,10 +92,28 @@
 			  	</select>
 			  	</td>
             </tr>
+
+            <tr>
+                <td>
+                    <label for="staff">Staff: </label>
+                    
+                    <td>
+                    <input type="radio" id="staff" name="company" value="Staff"></td>
+                </td>
+                <tr>
+                    <td>
+                        <label for="css">Company: </label>
+                    </td>
+                    <td>
+                        <input type="radio" id="Company" name="company" value="Company">
+                    
+
+                </td>
+            </tr>
             <tr>
                 <td align = "center" colspan="2" class = "submitLine"><input type = "submit" name = "submit" id = "submitBtn"></td>
             </tr>
-            </tr>
+
         </table>
     </form>  
     </div>
@@ -106,8 +122,9 @@
             <p>&copy; Capstone Team 6</p>
         </center>
     </footer>
+
 </center>
 
 </body>
-</html>
 
+</html>

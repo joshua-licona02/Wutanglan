@@ -15,22 +15,20 @@ $servername = "localhost";
         die("Connection failed:" . $conn->connect_error);
     }
 
-    $id_number = $_REQUEST['id_number'];
-    $first_name = $_REQUEST['first_name'];
-    $last_name = $_REQUEST['last_name'];
-    $email = $_REQUEST['email'];
-    $password = $_REQUEST['password'];
-    $class = $_REQUEST['class'];
-    $rank = $_REQUEST['rank'];
-    $major = $_REQUEST['major'];
+    $id_number = $_POST['id_number'];
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $class = $_POST['class'];
+    $rank = $_POST['rank'];
+    $major = $_POST['major'];
+    $company = $_POST['company'];
 
-    $sql = "INSERT INTO cadets (id_number, first_name, last_name, email, password, class, rank, major) VALUES ('$id_number', '$first_name', '$last_name', '$email', '$password', '$class', '$rank', '$major')";
-
-    echo $sql;
-    exit;
+    $sql = "INSERT INTO cadets (id_number, first_name, last_name, email, password, class, rank, major, company) VALUES ('$id_number', '$first_name', '$last_name', '$email', '$password', '$class', '$rank', '$major', '$company')";
 
     if ($conn->query($sql) === TRUE) {
-    header('Location: adminAddCadets.php');
+    header('Location: adminAddCadets.html');
     echo "<script> alert('Account Successfully Created.)</script>";
         exit;
     }
