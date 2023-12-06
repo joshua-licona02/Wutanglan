@@ -87,10 +87,11 @@
     </script>
 
 
-    <div style="padding: 2%;">
+    <div style="padding: 1%;">
 
         <center>
             <h3><?php echo $_SESSION['first_name']?>, you are the 1st Section Marcher for CIS-480-02.</h3>
+            <h4>Faculty: Dr. Dennis Gracanin</h4>
 
             <table>
                 <tr>
@@ -138,6 +139,24 @@
 
 
 
+                    </tr>
+
+                    <tr>
+                        <td>Rachel</td>
+                        <td>Greathouse</td>
+                        <td>2025</td>
+                        <td>PVT</td>
+                        <td>
+                           <select id="status" name="status" required>
+                                <option selected value="Present">Present</option>
+                                <option value="Late">Late <5 mins</option>
+                                <option value="Late Late">Late 5-15 mins</option>
+                                <option value="Absent">Absent</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="textarea">
+                        </td>
                     </tr>
 
                 
