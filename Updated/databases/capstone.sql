@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 06, 2023 at 05:17 PM
+-- Generation Time: Dec 06, 2023 at 05:48 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -78,6 +78,13 @@ CREATE TABLE `commstaff` (
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `commstaff`
+--
+
+INSERT INTO `commstaff` (`id_number`, `first_name`, `last_name`, `email`, `password`) VALUES
+('5401234', 'Kelley', 'Bennett', 'bennettkt@vmi.edu', 'password');
+
 -- --------------------------------------------------------
 
 --
@@ -86,16 +93,25 @@ CREATE TABLE `commstaff` (
 
 CREATE TABLE `courses` (
   `course_id` int(11) NOT NULL,
-  `course_title` int(11) NOT NULL,
-  `course_code` int(11) NOT NULL,
+  `course_title` varchar(255) NOT NULL,
+  `course_code` varchar(255) NOT NULL,
   `section` int(11) NOT NULL,
-  `section_time` int(11) NOT NULL,
-  `date` varchar(255) NOT NULL,
+  `section_time` time NOT NULL,
+  `date_start` date NOT NULL,
+  `date_end` date NOT NULL,
   `professor_id` int(11) NOT NULL,
   `building` varchar(255) NOT NULL,
   `classroom` int(11) NOT NULL,
   `department` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`course_id`, `course_title`, `course_code`, `section`, `section_time`, `date_start`, `date_end`, `professor_id`, `building`, `classroom`, `department`) VALUES
+(1, 'Pre-Capstone', '480', 2, '09:25:00', '2023-08-29', '2023-12-14', 1, 'Mallory Hall', 318, 'CIS'),
+(2, 'Pre-Capstone', '480', 1, '08:00:00', '2023-08-29', '2023-12-14', 1, 'Mallory Hall', 318, 'CIS');
 
 -- --------------------------------------------------------
 
@@ -113,6 +129,16 @@ CREATE TABLE `professor` (
   `title/rank` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `professor`
+--
+
+INSERT INTO `professor` (`professor_id`, `first_name`, `last_name`, `email`, `department`, `password`, `title/rank`) VALUES
+(1, 'Dennis', 'Gracanin', 'gracanind@vmi.edu', 'CIS', 'password', 'Dr.'),
+(2, 'Imran', 'Ghani', 'ghanii@vmi.edu', 'CIS', 'password', 'LTC'),
+(3, 'Doug', 'Wainwright', 'wainwrightdb@vmi.edu', 'CIS', 'password', 'MAJ'),
+(4, 'Ramoni', 'Lasisi', 'lasisiro@vmi.edu', 'CIS', 'password', 'LTC');
+
 -- --------------------------------------------------------
 
 --
@@ -127,6 +153,13 @@ CREATE TABLE `secretary` (
   `dept` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `secretary`
+--
+
+INSERT INTO `secretary` (`id_number`, `first_name`, `last_name`, `email`, `dept`, `password`) VALUES
+('5402222', 'Sandra', 'Williams', 'williamssr@vmi.edu', 'CIS', 'password');
 
 --
 -- Indexes for dumped tables
@@ -182,10 +215,16 @@ ALTER TABLE `accountability`
   MODIFY `accountability_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `professor`
 --
 ALTER TABLE `professor`
-  MODIFY `professor_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `professor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
