@@ -1,43 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <link rel="stylesheet" href="styles.css">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>This is a test</title>
-
-    <h1 style="color: red">E-Section Marcher for VMI</h1>
-
-    <div class="first">
-    <h2 style="color: red;">Test Page</h2>
-    <q> <a href="https://www.youtube.com/watch?v=OBtXGVtQCiM">Test Link</a> </q>
-    <p>This is an skeletal page of the e-section marcher index page.
-    </p>
-    </div>
-    <br>
-    <div class="left">
-    <h2 style="color: red">Classes</h2>
-    <p> Class list below</p>
-    <ul>
-        <li>Class 1</li>
-        <li>Class 2</li>
-        <li>Class 3</li>
-        <li>Class 4</li>
-     
-    </ul>
-    </div>
-    <div class="right">
-    <h2 style="color: red;">Test</h2>
-    <p>Cadets Involved</p>
-    <ul>
-        <li>Joshua Licona</li>
-        <li>Jacob Hill</li>
-        <li>Jake Johnston</li>
-    </ul>
-    </div>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VMI E-Section Marcher</title>
+    <link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-    
+
+	<center>
+		<img src = "vmilogo.svg" id = "logo">
+	</center>
+	<h1 class = "title">E-Section Marcher</h1>
+
+	<center>
+	<div class = "priv-options">
+
+		<section>
+			<article>
+				<button id = "cadetBtn"class="usertype" role="button" onclick="window.location.href='login.php'">Cadet Login</button>
+			</article>
+
+			<article>
+				<button id = "sectBtn"class="usertype" role="button" onclick="window.location.href='login.php'">Department Secretary Login</button>
+			</article>
+			<article>
+				<button id = "commBtn"class="usertype" role="button" onclick="window.location.href = 'login.php';"
+				>Commandant's Staff Login</button>
+			</article>
+		</section>
+	</div>
+	</center>
+
+	<footer class="six">
+		<center>
+			<p>&copy; Capstone Team 6</p>
+		</center>
+	</footer>
+
 </body>
 </html>
