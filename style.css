@@ -291,11 +291,22 @@ input{
   background-color: #ffcd00;;
 }
 
+.course_Roll{
+  font-size: 13px;
+  width: 60%;
+}
 
+.course_Roll, .course_Roll tr, .course_Roll td,
+.course_Roll th{
+  border-collapse: collapse;
+  border: solid;
+  text-align: center;
+}
 
+.course_Roll td{
+  padding: 0px;
+}
 
-
-
-
-
-
+.course_Roll th{
+  background-color: #ffcd00;;
+}

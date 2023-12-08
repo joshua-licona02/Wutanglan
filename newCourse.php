@@ -85,8 +85,9 @@
             <h5>Tuesday/Thursday</h5>
             <h5>Fall 2023</h5>
             <form action = "" method="post">
-            <table>
+            <table class = "course_Roll">
                 <tr>
+                    <th>Cadet Number</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Class</th>
@@ -97,11 +98,11 @@
                 
 
                 <?php
-
+                    $cadetNum = 1;
                    if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()) {
                     
-                        $html = "";
+                        
                         $id = $row["id_number"];
                         $email = $row["email"];
                         $first_name = $row["first_name"];
@@ -111,7 +112,8 @@
                         $class = $row['class'];
                         $major = $row['major'];
 
-                        echo "<tr><td>$first_name</td>";
+                        echo "<tr><td>$cadetNum</td>";
+                        echo "<td>$first_name</td>";
                         echo "<td>$last_name</td>";
                         echo "<td>$class</td>";
                         echo "<td>$rank</td>";
@@ -122,22 +124,17 @@
                         <option value='Late Late'>Late 5-15 mins</option>
                         <option value='Absent'>Absent</option>
                             </select></td>";
-                        echo "<td><input name = 'comments' type='textarea'>
+                        echo "<td style = 'padding-top: 1%;'><input style = 'width: 85%;' name = 'comments' type='textarea'>
                         </td></tr>";
-
+                        $cadetNum++;
         }
     }
                 ?>
-                <tr><td align = "center" colspan="6">
-                <input style="width: 30%" type = "submit"></td>
+                <tr><td style = "padding-top: 2%;"align = "center" colspan="7">
+                <input style="width: 30%;" type = "submit"></td>
                 <tr>
             </form>
             </table>
-
-
-
-
-
         </center>
     </div>
 </body>
