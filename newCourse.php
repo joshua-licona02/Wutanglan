@@ -18,8 +18,37 @@
 
     $email = $_SESSION['email'];
 
-    $sql = "SELECT * FROM cadets CROSS JOIN rank WHERE cadets.rank=rank.rank order by rank_id, class, last_name";
+    $sql = "SELECT cadets.first_name as cadet_first,cadets.last_name as cadet_last, courses.department as course_dept,courses.course_code, courses.section, courses.course_title, courses.section_time, courses.section_end, course_enrollment.course_id, professor.title,professor.first_name,professor.last_name FROM cadets join course_enrollment on cadets.id_number = course_enrollment.cadet_id JOIN courses ON courses.course_id = course_enrollment.course_id join professor on courses.professor_id = professor.professor_id";
+
     $result = $conn->query($sql);
+
+
+    if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()) {
+
+                        //basic section marcher/course info
+                     $cadet_first = $row['cadet_first'];
+                     $cadet_last = $row['cadet_last'];
+                     $department = $row['course_dept'];
+                     $course_code = $row['course_code'];
+                     $course = $row['course_title'];
+                     $rank = $row['title'];
+                     $prof_first = $row['first_name'];
+                     $prof_last = $row['last_name'];
+
+                     $section_start = $row['section_time'];
+                     $section_start = str_replace(':', '', $section_start);
+                     $section_start = substr($section_start, 0,4);
+                     $section_end = $row['section_end'];
+                     $section_end = str_replace(':', '', $section_end);
+                     $section_end = substr($section_end, 0,4);
+
+
+
+                     
+
+                    }
+                }
 
 
 ?>
@@ -79,9 +108,9 @@
     <div style="padding: 1%;">
 
         <center>
-            <h3><?php echo $_SESSION['first_name']?>, you are the 1st Section Marcher for CIS-480-02.</h3>
-            <h4>Faculty: Dr. Dennis Gracanin</h4>
-            <h4>Class Period: 0925-1040</h4>
+            <h3><?php echo $_SESSION['first_name']?>, you are the 1st Section Marcher for <?php echo $department . " " . $course_code . ": " . $course?></h3>
+            <h4>Faculty: <?php echo $rank . " ".$prof_first . " " . $prof_last?></h4>
+            <h4>Class Period: <?php echo $section_start ."-".$section_end?></h4>
             <h5>Tuesday/Thursday</h5>
             <h5>Fall 2023</h5>
             <form action = "" method="post">
@@ -98,6 +127,10 @@
                 
 
                 <?php
+
+
+                $sql = "SELECT * FROM cadets CROSS JOIN rank WHERE cadets.rank=rank.rank order by rank_id, class, last_name";
+                $result = $conn->query($sql);
                     $cadetNum = 1;
                    if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()) {
