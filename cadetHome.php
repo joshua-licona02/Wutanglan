@@ -1,6 +1,27 @@
 <?php
 session_start();
 
+$servername = "localhost";
+    $dbname = "capstone";
+    $username = "root";
+    $password = "";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if(!$conn){
+        echo "<script> alert('Connection failed.)</script>";
+    }
+
+    if($conn->connect_error){
+        die("Connection failed:" . $conn->connect_error);
+    }
+
+    $id = $_SESSION['id_number'];
+
+    $sql = "SELECT cadet_id, section_marcher, semester, cadets.first_name as cadet_first, cadets.last_name as cadet_last,course_title,course_code, section, courses.department, title, professor.first_name, professor.last_name, courses.section_day, courses.section_time, courses.section_end, courses.course_id from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number join courses on courses.course_id = course_enrollment.course_id join professor on professor.professor_id = courses.professor_id where cadet_id = '$id'";
+
+    $result = $conn->query($sql);
+
 ?>
 <!DOCTYPE html>
 <html lang = "en">
@@ -72,13 +93,49 @@ session_start();
                     <th>Day/Time</th>
                     <th>Section Marcher #</th>
                 </tr>
-                <tr>
-                    <td><a href = "newCourse.php">CIS-480-02</a></td>
-                    <td><a>Pre-Capstone</a></td>
-                    <td><a>Dr. Gracanin</a></td>
-                    <td><a>TR (0925-1040)</a></td>
-                    <td><a>1</a></td>
-                </tr>
+                    <?php 
+
+                    if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()) {
+                        $course_id = $row['course_id'];
+                        $department = $row['department'];
+                        $course_code = $row['course_code'];
+                        $course = $row['course_title'];
+                        $section = $row['section'];
+                           if($section < 10){
+                            
+                            $section = '0'.$section;
+
+                           }
+
+                           $full_code = $department . " " .$course_code . "-" . $section;
+                           $title = $row['title'];
+                           $prof_first= $row['first_name'];
+                           $prof_last = $row['last_name'];
+                           $instuctor = $title . " ".$prof_first . " " . $prof_last;
+                           $section_marcher = $row['section_marcher'];
+                           $section_time = $row['section_time'];
+                           $section_end = $row['section_end'];
+                           $section_day = $row['section_day'];
+
+                           $section_start = str_replace(':', '', $section_time);
+                           $section_start = substr($section_start, 0,4);
+
+                           $section_end = str_replace(':', '', $section_end);
+                           $section_end = substr($section_end, 0,4);
+
+                           $section_time = $section_start."-".$section_end;
+                           echo "<tr><td><a href = 'newCourse.php?a=$course_id'>$full_code</a></td>";
+                           echo "<td>$course</td>";
+                           echo "<td>$instuctor</td>";
+                           echo "<td>$section_day: $section_time</td>";
+                           echo "<td>$section_marcher</td></tr>";
+
+                
+ }}?>
+
+
+
             </table>
         </center>
     </div>

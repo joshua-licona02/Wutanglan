@@ -28,10 +28,12 @@
 	if($result->num_rows > 0){
 		while($row = $result->fetch_assoc()) {
     		$first_name = $row["first_name"];
+    		$id_number = $row["id_number"];
   		}
 		
 		header('Location: cadetHome.php');
 		$_SESSION['email'] = $email;
+		$_SESSION['id_number'] = $id_number;
 		$_SESSION['first_name'] = $first_name;
 		exit;
 	}
