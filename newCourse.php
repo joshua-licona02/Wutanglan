@@ -81,7 +81,10 @@
         <center>
             <h3><?php echo $_SESSION['first_name']?>, you are the 1st Section Marcher for CIS-480-02.</h3>
             <h4>Faculty: Dr. Dennis Gracanin</h4>
-
+            <h4>Class Period: 0925-1040</h4>
+            <h5>Tuesday/Thursday</h5>
+            <h5>Fall 2023</h5>
+            <form action = "" method="post">
             <table>
                 <tr>
                     <th>First Name</th>
@@ -91,7 +94,7 @@
                     <th>Status</th>
                     <th>Comments (Optional)</th>
                 </tr>
-
+                
 
                 <?php
 
@@ -125,10 +128,13 @@
         }
     }
                 ?>
-
-
-
+                <tr><td align = "center" colspan="6">
+                <input style="width: 30%" type = "submit"></td>
+                <tr>
+            </form>
             </table>
+
+
 
 
 
