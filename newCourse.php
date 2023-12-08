@@ -18,21 +18,10 @@
 
     $email = $_SESSION['email'];
 
-    $sql = "SELECT * FROM cadets WHERE email = '$email'";
+    $sql = "SELECT * FROM cadets CROSS JOIN rank WHERE cadets.rank=rank.rank order by rank_id, class, last_name";
     $result = $conn->query($sql);
 
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()) {
-            $id = $row["id_number"];
-            $email = $row["email"];
-            $first_name = $row["first_name"];
-            $last_name = $row["last_name"];
-            $rank = $row['rank'];
-            $company = $row['company'];
-            $class = $row['class'];
-            $major = $row['major'];
-        }
-    }
+
 ?>
 
 <!DOCTYPE html>
@@ -57,14 +46,14 @@
             <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content" id="myDropdown">
-                <a href="newCourse.php">CIS-480-02</a>
+                <a class = "active">CIS-480-02</a>
                 <a href="#">CIS-402-01</a>
                 <a href="#">HPW-327-03</a>
             </div>
         </div> 
         <a href="cadetHistory.php">History</a>
         <a href="cadetInstructions.php">Instructions</a>
-        <a class = "active">Cadet Info</a>
+        <a href = "cadetInfo.php">Cadet Info</a>
         <a id = "logout" href="logout.php">Logout</a>
     </div>
 
@@ -87,43 +76,62 @@
     </script>
 
 
-    <div style="padding: 2%;">
+    <div style="padding: 1%;">
 
         <center>
-            <table class = "cadet_info">
-                <th colspan="2">Cadet Info</th>
-                
+            <h3><?php echo $_SESSION['first_name']?>, you are the 1st Section Marcher for CIS-480-02.</h3>
+            <h4>Faculty: Dr. Dennis Gracanin</h4>
+
+            <table>
                 <tr>
-                    <td style = "font-weight: bold;">ID Number</td>
-                    <td><?php echo $id;?></td>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Class</th>
+                    <th>Rank</th>
+                    <th>Status</th>
+                    <th>Comments (Optional)</th>
                 </tr>
 
-                <tr>
-                    <td style = "font-weight: bold;">Email</td>
-                    <td><?php echo $email;?></td>
-                </tr>
 
-                <tr>
-                    <td style = "font-weight: bold;">First Name</td>
-                    <td><?php echo $first_name;?></td>
-                </tr>
-                <tr>
-                    <td style = "font-weight: bold;">Last Name</td>
-                    <td><?php echo $last_name;?></td>
-                </tr>
-                <tr>
-                    <td style = "font-weight: bold;">Class</td>
-                    <td><?php echo $class;?></td>
-                </tr>
-                <tr>
-                    <td style = "font-weight: bold;">Company/Staff</td>
-                    <td><?php echo $company;?></td>
-                </tr>
-                <tr>
-                    <td style = "font-weight: bold;">Rank</td>
-                    <td><?php echo $rank;?></td>
-                </tr>
+                <?php
+
+                   if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()) {
+                    
+                        $html = "";
+                        $id = $row["id_number"];
+                        $email = $row["email"];
+                        $first_name = $row["first_name"];
+                        $last_name = $row["last_name"];
+                        $rank = $row['rank'];
+                        $company = $row['company'];
+                        $class = $row['class'];
+                        $major = $row['major'];
+
+                        echo "<tr><td>$first_name</td>";
+                        echo "<td>$last_name</td>";
+                        echo "<td>$class</td>";
+                        echo "<td>$rank</td>";
+                        echo "<td>
+                        <select id='status' name='status' required>
+                        <option selected value='Present'>Present</option>
+                        <option value='Late'>Late <5 mins</option>
+                        <option value='Late Late'>Late 5-15 mins</option>
+                        <option value='Absent'>Absent</option>
+                            </select></td>";
+                        echo "<td><input name = 'comments' type='textarea'>
+                        </td></tr>";
+
+        }
+    }
+                ?>
+
+
+
             </table>
+
+
+
         </center>
     </div>
 </body>

@@ -117,7 +117,7 @@
                             </select>
                         </td>
                         <td>
-                            <input type="textarea">
+                            <input name = "comments" type="textarea">
                         </td>
                     </tr>
                     <tr>

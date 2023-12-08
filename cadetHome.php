@@ -24,7 +24,7 @@ session_start();
             <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content" id="myDropdown">
-                <a href="templateCourse.php">CIS-480-02</a>
+                <a href="newCourse.php">CIS-480-02</a>
                 <a href="#">CIS-402-01</a>
                 <a href="#">HPW-327-03</a>
             </div>
@@ -73,7 +73,7 @@ session_start();
                     <th>Section Marcher #</th>
                 </tr>
                 <tr>
-                    <td><a href = "templateCourse.php">CIS-480-02</a></td>
+                    <td><a href = "newCourse.php">CIS-480-02</a></td>
                     <td><a>Pre-Capstone</a></td>
                     <td><a>Dr. Gracanin</a></td>
                     <td><a>TR (0925-1040)</a></td>
