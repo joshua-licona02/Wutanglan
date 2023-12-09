@@ -21,6 +21,21 @@
 
     $email = $_SESSION['email'];
     $course_id = $_SESSION['course_id'];
+    $cadet_id = $_SESSION['id_number'];
+
+    $sql = "SELECT cadets.first_name, cadets.last_name, section_marcher, if(course_enrollment.section_marcher > 0, 'true','false') as 'is Section Marcher' from course_enrollment join cadets on course_enrollment.cadet_id = '$cadet_id' where cadets.id_number = course_enrollment.cadet_id AND section_marcher>0 and course_enrollment.course_id = '$course_id'";
+
+    $result = $conn->query($sql);
+
+
+    if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()) {
+                         $section_marcher = $row['section_marcher'];
+                    }
+                }
+
+
+
 
     $sql = "SELECT cadets.first_name as cadet_first,cadets.last_name as cadet_last, courses.department as course_dept,courses.course_code, courses.section, courses.course_title, courses.section_time, courses.section_end, courses.section_day, course_enrollment.course_id, course_enrollment.semester, professor.title,professor.first_name,professor.last_name FROM cadets join course_enrollment on cadets.id_number = course_enrollment.cadet_id JOIN courses ON courses.course_id = course_enrollment.course_id join professor on courses.professor_id = professor.professor_id WHERE course_enrollment.course_id = '$course_id'";
 
@@ -69,12 +84,9 @@
                     }
                 }
 
-
-
                 for($i = 0; $i < strlen($section_day); $i++) 
                 {
                         
-
                     if($section_day[$i] == "M"){
                         $string = $string . "Monday";
                     }
@@ -91,12 +103,6 @@
                         $string = $string . "Friday";
                     }
                     
-
-
-                        
-                        
-
-
                         if($length == 1) {
                             break;
                         }
@@ -162,7 +168,25 @@
     <div style="padding: 1%;">
 
         <center>
-            <h3><?php echo $_SESSION['first_name']?>, you are the 1st Section Marcher for <?php echo $department . " " . $course_code . ": " . $course?></h3>
+
+            
+            <h3><?php echo $_SESSION['first_name']?>, you are the <?php 
+
+
+
+            if($section_marcher == 1){
+                $section_marcher .= "st";
+            }
+            else if($section_marcher == 2){
+                $section_marcher .= "nd";
+            }
+            else if($section_marcher == 3){
+                $section_marcher .= "rd";
+            }
+
+
+
+            echo $section_marcher?> Section Marcher for <?php echo $department . "-" . $course_code . ": " . $course?></h3>
             <h4>Faculty: <?php echo $rank . " ".$prof_first . " " . $prof_last?></h4>
             <h4>Class Period: <?php echo $section_start ."-".$section_end?></h4>
             <h5><?php echo $section_day?></h5>

@@ -18,7 +18,7 @@ $servername = "localhost";
 
     $id = $_SESSION['id_number'];
 
-    $sql = "SELECT cadet_id, section_marcher, semester, cadets.first_name as cadet_first, cadets.last_name as cadet_last,course_title,course_code, section, courses.department, title, professor.first_name, professor.last_name, courses.section_day, courses.section_time, courses.section_end, courses.course_id from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number join courses on courses.course_id = course_enrollment.course_id join professor on professor.professor_id = courses.professor_id where cadet_id = '$id'";
+    $sql = "SELECT cadet_id, section_marcher, semester, cadets.first_name as cadet_first, cadets.last_name as cadet_last,course_title,course_code, section, courses.department, title, professor.first_name, professor.last_name, courses.section_day, courses.section_time, courses.section_end, courses.course_id from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number join courses on courses.course_id = course_enrollment.course_id join professor on professor.professor_id = courses.professor_id where cadet_id = '$id' order by section_marcher";
 
     $result = $conn->query($sql);
 
@@ -79,6 +79,7 @@ $servername = "localhost";
 
         <center>
             <h2>Welcome <?php echo $_SESSION['first_name'] . '!';?></h2>
+
             <h3>You are a section marcher in the following courses:</h3>
 
             <!--
@@ -95,8 +96,11 @@ $servername = "localhost";
                 </tr>
                     <?php 
 
+                    $num_of_courses = 0;
+
                     if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()) {
+                        $num_of_courses++;
                         $course_id = $row['course_id'];
                         $department = $row['department'];
                         $course_code = $row['course_code'];
@@ -114,6 +118,15 @@ $servername = "localhost";
                            $prof_last = $row['last_name'];
                            $instuctor = $title . " ".$prof_first . " " . $prof_last;
                            $section_marcher = $row['section_marcher'];
+
+
+
+                           if($section_marcher == 0){
+
+                            $zero_Section++;
+                            break;
+                           }
+
                            $section_time = $row['section_time'];
                            $section_end = $row['section_end'];
                            $section_day = $row['section_day'];
@@ -132,7 +145,14 @@ $servername = "localhost";
                            echo "<td>$section_marcher</td></tr>";
 
                 
- }}?>
+ }}
+//number of courses that are not section marcher vs total classes
+if($zero_Section == $num_of_courses){
+
+                            echo "<tr><td colspan = '5'>You are not a section marcher in any of your registered courses.</td></tr>";
+                           }
+
+ ?>
 
 
 
