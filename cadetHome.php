@@ -46,8 +46,8 @@ $servername = "localhost";
             </button>
             <div class="dropdown-content" id="myDropdown">
                 <a href="newCourse.php">CIS-480-02</a>
-                <a href="#">CIS-402-01</a>
-                <a href="#">HPW-327-03</a>
+                <a href="newCourse.php">CIS-402-01</a>
+                <a href="newCourse.php">HPW-327-03</a>
             </div>
         </div> 
         <a href="cadetHistory.php">History</a>

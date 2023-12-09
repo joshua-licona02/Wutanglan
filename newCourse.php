@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_GET['a']) /*you can validate the link here*/){
+    if(isset($_GET['a'])){
     $_SESSION['course_id']= $_GET['a'];
     }
 
