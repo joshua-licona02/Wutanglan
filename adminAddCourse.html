@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VMI E-Section Marcher | Add Course</title>
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+    <center>
+        <img src = "vmilogo.svg" id = "logo">
+        <h1>E-Section Marcher</h1>
+        <h2>Add Cadets</h2>
+
+    <div class = "loginForm" border = "solid">
+    <form action = "addCourse.php" class = "addCadet" method="POST">
+
+        <table style = "border: solid;" class = "addCadetTable">
+            <tr class="emailLog">
+                <td><label>Course Title:</label></td>
+                <td><input id = "course_title" name = "course_title" type = "text" required></td>
+            </tr>
+            <tr>
+                <td><label class = "emailLog">Course Code (Ex: 431): </label></td>
+                <td><input id = "course_code" name = "course_code" type = "text" required></td>
+            </tr>
+            <tr>
+                <td><label class = "emailLog">Section (Ex: 1): </label></td>
+                <td><input id = "section" name = "section" type = "text" required></td>
+            </tr>
+            <tr>
+               
+                <td><label>Section Days:</label>
+                <td><input type="checkbox" id="Monday" name="Monday" value="M"></td>
+                <td><label for="vehicle1">Monday</label></td>
+                <td><input type="checkbox" id="Tuesday" name="Tuesday" value="T"></td>
+                <td><label for="vehicle1">Tuesday</label></td>
+                <td><input type="checkbox" id="Wednesday" name="Wednesday" value="W"></td>
+                <td><label for="vehicle1">Wednesday</label></td>
+                <td><input type="checkbox" id="Thursday" name="Thursday" value="R"></td>
+                <td><label for="vehicle1">Thursday</label></td>
+                <td><input type="checkbox" id="Friday" name="Friday" value="F"></td>
+                <td><label for="vehicle1">Friday</label></td>
+                
+            </tr>
+
+
+                </td>
+            </tr>
+            <tr>
+                <td align = "center" colspan="4" class = "submitLine"><input type = "submit" name = "submit" id = "submitBtn"></td>
+            </tr>
+
+        </table>
+    </form>  
+    </div>
+    <footer class="six" style = "margin-top: 5.5%;">
+        <center>
+            <p>&copy; Capstone Team 6</p>
+        </center>
+    </footer>
+
+</center>
+
+</body>
+
+</html>
