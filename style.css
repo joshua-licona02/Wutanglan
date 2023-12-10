@@ -310,12 +310,3 @@ input{
 .course_Roll th{
   background-color: #ffcd00;;
 }
-
-.addCourseTable {
-  border: solid;
-}
-
-.addCourseTable td{
-   padding: 0%;
-
-}
