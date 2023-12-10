@@ -29,32 +29,25 @@ $servername = "localhost";
         while($row = $result->fetch_assoc()) {
 
             $num_of_courses++;
-                        $course_id = $row['course_id'];
-                        $department = $row['department'];
-                        $course_code = $row['course_code'];
-                        $course = $row['course_title'];
-                        $section = $row['section'];
-                           if($section < 10){
-                            
-                            $section = '0'.$section;
+            $course_id = $row['course_id'];
+            $department = $row['department'];
+            $course_code = $row['course_code'];
+            $course = $row['course_title'];
+            $section = $row['section'];
+            if($section < 10){
+                $section = '0'.$section;
+            }
+            $full_code = $department . " " .$course_code . "-" . $section;
+            $section_marcher = $row['section_marcher'];
+            $course_ids[] = $row['course_id'];
+            $full_codes[] = $full_code;
 
+            if($section_marcher == 0){
+                $zero_Section++;
+                break;
                            }
-
-                           $full_code = $department . " " .$course_code . "-" . $section;
-
-                           $section_marcher = $row['section_marcher'];
-
-
-                           $course_ids[] = $row['course_id'];
-                           $full_codes[] = $full_code;
-
-
-                           if($section_marcher == 0){
-
-                            $zero_Section++;
-                            break;
-                           }
-                       }}
+                       }
+                   }
 
 
 ?>
@@ -82,12 +75,11 @@ $servername = "localhost";
             <div class="dropdown-content" id="myDropdown">
                 <?php 
 
+                
+
                 for($i=0; $i<count($course_ids); $i++){
                     echo "<a href = 'newCourse.php?a=$course_ids[$i]'>$full_codes[$i]</a></td>";
                 }
-
-
-                
             ?>
             </div>
         </div> 
@@ -195,9 +187,6 @@ if($zero_Section == $num_of_courses){
                            }
 
  ?>
-
-
-
             </table>
         </center>
     </div>
