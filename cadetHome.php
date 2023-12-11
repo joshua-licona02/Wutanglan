@@ -1,5 +1,12 @@
 <?php
 session_start();
+if($_SESSION['loggedIn']) {
+//allow
+}else{
+    
+    header('Location: login.php');
+    
+}
 
 $servername = "localhost";
     $dbname = "capstone";

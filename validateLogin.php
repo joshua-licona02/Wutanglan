@@ -35,6 +35,7 @@
 		$_SESSION['email'] = $email;
 		$_SESSION['id_number'] = $id_number;
 		$_SESSION['first_name'] = $first_name;
+		$_SESSION['loggedIn'] = true;
 		exit;
 	}
 	else{
