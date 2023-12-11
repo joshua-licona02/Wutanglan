@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 11, 2023 at 02:46 PM
+-- Generation Time: Dec 11, 2023 at 05:16 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -50,6 +50,14 @@ CREATE TABLE `accountability` (
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `accountability`
+--
+
+INSERT INTO `accountability` (`accountability_id`, `date`, `time`, `course_id`, `cadet_id`, `status`) VALUES
+(24, '12/11/2023', '11:04:17', 4, '0609724', 'Present'),
+(25, '12/11/2023', '11:04:43', 4, '0609724', 'Present');
+
 -- --------------------------------------------------------
 
 --
@@ -77,6 +85,7 @@ INSERT INTO `cadets` (`id_number`, `first_name`, `last_name`, `email`, `class`, 
 ('0609724', 'Jacob', 'Johnston', 'johnstonjr24@vmi.edu', 2024, 'CPT', 'CIS', 'password', 'Staff'),
 ('0619046', 'Josh', 'Licona', 'liconajr24@vmi.edu', 2024, 'PVT', 'CIS', 'password', 'Company'),
 ('0655502', 'Rachel', 'Greathouse', 'greathousere25@vmi.edu', 2025, 'PVT', 'EC', 'password', 'Company'),
+('0669027', 'Ella', 'Flickinger', 'flickingerem24@vmi.edu', 2024, 'CPT', 'ME', 'password', 'Staff'),
 ('10675729', 'Jacob', 'Hill', 'hillja24@vmi.edu', 2024, '1LT', 'CIS', 'password', 'Staff'),
 ('1234543', 'Mark', 'Shelton', 'sheltonml24@vmi.edu', 2024, '1CPT', 'CIS', 'password', 'Staff'),
 ('12346782', 'Sam', 'Patterson', 'pattersonsb24@vmi.edu', 2024, '2LT', 'CE', 'password', 'Company');
@@ -155,12 +164,14 @@ CREATE TABLE `course_enrollment` (
 
 INSERT INTO `course_enrollment` (`enrollment_id`, `cadet_id`, `course_id`, `section_marcher`, `semester`) VALUES
 (1, '0609724', 1, 1, 'FL23'),
-(2, '0609724', 3, 2, 'FL23'),
+(2, '0609724', 3, 3, 'FL23'),
 (3, '1234543', 3, 1, 'FL23'),
 (4, '0655502', 3, 0, 'FL23'),
 (5, '12346782', 4, 2, 'FL23'),
 (6, '0609724', 4, 1, 'FL23'),
-(7, '10675729', 3, 3, 'FL23');
+(7, '10675729', 3, 3, 'FL23'),
+(8, '0619046', 3, 0, 'FL23'),
+(9, '0669027', 3, 2, 'FL23');
 
 -- --------------------------------------------------------
 
@@ -259,8 +270,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 ALTER TABLE `accountability`
   ADD PRIMARY KEY (`accountability_id`),
-  ADD UNIQUE KEY `cadet_id` (`cadet_id`),
-  ADD KEY `course_id` (`course_id`);
+  ADD KEY `course_id` (`course_id`),
+  ADD KEY `cadet_id` (`cadet_id`) USING BTREE;
 
 --
 -- Indexes for table `cadets`
@@ -315,7 +326,7 @@ ALTER TABLE `secretary`
 -- AUTO_INCREMENT for table `accountability`
 --
 ALTER TABLE `accountability`
-  MODIFY `accountability_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `accountability_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -327,7 +338,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `course_enrollment`
 --
 ALTER TABLE `course_enrollment`
-  MODIFY `enrollment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `enrollment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `professor`
