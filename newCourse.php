@@ -230,7 +230,7 @@
             <h4>Class Period: <?php echo $section_start ."-".$section_end?></h4>
             <h5><?php echo $section_day?></h5>
             <h5><?php echo $sem?></h5>
-            <form action = "" method="post">
+            <form action = "submitAccountability.php" method="post">
             <table class = "course_Roll">
                 <tr>
                     <th>Cadet Number</th>
