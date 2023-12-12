@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 12, 2023 at 02:22 PM
+-- Generation Time: Dec 12, 2023 at 04:11 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -76,6 +76,25 @@ INSERT INTO `accountability` (`accountability_id`, `date`, `time`, `course_id`, 
 (55, '12/12/2023', '08:21:56', 3, '10675729', 'Absent', '3.2 Cut', '0609724'),
 (56, '12/12/2023', '08:21:56', 3, '0619046', 'Absent', 'All-Duty for Soccer', '0609724'),
 (57, '12/12/2023', '08:21:56', 3, '0655502', 'Present', 'N/A', '0609724');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`) VALUES
+(1, 'admin', 'admin-password');
 
 -- --------------------------------------------------------
 
@@ -323,6 +342,12 @@ ALTER TABLE `accountability`
   ADD KEY `submitted_by` (`submitted_by`);
 
 --
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cadets`
 --
 ALTER TABLE `cadets`
@@ -376,6 +401,12 @@ ALTER TABLE `secretary`
 --
 ALTER TABLE `accountability`
   MODIFY `accountability_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `courses`
