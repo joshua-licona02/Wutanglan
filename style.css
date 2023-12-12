@@ -310,3 +310,22 @@ input{
 .course_Roll th{
   background-color: #ffcd00;;
 }
+
+.comm_daily_report{
+  font-size: 16px;
+}
+
+.comm_daily_report, .comm_daily_report tr, .comm_daily_report td,
+.comm_daily_report th{
+  border-collapse: collapse;
+  border: solid;
+  text-align: center;
+}
+
+.comm_daily_report td{
+  padding: 1.5px;
+}
+
+.comm_daily_report th{
+  background-color: #ffcd00;;
+}

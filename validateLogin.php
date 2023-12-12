@@ -29,8 +29,10 @@
 		while($row = $result->fetch_assoc()) {
     		$first_name = $row["first_name"];
     		$id_number = $row["id_number"];
+
+
+
   		}
-		
 		header('Location: cadetHome.php');
 		$_SESSION['email'] = $email;
 		$_SESSION['id_number'] = $id_number;
@@ -38,9 +40,44 @@
 		$_SESSION['loggedIn'] = true;
 		exit;
 	}
-	else{
+
+	$sql = "SELECT * FROM secretary WHERE email = '$email' AND password = '$password'";
+
+	$result = $conn->query($sql);
+	
+	if($result->num_rows > 0){
+		while($row = $result->fetch_assoc()) {
+    		$first_name = $row["first_name"];
+    		$id_number = $row["id_number"];
+  		}
+  		header('Location: sectHome.php');
+		$_SESSION['email'] = $email;
+		$_SESSION['id_number'] = $id_number;
+		$_SESSION['first_name'] = $first_name;
+		$_SESSION['loggedIn'] = true;
+		exit;
+
+	}
+
+	$sql = "SELECT * FROM commstaff WHERE email = '$email' AND password = '$password'";
+
+	$result = $conn->query($sql);
+	
+	if($result->num_rows > 0){
+		while($row = $result->fetch_assoc()) {
+    		$first_name = $row["first_name"];
+    		$id_number = $row["id_number"];
+  		}
+  		header('Location: commStaffHome.php');
+		$_SESSION['email'] = $email;
+		$_SESSION['id_number'] = $id_number;
+		$_SESSION['first_name'] = $first_name;
+		$_SESSION['loggedIn'] = true;
+		exit;
+
+	}
 		$_SESSION["error"] = $error;
     	header("location: login.php");
-	}
+	
 }
 ?>
