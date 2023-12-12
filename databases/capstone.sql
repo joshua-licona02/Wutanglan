@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 12, 2023 at 01:17 AM
+-- Generation Time: Dec 12, 2023 at 02:22 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -62,7 +62,20 @@ INSERT INTO `accountability` (`accountability_id`, `date`, `time`, `course_id`, 
 (41, '12/11/2023', '07:11:31', 3, '0609724', 'Present', 'N/A', '0609724'),
 (42, '12/11/2023', '07:11:31', 3, '10675729', 'Present', 'N/A', '0609724'),
 (43, '12/11/2023', '07:11:31', 3, '0619046', 'Present', 'N/A', '0609724'),
-(44, '12/11/2023', '07:11:31', 3, '0655502', 'Present', 'N/A', '0609724');
+(44, '12/11/2023', '07:11:31', 3, '0655502', 'Present', 'N/A', '0609724'),
+(45, '12/11/2023', '09:36:20', 4, '0609724', 'Present', 'N/A', '0609724'),
+(46, '12/11/2023', '09:36:20', 4, '12346782', 'Present', 'N/A', '0609724'),
+(47, '12/11/2023', '11:23:33', 4, '0609724', 'Present', 'N/A', '0609724'),
+(48, '12/11/2023', '11:23:33', 4, '12346782', 'Late', 'N/A', '0609724'),
+(49, '12/11/2023', '11:24:24', 1, '0609724', 'Late Late', 'N/A', '0609724'),
+(50, '12/12/2023', '08:21:06', 1, '0609724', 'Present', 'N/A', '0609724'),
+(51, '12/12/2023', '08:21:22', 4, '0609724', 'Present', 'N/A', '0609724'),
+(52, '12/12/2023', '08:21:56', 3, '1234543', 'Present', 'N/A', '0609724'),
+(53, '12/12/2023', '08:21:56', 3, '0669027', 'Present', 'N/A', '0609724'),
+(54, '12/12/2023', '08:21:56', 3, '0609724', 'Present', 'N/A', '0609724'),
+(55, '12/12/2023', '08:21:56', 3, '10675729', 'Absent', '3.2 Cut', '0609724'),
+(56, '12/12/2023', '08:21:56', 3, '0619046', 'Absent', 'All-Duty for Soccer', '0609724'),
+(57, '12/12/2023', '08:21:56', 3, '0655502', 'Present', 'N/A', '0609724');
 
 -- --------------------------------------------------------
 
@@ -362,7 +375,7 @@ ALTER TABLE `secretary`
 -- AUTO_INCREMENT for table `accountability`
 --
 ALTER TABLE `accountability`
-  MODIFY `accountability_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `accountability_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `courses`
