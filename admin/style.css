@@ -1,0 +1,331 @@
+body{
+	font-family:sans-serif;
+	-webkit-text-size-adjust:100%;
+	ms-text-size-adjust:100%
+  font-family: sans-serif;
+}
+
+.six{
+  margin-top: 11%;
+  font-size: 14px;
+}
+
+.title{
+	text-align: center;
+	font-size: 40px;
+}
+
+.usertype {
+  align-items: center;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: 30%;
+  min-width: 300px;
+}
+
+.usertype:hover,
+.usertype:focus {
+  background-color: #fb8332;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.usertype:hover {
+  transform: translateY(-1px);
+}
+
+.usertype:active {
+  background-color: #c85000;
+  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  transform: translateY(0);
+}
+
+#cadetBtn{
+	background-color: #ffcd00;/*yellow*/
+	border: solid;
+}
+#sectBtn{
+	background-color: #ae122a; /*red*/
+	color: white;
+	border: solid;
+	border-color: black;
+}
+#commBtn{
+	background-color: black;
+	color: white;
+	border: solid;
+	border-color: black;
+
+}
+
+section{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#logo{
+	margin: auto;
+	width: 12%;
+  min-width: 150px;
+}
+
+article{
+	padding-top: 10px;
+}
+
+.cadetLogin{
+  width: 50%
+}
+
+input{
+  font-size: 20; 
+  border-radius: 25px; 
+  padding: 8px;
+  margin-bottom: 10px;
+  width: 150%;
+  min-width: 100px;
+}
+
+.loginForm{
+  padding-top: 2%;
+  padding-right: 5%;
+}
+
+#submitBtn{
+  width: 40%;
+  background-color: #A0A0A0;
+}
+
+#submitBtn:hover{
+  background-color: #707070;
+}
+
+
+.loginTable{
+  font-size: 20px;
+}
+/*
+#password, #email{
+  background-color: #FFD520;
+}
+*/
+#password, #email, #submitBtn{
+  font-size: 20px;
+}
+
+#mainImg{
+  width: 7%;
+  padding-bottom: .5%;
+}
+
+.header{
+  display: flex;
+  border-width: 8px;
+}
+
+#esection{
+  padding-top: 2%;
+  margin-left: 34%;
+}
+
+/*
+.topnav {
+  background-color: black;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+
+.topnav a:hover {
+  background-color: #A0A0A0;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #ae122a;
+  color: white;
+}
+
+*/
+
+.navbar {
+  overflow: hidden;
+  background-color: black;
+  font-family: sans-serif;
+}
+
+.navbar a {
+  float: left;
+  font-size: 22px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar a.active{
+  background-color: #ae122a;
+  color: white;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  cursor: pointer;
+  font-size: 22px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+  background-color: #ae122a;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}
+
+#logout{
+  float: right;
+  background-color: #ffd619;
+  color: #ae122a;
+  font-weight: bold;
+
+}
+
+#logout:hover{
+  background-color: #ae122a;
+  color: white;
+}
+
+.cadet_courses, .cadet_courses tr, .cadet_courses td,
+.cadet_courses th{
+  border-collapse: collapse;
+  border: solid;
+  text-align: center;
+}
+
+.cadet_courses td{
+  padding: 3px;
+}
+
+.cadet_courses th{
+  background-color: #ffcd00;;
+}
+
+.cadet_info{
+  font-size: 20px;
+}
+
+.cadet_info, .cadet_info tr, .cadet_info td,
+.cadet_info th{
+  border-collapse: collapse;
+  border: solid;
+  text-align: center;
+}
+
+.cadet_info td{
+  padding: 3px;
+}
+
+.cadet_info th{
+  background-color: #ffcd00;;
+}
+
+.course_Roll{
+  font-size: 13px;
+  width: 60%;
+}
+
+.course_Roll, .course_Roll tr, .course_Roll td,
+.course_Roll th{
+  border-collapse: collapse;
+  border: solid;
+  text-align: center;
+}
+
+.course_Roll td{
+  padding: 0px;
+}
+
+.course_Roll th{
+  background-color: #ffcd00;;
+}
+
+.comm_daily_report{
+  font-size: 16px;
+}
+
+.comm_daily_report, .comm_daily_report tr, .comm_daily_report td,
+.comm_daily_report th{
+  border-collapse: collapse;
+  border: solid;
+  text-align: center;
+}
+
+.comm_daily_report td{
+  padding: 1.5px;
+}
+
+.comm_daily_report th{
+  background-color: #ffcd00;;
+}
