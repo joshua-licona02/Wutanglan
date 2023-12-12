@@ -278,10 +278,11 @@
                 }
                 ?>
                 <tr><td style = "padding-top: 2%;"align = "center" colspan="7">
-                <input style="width: 30%;" type = "submit"></td>
-                <tr>
+                <input style="width: 30%;" type = "submit">
+                </td></tr>
             </form>
             </table>
+            <h2>By clicking submit, you are certifying that this report is 100% accurate to the best of your knowledge.</h2>
         </center>
     </div>
 </body>

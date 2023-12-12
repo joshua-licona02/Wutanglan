@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 11, 2023 at 05:16 PM
+-- Generation Time: Dec 12, 2023 at 01:17 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -47,16 +47,22 @@ CREATE TABLE `accountability` (
   `time` varchar(255) NOT NULL,
   `course_id` int(11) NOT NULL,
   `cadet_id` varchar(11) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `comments` varchar(255) NOT NULL,
+  `submitted_by` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `accountability`
 --
 
-INSERT INTO `accountability` (`accountability_id`, `date`, `time`, `course_id`, `cadet_id`, `status`) VALUES
-(24, '12/11/2023', '11:04:17', 4, '0609724', 'Present'),
-(25, '12/11/2023', '11:04:43', 4, '0609724', 'Present');
+INSERT INTO `accountability` (`accountability_id`, `date`, `time`, `course_id`, `cadet_id`, `status`, `comments`, `submitted_by`) VALUES
+(39, '12/11/2023', '07:11:31', 3, '1234543', 'Absent', '3.2 Cut', '0609724'),
+(40, '12/11/2023', '07:11:31', 3, '0669027', 'Absent', '3.2 Cut', '0609724'),
+(41, '12/11/2023', '07:11:31', 3, '0609724', 'Present', 'N/A', '0609724'),
+(42, '12/11/2023', '07:11:31', 3, '10675729', 'Present', 'N/A', '0609724'),
+(43, '12/11/2023', '07:11:31', 3, '0619046', 'Present', 'N/A', '0609724'),
+(44, '12/11/2023', '07:11:31', 3, '0655502', 'Present', 'N/A', '0609724');
 
 -- --------------------------------------------------------
 
@@ -176,6 +182,26 @@ INSERT INTO `course_enrollment` (`enrollment_id`, `cadet_id`, `course_id`, `sect
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `full_acct`
+-- (See below for the actual view)
+--
+CREATE TABLE `full_acct` (
+`accountability_id` int(11)
+,`id_number` varchar(11)
+,`first_name` varchar(255)
+,`last_name` varchar(255)
+,`course_title` varchar(255)
+,`course_code` varchar(255)
+,`section` int(11)
+,`section_time` time
+,`date` varchar(255)
+,`time` varchar(255)
+,`status` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `professor`
 --
 
@@ -261,6 +287,15 @@ DROP TABLE IF EXISTS `431_full`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `431_full`  AS SELECT `cadets`.`id_number` AS `id_number`, `cadets`.`last_name` AS `last_name`, `cadets`.`rank` AS `rank`, `course_enrollment`.`course_id` AS `course_id`, `course_enrollment`.`section_marcher` AS `section_marcher` FROM ((`cadets` join `course_enrollment` on(`cadets`.`id_number` = `course_enrollment`.`cadet_id`)) join `rank` on(`rank`.`rank` = `cadets`.`rank`)) WHERE `course_enrollment`.`course_id` = 3 ORDER BY `rank`.`rank_id` ASC, `cadets`.`class` ASC, `cadets`.`last_name` ASC ;
 
+-- --------------------------------------------------------
+
+--
+-- Structure for view `full_acct`
+--
+DROP TABLE IF EXISTS `full_acct`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `full_acct`  AS SELECT `accountability`.`accountability_id` AS `accountability_id`, `cadets`.`id_number` AS `id_number`, `cadets`.`first_name` AS `first_name`, `cadets`.`last_name` AS `last_name`, `courses`.`course_title` AS `course_title`, `courses`.`course_code` AS `course_code`, `courses`.`section` AS `section`, `courses`.`section_time` AS `section_time`, `accountability`.`date` AS `date`, `accountability`.`time` AS `time`, `accountability`.`status` AS `status` FROM ((`accountability` join `cadets` on(`cadets`.`id_number` = `accountability`.`cadet_id`)) join `courses` on(`courses`.`course_id` = `accountability`.`course_id`)) ;
+
 --
 -- Indexes for dumped tables
 --
@@ -271,7 +306,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 ALTER TABLE `accountability`
   ADD PRIMARY KEY (`accountability_id`),
   ADD KEY `course_id` (`course_id`),
-  ADD KEY `cadet_id` (`cadet_id`) USING BTREE;
+  ADD KEY `cadet_id` (`cadet_id`) USING BTREE,
+  ADD KEY `submitted_by` (`submitted_by`);
 
 --
 -- Indexes for table `cadets`
@@ -326,7 +362,7 @@ ALTER TABLE `secretary`
 -- AUTO_INCREMENT for table `accountability`
 --
 ALTER TABLE `accountability`
-  MODIFY `accountability_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `accountability_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -355,7 +391,8 @@ ALTER TABLE `professor`
 --
 ALTER TABLE `accountability`
   ADD CONSTRAINT `accountability_ibfk_1` FOREIGN KEY (`cadet_id`) REFERENCES `cadets` (`id_number`),
-  ADD CONSTRAINT `accountability_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`);
+  ADD CONSTRAINT `accountability_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
+  ADD CONSTRAINT `accountability_ibfk_3` FOREIGN KEY (`submitted_by`) REFERENCES `cadets` (`id_number`);
 
 --
 -- Constraints for table `cadets`
