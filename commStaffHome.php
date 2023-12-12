@@ -69,10 +69,7 @@ if($_SESSION['loggedIn']) {
       }
     }
     </script>
-
-
     <div>
-
         <center>
             <h2>Welcome <?php echo $_SESSION['first_name'] . '!';?></h2>
             <?php date_default_timezone_set('America/New_York');
@@ -86,9 +83,7 @@ if($_SESSION['loggedIn']) {
 				echo "<a target = '_blank' href='accountReport.php?a=$date'>Pull Daily Report for " .$date. " (".$day.")</a><br>";
 			}			}
             
-        ?>
-
-            
+        ?>   
         </center>
     </div>
 </body>

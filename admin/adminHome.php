@@ -49,6 +49,7 @@ if($_SESSION['loggedIn']) {
         <a href="adminOrdersSM.html">Re-Order SM</a>
         <a href="adminAddCadets.html">Add Cadets</a>
         <a href="adminAddCourse.html">Add Courses</a>
+        <a href="">Enroll Cadets</a>
         <a id = "logout" href="logout.php">Logout</a>
     </div>
 
