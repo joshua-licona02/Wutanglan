@@ -245,11 +245,12 @@
                 $sql = "SELECT * FROM cadets JOIN rank on cadets.rank=rank.rank join course_enrollment on course_enrollment.cadet_id = cadets.id_number where course_id = '$course_id' order by rank_id, class, last_name";
 
                 $result = $conn->query($sql);
+                //index
                 $cadetNum = 1;
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()) {
+                        //cadet id
                         $id = $row["id_number"];
-                        $email = $row["email"];
                         $first_name = $row["first_name"];
                         $last_name = $row["last_name"];
                         $rank = $row['rank'];
@@ -263,13 +264,14 @@
                         echo "<td>$class</td>";
                         echo "<td>$rank</td>";
                         echo "<td>
-                        <select id='status' name='status' required>
+                        <select id='status' name='status[]' required>
                         <option selected value='Present'>Present</option>
                         <option value='Late'>Late <5 mins</option>
                         <option value='Late Late'>Late 5-15 mins</option>
                         <option value='Absent'>Absent</option>
                             </select></td>";
-                        echo "<td style = 'padding-top: 1%;'><input style = 'width: 85%;' name = 'comments' type='textarea'>
+
+                        echo "<td style = 'padding-top: 1%;'><input style = 'width: 85%;' name = 'comments[]' type='text'>
                         </td></tr>";
                         $cadetNum++;
                     }
