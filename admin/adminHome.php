@@ -57,8 +57,9 @@ if($_SESSION['loggedIn']) {
 
         <center>
             <h2>Welcome Admin!</h2>
-            <a>Use this dashboard to add cadets and courses to VMI system, as well as enrolling cadets in courses. After enrolling more cadets in courses, please remember to Re-order the section marchers for all classes.
-
+            <a>Use this dashboard to add cadets and courses to VMI system, as well as enrolling cadets in courses.</a><br>
+            <a> After enrolling more cadets in courses, please remember to Re-order the section marchers for all classes.
+            </a>
             
         </center>
     </div>

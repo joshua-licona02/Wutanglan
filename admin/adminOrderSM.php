@@ -41,7 +41,7 @@
         $result = $conn->query($sql);
     }
 
-    header("Location: index.html");
+    header("Location: adminHome.php");
     exit();
 
 ?>
