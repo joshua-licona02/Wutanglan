@@ -34,7 +34,7 @@ if($_SESSION['loggedIn']) {
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VMI E-Section Marcher | Comm Staff</title>
+    <title>VMI E-Section Marcher | Admin Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link href="style.css" rel="stylesheet"/>
 </head>
@@ -53,30 +53,11 @@ if($_SESSION['loggedIn']) {
         <a id = "logout" href="logout.php">Logout</a>
     </div>
 
-    <script>
-    /* When the user clicks on the button, 
-    toggle between hiding and showing the dropdown content */
-    function myFunction() {
-      document.getElementById("myDropdown").classList.toggle("show");
-    }
-
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function(e) {
-      if (!e.target.matches('.dropbtn')) {
-      var myDropdown = document.getElementById("myDropdown");
-        if (myDropdown.classList.contains('show')) {
-          myDropdown.classList.remove('show');
-        }
-      }
-    }
-    </script>
-
-
     <div>
 
         <center>
             <h2>Welcome Admin!</h2>
-            
+            <a>Use this dashboard to add cadets and courses to VMI system, as well as enrolling cadets in courses. After enrolling more cadets in courses, please remember to Re-order the section marchers for all classes.
 
             
         </center>

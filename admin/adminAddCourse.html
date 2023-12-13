@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html>
-
+<html lang = "en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VMI E-Section Marcher | Add Course</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link href="style.css" rel="stylesheet"/>
 </head>
 <body>
+    <div class = "header">
+            <img id = "mainImg" src = "vmilogo.svg" id = "logo">
+            <h1 id = "esection">E-Section Marcher</h1>
+    </div>
+
+    <div class="navbar">
+        <a href="adminHome.php">Home</a>
+        <a href="adminOrdersSM.html">Re-Order SM</a>
+        <a href="adminAddCadets.html">Add Cadets</a>
+        <a class = "active">Add Courses</a>
+        <a href="">Enroll Cadets</a>
+        <a id = "logout" href="logout.php">Logout</a>
+    </div>
+
+   
+<body>
     <center>
-        <img src = "vmilogo.svg" id = "logo">
-        <h1>E-Section Marcher</h1>
         <h2>Add Course</h2>
+        <h2>Currently Under Maintainance</h2>
 
     <div class = "loginForm" border = "solid">
     <form action = "addCourse.php" class = "addCadet" method="POST">
@@ -45,8 +60,6 @@
                 
             </tr>
 
-
-                </td>
             </tr>
             <tr>
                 <td align = "center" colspan="4" class = "submitLine"><input type = "submit" name = "submit" id = "submitBtn"></td>
@@ -55,13 +68,14 @@
         </table>
     </form>  
     </div>
+    </center>
     <footer class="six" style = "margin-top: 5.5%;">
         <center>
             <p>&copy; Capstone Team 6</p>
         </center>
     </footer>
 
-</center>
+
 
 </body>
 
