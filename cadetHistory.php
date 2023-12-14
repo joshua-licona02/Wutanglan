@@ -127,6 +127,7 @@
 
         <center>
             
+            <h1>THIS PAGE IS CURRENTLY UNDER MAINTENANCE!</h1>
             <h2>
                 This is a template to view the recently completed section marcher reports done by <?php echo $_SESSION['first_name'];?>.
 
