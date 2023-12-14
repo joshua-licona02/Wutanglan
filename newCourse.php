@@ -4,7 +4,7 @@
     $_SESSION['course_id']= $_GET['a'];
     }
 
-    if($_SESSION['loggedIn']) {
+    if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Cadet") {
     //allow
     }else{
         echo "<script> alert('No user is logged in. Please login using your VMI credentials!'); window.location = 'login.php';</script>";

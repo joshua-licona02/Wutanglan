@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if($_SESSION['loggedIn']) {
+    if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Cadet") {
     //allow
     }else{
     
