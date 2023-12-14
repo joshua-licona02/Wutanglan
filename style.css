@@ -329,3 +329,10 @@ input{
 .comm_daily_report th{
   background-color: #ffcd00;;
 }
+
+.sectInstructions, .sectInstructions tr, .sectInstructions td,
+.sectInstructions h2, .sectInstructions h3{
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 6px;
+}

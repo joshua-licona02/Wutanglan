@@ -119,7 +119,7 @@
         <center>
             <h1 style="border: solid; background: black; color: white">SECTION MARCHER INSTRUCTIONS</h1>
             
-            <table style="border: solid;">
+            <table class = "sectInstructions" style="border: solid;">
 
             <tr>
                 <td>
@@ -128,6 +128,7 @@
                     </h2>
                 </td>
             </tr>
+
             <tr><td><h3 style = "text-align: center;color: #ae122a;">1. Only one cadet may submit section marcher report per section.<br>2. If the first section marcher is late or absent then the succeeding section marcher is responsible for submitting report.</h3></td></tr>
 
             <tr>
@@ -137,7 +138,6 @@
                     </h2>
                 </td>
             </tr>
-            <tr>
             <tr><td style = "text-align: center;color: #ae122a;"><h3>1. Late <5 mins<br>2. Late 5-15 mins<br>
                     3. Absent (Not present or later than 15 minutes)</h3></td>
             </tr>
