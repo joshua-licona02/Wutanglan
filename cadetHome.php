@@ -49,10 +49,7 @@ if($_SESSION['loggedIn']) {
             $course_ids[] = $row['course_id'];
             $full_codes[] = $full_code;
 
-            if($section_marcher == 0){
-                $zero_Section++;
-                break;
-                           }
+            
                        }
                    }
 
