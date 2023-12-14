@@ -27,7 +27,7 @@ if($_SESSION['loggedIn']) {
     $date = $_GET['a'];
     }
 
-    $sql = "SELECT accountability_id, accountability.date as date_submitted, accountability.time as time_submitted, submitted_by, accountability.course_id, courses.course_title, courses.department, courses.course_code, courses.section, section_time, cadets.first_name, cadets.last_name, cadets.class, status, comments from accountability JOIN cadets ON accountability.cadet_id = cadets.id_number join courses on accountability.course_id = courses.course_id where accountability.date = '$date' ORDER BY date, course_id, section_time";
+    $sql = "SELECT accountability_id, accountability.date as date_submitted, accountability.time as time_submitted, submitted_by, accountability.course_id, courses.course_title, courses.department, courses.course_code, courses.section, section_time, cadets.first_name, cadets.last_name, cadets.class, status, comments from accountability JOIN cadets ON accountability.cadet_id = cadets.id_number join courses on accountability.course_id = courses.course_id where accountability.date = '$date' ORDER BY accountability.time desc,'date', course_id, section_time ";
 
     $result = $conn->query($sql);
 
