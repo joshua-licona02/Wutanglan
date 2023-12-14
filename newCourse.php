@@ -230,6 +230,7 @@
             <h4>Class Period: <?php echo $section_start ."-".$section_end?></h4>
             <h5><?php echo $section_day?></h5>
             <h5><?php echo $sem?></h5>
+
             <form action = "submitAccountability.php" method="post">
             <table class = "course_Roll">
                 <tr>
@@ -282,7 +283,8 @@
                 </td></tr>
             </form>
             </table>
-            <h2>By clicking submit, you are certifying that this report is 100% accurate to the best of your knowledge.</h2>
+            <h2 style="border: solid; background: #ae122a; color: white;">
+                THIS IS A REMINDER THAT SUBMITTING THE SECTION MARCHER REPORT IS A CERTIFIED STATEMENT.</h2>
         </center>
     </div>
 </body>

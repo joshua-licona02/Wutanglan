@@ -225,6 +225,10 @@ if($zero_Section == $num_of_courses){
 
  ?>
             </table>
+            <br>
+            <h3>Ensure you that you understand all <a href="cadetInstructions.php">instructions</a> (found under the Instructions tab) before completing the section marcher report.</h3>
+            <i>Ignorance is not an excuse.</i>
+
         </center>
     </div>
 </body>

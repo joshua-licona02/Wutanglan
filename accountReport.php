@@ -51,8 +51,8 @@ if($_SESSION['loggedIn']) {
 		
 		<?php
 		if($result->num_rows > 0){
-			echo "<h3>Report only reflects cadets that were not marked 'Present'</h3>";
-			echo "<h5>Late: <5 mins Late<br> Late: 5-15 mins late<br> Absent: >15 mins late or not Present for entire duration of class </h5>";
+			echo "<h2>Report only reflects cadets that were not marked 'Present'</h2>";
+			echo "<h3>Late: <5 mins late<br> Late Late: 5-15 mins late<br> Absent: >15 mins late or not present for entire duration of class </h3>";
 			echo "<tr>";
 			echo "<th>Accountability ID</th>";
 			echo "<th>Date Submitted</th>";
