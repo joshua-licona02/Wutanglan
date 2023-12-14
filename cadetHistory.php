@@ -83,10 +83,18 @@
             <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content" id="myDropdown">
-                <?php
-                for($i=0; $i<count($course_ids); $i++){
+                <?php 
+
+                if($zero_Section == $num_of_courses){
+
+
+                }
+                else{
+                    for($i=0; $i<count($course_ids); $i++){
                     echo "<a href = 'newCourse.php?a=$course_ids[$i]'>$full_codes[$i]</a></td>";
                 }
+                }
+                
             ?>
             </div>
         </div> 
