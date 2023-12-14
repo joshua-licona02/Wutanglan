@@ -87,6 +87,7 @@
                         if($section < 10){
                             $section = '0'.$section;
                         }
+
                         $full_code = $department . " " .$course_code . "-" . $section;
                         $section_marcher = $row['section_marcher'];
                         $course_ids[] = $row['course_id'];
@@ -102,7 +103,6 @@
                         for($i=0; $i<count($course_ids); $i++){
                         echo "<a href = 'newCourse.php?a=$course_ids[$i]'>$full_codes[$i]</a></td>";
                     }
-
                 ?>
             </div>
         </div> 
@@ -135,86 +135,80 @@
             $course_id = $_SESSION['course_id'];
             $sql = "SELECT cadets.first_name as cadet_first,cadets.last_name as cadet_last, courses.department as course_dept,courses.course_code, courses.section, courses.course_title, courses.section_time, courses.section_end, courses.section_day, course_enrollment.course_id, course_enrollment.semester, professor.title,professor.first_name,professor.last_name FROM cadets join course_enrollment on cadets.id_number = course_enrollment.cadet_id JOIN courses ON courses.course_id = course_enrollment.course_id join professor on courses.professor_id = professor.professor_id WHERE course_enrollment.course_id = '$course_id'";
 
-    $result = $conn->query($sql);
+            $result = $conn->query($sql);
 
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()) {
+                //basic section marcher/course info
+                    $cadet_first = $row['cadet_first'];
+                    $cadet_last = $row['cadet_last'];
+                    $department = $row['course_dept'];
+                    $course_code = $row['course_code'];
+                    $course = $row['course_title'];
+                    $rank = $row['title'];
+                    $prof_first = $row['first_name'];
+                    $prof_last = $row['last_name'];
 
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()) {
-        //basic section marcher/course info
-            $cadet_first = $row['cadet_first'];
-            $cadet_last = $row['cadet_last'];
-            $department = $row['course_dept'];
-            $course_code = $row['course_code'];
-            $course = $row['course_title'];
-            $rank = $row['title'];
-            $prof_first = $row['first_name'];
-            $prof_last = $row['last_name'];
+                    $section_start = $row['section_time'];
+                    $section_start = str_replace(':', '', $section_start);
+                    $section_start = substr($section_start, 0,4);
+                    $section_end = $row['section_end'];
+                    $section_end = str_replace(':', '', $section_end);
+                    $section_end = substr($section_end, 0,4);
+                    $semester = $row['semester'];
+                    if(substr($semester, 0,2)=='FL'){
+                        $sem = 'Fall';
+                    }
+                    else{
+                        $sem = 'Spring';
+                    }
 
-            $section_start = $row['section_time'];
-            $section_start = str_replace(':', '', $section_start);
-            $section_start = substr($section_start, 0,4);
-            $section_end = $row['section_end'];
-            $section_end = str_replace(':', '', $section_end);
-            $section_end = substr($section_end, 0,4);
-            $semester = $row['semester'];
-            if(substr($semester, 0,2)=='FL'){
-                $sem = 'Fall';
+                    $sem = $sem.' 20'.substr($semester, 2,3);
+                    $section_day = $row['section_day'];
+                    $length = strlen($section_day);
+                    $temp = $section_day;
+                    $string = "";
+                }
             }
-            else{
-                $sem = 'Spring';
+
+            for($i = 0; $i < strlen($section_day); $i++) {
+                if($section_day[$i] == "M"){
+                    $string = $string . "Monday";
+                }
+                if($section_day[$i] == "T"){
+                    $string = $string . "Tuesday";
+                }
+                if($section_day[$i] == "W"){
+                    $string = $string . "Wednesday";
+                }
+                if($section_day[$i] == "R"){
+                    $string = $string . "Thursday";
+                }
+                if($section_day[$i] == "F"){
+                    $string = $string . "Friday";
+                }
+                if($length == 1) {
+                    break;
+                }
+                $length--;
+                $string = $string . '/';
             }
 
-            $sem = $sem.' 20'.substr($semester, 2,3);
-            $section_day = $row['section_day'];
-            $length = strlen($section_day);
-            $temp = $section_day;
-            $string = "";
-        }
-    }
+            $section_day = $string;?>
+            <?php 
+            $email = $_SESSION['email'];
+            $course_id = $_SESSION['course_id'];
+            $cadet_id = $_SESSION['id_number'];
+            $sql = "SELECT cadets.first_name, cadets.last_name, section_marcher, if(course_enrollment.section_marcher > 0, 'true','false') as 'is Section Marcher' from course_enrollment join cadets on course_enrollment.cadet_id = '$cadet_id' where cadets.id_number = course_enrollment.cadet_id AND section_marcher>0 and course_enrollment.course_id = '$course_id'";
 
-    for($i = 0; $i < strlen($section_day); $i++) {
-        if($section_day[$i] == "M"){
-            $string = $string . "Monday";
-        }
-        if($section_day[$i] == "T"){
-            $string = $string . "Tuesday";
-        }
-        if($section_day[$i] == "W"){
-            $string = $string . "Wednesday";
-        }
-        if($section_day[$i] == "R"){
-            $string = $string . "Thursday";
-        }
-        if($section_day[$i] == "F"){
-            $string = $string . "Friday";
-        }
-        if($length == 1) {
-            break;
-        }
-        $length--;
-        $string = $string . '/';
-    }
-    $section_day = $string;?>
+            $result = $conn->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()) {
+                    $section_marcher = $row['section_marcher'];
+                }
+            }
 
-
-                <?php 
-
-                $email = $_SESSION['email'];
-    $course_id = $_SESSION['course_id'];
-    $cadet_id = $_SESSION['id_number'];
-
-    $sql = "SELECT cadets.first_name, cadets.last_name, section_marcher, if(course_enrollment.section_marcher > 0, 'true','false') as 'is Section Marcher' from course_enrollment join cadets on course_enrollment.cadet_id = '$cadet_id' where cadets.id_number = course_enrollment.cadet_id AND section_marcher>0 and course_enrollment.course_id = '$course_id'";
-
-    $result = $conn->query($sql);
-
-
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()) {
-            $section_marcher = $row['section_marcher'];
-        }
-    }
-
-                echo $_SESSION['first_name']?>, you are the <?php 
+            echo $_SESSION['first_name']?>, you are the <?php
 
             if($section_marcher == 1){
                 $section_marcher .= "st";
@@ -225,7 +219,7 @@
             else if($section_marcher == 3){
                 $section_marcher .= "rd";
             }
-            echo $section_marcher?> Section Marcher for <?php echo $department . "-" . $course_code . ": " . $course?></h3>
+            echo $section_marcher?> Section Marcher for <?php echo $department . " " . $course_code ."-". $section .": " . $course?></h3>
             <h4>Faculty: <?php echo $rank . " ".$prof_first . " " . $prof_last?></h4>
             <h4>Class Period: <?php echo $section_start ."-".$section_end?></h4>
             <h5><?php echo $section_day?></h5>
@@ -250,7 +244,7 @@
                 $cadetNum = 1;
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()) {
-                        //cadet id
+                    //cadet id
                         $id = $row["id_number"];
                         $first_name = $row["first_name"];
                         $last_name = $row["last_name"];
@@ -282,10 +276,10 @@
                 <input style="width: 30%;" type = "submit">
                 </td></tr>
             </form>
-            </table>
-            <h2 style="border: solid; background: #ae122a; color: white;">
-                THIS IS A REMINDER THAT SUBMITTING THE SECTION MARCHER REPORT IS A CERTIFIED STATEMENT.</h2>
-        </center>
-    </div>
+        </table>
+        <h2 style="border: solid; background: #ae122a; color: white;">THIS IS A REMINDER THAT SUBMITTING THE SECTION MARCHER REPORT IS A CERTIFIED STATEMENT.
+        </h2>
+    </center>
+</div>
 </body>
 </html>
