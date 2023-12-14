@@ -33,6 +33,7 @@
     $num_of_courses = 0;
     $course_ids = array();
     $full_codes = array();
+    $zero_Section = 0;
 
     if($result->num_rows > 0){
         while($row = $result->fetch_assoc()) {
