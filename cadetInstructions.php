@@ -29,6 +29,7 @@
 
     $result = $conn->query($sql);
     
+    $zero_Section = 0;
     $num_of_courses = 0;
     $course_ids = array();
     $full_codes = array();

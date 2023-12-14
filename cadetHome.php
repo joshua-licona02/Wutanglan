@@ -31,6 +31,7 @@ if($_SESSION['loggedIn']) {
     $num_of_courses = 0;
     $course_ids = array();
     $full_codes = array();
+    $zero_Section = 0;
 
     if($result->num_rows > 0){
         while($row = $result->fetch_assoc()) {
@@ -49,7 +50,10 @@ if($_SESSION['loggedIn']) {
             $course_ids[] = $row['course_id'];
             $full_codes[] = $full_code;
 
-            
+            if($section_marcher == 0){
+                $zero_Section++;
+                break;
+                           }
                        }
                    }
 
