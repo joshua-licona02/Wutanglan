@@ -336,3 +336,17 @@ input{
   padding-bottom: 0;
   margin: 6px;
 }
+
+.search{
+  /*border: solid;*/
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.search td{
+width: 40%;
+}
+
+#searchBar{
+  font-size: 20px;
+}

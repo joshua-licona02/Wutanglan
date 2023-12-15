@@ -65,12 +65,15 @@ $sql = "SELECT * FROM cadets JOIN rank on cadets.rank=rank.rank join course_enro
 	
 	
 	if($conn->query($sql)){
-		echo "<script> alert('Accountability Submitted!'); window.location = 'cadetHome.php';</script>";
+		
 	}else{
 		echo "<script> alert('Error: Accountability Not Submitted!'); window.location = 'newCourse.php';</script>";
+		exit;
 	}
       }
  
 }
+
+echo "<script> alert('Accountability Submitted!'); window.location = 'cadetHome.php';</script>";
 
 ?>
