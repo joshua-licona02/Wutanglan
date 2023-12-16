@@ -30,7 +30,7 @@
     		$first_name = $row["first_name"];
     		$id_number = $row["id_number"];
   		}
-		header('Location: cadetHome.php');
+		header('Location: cadet/cadetHome.php');
 		$_SESSION['email'] = $email;
 		$_SESSION['id_number'] = $id_number;
 		$_SESSION['first_name'] = $first_name;
@@ -48,7 +48,7 @@
     		$first_name = $row["first_name"];
     		$id_number = $row["id_number"];
   		}
-  		header('Location: sectHome.php');
+  		header('Location: secretary/sectHome.php');
 		$_SESSION['email'] = $email;
 		$_SESSION['id_number'] = $id_number;
 		$_SESSION['first_name'] = $first_name;
@@ -67,7 +67,7 @@
     		$first_name = $row["first_name"];
     		$id_number = $row["id_number"];
   		}
-  		header('Location: commStaffHome.php');
+  		header('Location: comm/commStaffHome.php');
 		$_SESSION['email'] = $email;
 		$_SESSION['id_number'] = $id_number;
 		$_SESSION['first_name'] = $first_name;

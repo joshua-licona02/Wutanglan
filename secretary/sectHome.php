@@ -58,7 +58,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
         <a href="search.php">Search</a>
         <a href="">Instructions</a>
         <a href="">Template</a>
-        <a id = "logout" href="logout.php">Logout</a>
+        <a id = "logout" href="../logout.php">Logout</a>
     </div>
 
     <script>

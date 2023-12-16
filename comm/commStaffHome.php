@@ -25,17 +25,9 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
     $id = $_SESSION['id_number'];
 
-    if(isset($_POST['searchSubmit'])){
-        if(!empty($_POST['search'])){
-            $search = $_POST['search'];
-            $sql = "SELECT * FROM cadets WHERE first_name like '%$search%' or last_name like '%$search%' or id_number like '%$search%'";
-            $result = $conn->query($sql);
-            $conn->close();
-        }
-        else{
+    
 
-        }
-    }
+
 ?>
 <!DOCTYPE html>
 <html lang = "en">
@@ -53,11 +45,11 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     </div>
 
     <div class="navbar">
-        <a href="commStaffHome.php">Home</a>
-        <a class = "active">Search</a>
+        <a class = "active">Home</a>
+        <a href="commSearch.php">Search</a>
         <a href="">Instructions</a>
         <a href="">Template</a>
-        <a id = "logout" href="logout.php">Logout</a>
+        <a id = "logout" href="../logout.php">Logout</a>
     </div>
 
     <script>
@@ -79,46 +71,19 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     </script>
     <div>
         <center>
-            <form method="POST" style="margin-top: 2%;">
-                <table class = "search">
-                    <tr>
-                        <td style="text-align: center;">
-                            <label for = "search" style = "font-weight: bold;">Search for Cadets, Courses, Sections, Instructors</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td >
-                            <input id = "searchBar" name = "search" style="width: 95%" type = "text" minlength="3">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center"><input type = "submit" text = "submit" name = "searchSubmit" style = "width: 20%;">
-                        </td>
-                    </tr>
-                </table>
-            </form>
+            <h2>Welcome <?php echo $_SESSION['first_name'] . '!';?></h2>
+            <?php date_default_timezone_set('America/New_York');
+			for($i = 0; $i < 9; $i++){
+				$date = date('m/d/Y',strtotime('-'.$i.'days'));
+				$timestamp = strtotime($date);
+				$day = date('l', $timestamp);
+				if($day == "Saturday" || $day == 'Sunday'){
 
-            <section>
-
-                <table width="98%" border="solid">
-                    
-
-                    <?php
-                    echo "<tr>
-                    <th>Results</th>
-                    </tr>";
-                // LOOP TILL END OF DATA
-              if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-
-
-                    echo "<tr><td><a>$test</a></td></tr>";
-                }
-            }
-            ?>
-                </table>
-            </section>
-
+			}else{
+				echo "<a target = '_blank' href='accountReport.php?a=$date'>Pull Daily Report for " .$date. " (".$day.")</a><br>";
+			}			}
+            
+        ?>   
         </center>
     </div>
 </body>

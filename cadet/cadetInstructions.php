@@ -96,7 +96,7 @@ if($result->num_rows > 0){
         <a href="cadetHistory.php">History</a>
         <a class = "active">Instructions</a>
         <a href="cadetInfo.php">Cadet Info</a>
-        <a id = "logout" href="logout.php">Logout</a>
+        <a id = "logout" href="../logout.php">Logout</a>
     </div>
     <script>
     /* When the user clicks on the button, 
