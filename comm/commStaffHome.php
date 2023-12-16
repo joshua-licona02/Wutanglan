@@ -47,6 +47,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     <div class="navbar">
         <a class = "active">Home</a>
         <a href="commSearch.php">Search</a>
+        <a href="displayLists.php">Find</a>
         <a id = "logout" href="../logout.php">Logout</a>
     </div>
 

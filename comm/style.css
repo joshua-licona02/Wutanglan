@@ -339,10 +339,23 @@ input{
 
 .search{
   /*border: solid;*/
+  padding-top: 1%;
   padding-left: 10%;
   padding-right: 10%;
 }
 
 .search td{
 width: 40%;
+}
+
+.results{
+  width: 50%;
+}
+
+.results td{
+  text-align: center;
+}
+
+.results th{
+  background-color: #ffcd00;
 }

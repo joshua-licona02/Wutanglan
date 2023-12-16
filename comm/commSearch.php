@@ -26,14 +26,33 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     $id = $_SESSION['id_number'];
 
     if(isset($_POST['searchSubmit'])){
-        if(!empty($_POST['search'])){
+        if(!empty($_POST['search'])){          
             $search = $_POST['search'];
-            $sql = "SELECT * FROM cadets WHERE first_name like '%$search%' or last_name like '%$search%' or id_number like '%$search%' or email like '%$search%'";
-            $result = $conn->query($sql);
+            $role = $_POST['role'];
+
+            if($role == "Cadet"){
+                
+                $sql = "SELECT * FROM cadets WHERE first_name like '%$search%' or last_name like '%$search%' or id_number like '%$search%' or email like '%$search%' or class like '%$search%' order by last_name";
+                $result = $conn->query($sql);
+            }
+            if($role == "Course"){
+                $sql = "SELECT course_title,course_code, section, courses.department, first_name, last_name, title from courses JOIN professor on courses.professor_id = professor.professor_id where courses.department like '%$search%' or last_name like '%$search%' or course_title like '%$search%'";
+                $result = $conn->query($sql);
+            }
+
+            if($role == "Department"){
+                $sql = "SELECT course_title,course_code, section, courses.department, first_name, last_name, title from courses JOIN professor on courses.professor_id = professor.professor_id where courses.department like '%$search%'";
+                $result = $conn->query($sql);
+            }
+
+            if($role == "Professor"){
+                $sql = "SELECT course_title,course_code, section, courses.department, first_name, last_name, title from courses JOIN professor on courses.professor_id = professor.professor_id where last_name like '%$search%'";
+                $result = $conn->query($sql);
+            }
+
             $conn->close();
         }
         else{
-
         }
     }
 ?>
@@ -55,6 +74,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     <div class="navbar">
         <a href="commStaffHome.php">Home</a>
         <a class = "active">Search</a>
+        <a href="displayLists.php">Find</a>
         <a id = "logout" href="../logout.php">Logout</a>
     </div>
 
@@ -78,6 +98,14 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     <div>
         <center>
             <form method="POST" style="margin-top: 2%;">
+                            <label style = "font-weight: bold;">Search by:</label>
+                            <select style = "width:10%; font-size: 15px;"id="role" name="role" required>
+                                <option selected value="Cadet">Cadet</option>
+                                <option value="Department">Department</option>
+                                <option value="Course">Course</option>
+                                <option value="Professor">Instructor</option>
+                            </select>
+                        
                 <table class = "search">
                     <tr>
                         <td style="text-align: center;">
@@ -98,15 +126,17 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
             <section>
 
-                <table width="98%" border="solid">
+                <table class = "results" width="98%" border="solid">
                     <?php
-                    if ($result->num_rows > 0) {
+
+                    if ($role == "Cadet" && $result->num_rows > 0) {
                         echo "<tr>
-                        <td>ID Number</td>
-                        <td>First Name</td>
-                        <td>Last Name</td>
-                        <td>Rank</td>
-                        <td>Class</td>
+                        <th>ID Number</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Rank</th>
+                        <th>Class</th>
+                        <th>E-mail</th>
                         </tr>";
                         while($row = $result->fetch_assoc()) {
                             echo "<tr><td><a href = 'cadetResults.php'>".
@@ -114,10 +144,102 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                             echo "<td>".$row['first_name']."</td>";
                             echo "<td>".$row['last_name']."</td>";
                             echo "<td>".$row['rank']."</td>";
-                             echo "<td>".$row['class']."</td>";
+                            echo "<td>".$row['class']."</td>";
+                            echo "<td><a href = 'mailto:".$row['email'].
+                            "'>".$row['email']."</td>";
                             echo "</tr>";
                         }
                     }
+
+                    else if($role == "Course" && $result->num_rows > 0){
+                        echo "<tr>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                        <th>Instructor</th>
+                        </tr>";
+                        while($row = $result->fetch_assoc()) {
+                            $dept = $row['department'];
+                            $code = $row['course_code'];
+                            $section = $row['section'];
+                            if($section < 10){
+                                $section = '0'.$section;
+                            }
+                            $fullCode = $dept." ".$code."-".$section;
+
+                            $first_name = $row['first_name'];
+                            $last_name = $row['last_name'];
+                            $rank = $row['title'];
+ 
+                            $instructor = $rank." ".$first_name." ".$last_name;
+
+                            echo "<tr><td><a href='courseResults.php'>".$fullCode."</td>";
+                            echo "<td>".$row['course_title']."</td>";
+                            echo "<td><a href='profResults.php'>".$instructor."</a></td>";
+                            echo "</tr>";
+
+                    }
+                }
+                else if($role == "Department" && $result->num_rows > 0){
+                        echo "<tr>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                        <th>Instructor</th>
+                        </tr>";
+                        while($row = $result->fetch_assoc()) {
+                            $dept = $row['department'];
+                            $code = $row['course_code'];
+                            $section = $row['section'];
+                            if($section < 10){
+                                $section = '0'.$section;
+                            }
+                            $fullCode = $dept." ".$code."-".$section;
+
+                            $first_name = $row['first_name'];
+                            $last_name = $row['last_name'];
+                            $rank = $row['title'];
+ 
+                            $instructor = $rank." ".$first_name." ".$last_name;
+
+                            echo "<tr><td><a href='courseResults.php'>".$fullCode."</td>";
+                            echo "<td>".$row['course_title']."</td>";
+                            echo "<td><a href='profResults.php'>".$instructor."</a></td>";
+                            echo "</tr>";
+
+                    }
+                }
+
+                else if($role == "Professor" && $result->num_rows > 0){
+                        echo "<tr>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                        <th>Instructor</th>
+                        </tr>";
+                        while($row = $result->fetch_assoc()) {
+                            $dept = $row['department'];
+                            $code = $row['course_code'];
+                            $section = $row['section'];
+                            if($section < 10){
+                                $section = '0'.$section;
+                            }
+                            $fullCode = $dept." ".$code."-".$section;
+
+                            $first_name = $row['first_name'];
+                            $last_name = $row['last_name'];
+                            $rank = $row['title'];
+ 
+                            $instructor = $rank." ".$first_name." ".$last_name;
+
+                            echo "<tr><td><a href='courseResults.php'>".$fullCode."</td>";
+                            echo "<td>".$row['course_title']."</td>";
+                            echo "<td><a href='profResults.php'>".$instructor."</a></td>";
+                            echo "</tr>";
+
+                    }
+                }
+
+                else{
+                    echo "<tr><th>No Results Found</th></tr>";
+                }
 
             $result->free();
             ?>
