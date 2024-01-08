@@ -86,6 +86,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                         <option value="Department">Department</option>
                         <option value="Course">Course</option>
                     </select>
+
                 
             </form>
 

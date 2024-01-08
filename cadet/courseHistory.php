@@ -64,7 +64,7 @@
             ?>
             </div>
         </div> 
-        <a class = "active">History</a>
+        <a>History</a>
         <a href = "cadetInstructions.php">Instructions</a>
         <a href="cadetInfo.php">Cadet Info</a>
         <a id = "logout" href="../logout.php">Logout</a>
@@ -112,10 +112,13 @@
             
             <table class = "cadet_courses" style = "width: 50%;">
                 <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Course</th>
-                    <th>Faculty</th>
+                    <th>Cadet Number</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Class</th>
+                    <th>Rank</th>
+                    <th>Status</th>
+                    <th>Comments (Optional)</th>
                 </tr>
                 
            

@@ -36,7 +36,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                 $result = $conn->query($sql);
             }
             if($role == "Course"){
-                $sql = "SELECT course_title,course_code, section, courses.department, first_name, last_name, title from courses JOIN professor on courses.professor_id = professor.professor_id where courses.department like '%$search%' or last_name like '%$search%' or course_title like '%$search%'";
+                $sql = "SELECT course_id, course_title,course_code, section, courses.department, first_name, last_name, title from courses JOIN professor on courses.professor_id = professor.professor_id where courses.department like '%$search%' or last_name like '%$search%' or course_title like '%$search%' or course_code like '%$search%'";
                 $result = $conn->query($sql);
             }
 
@@ -171,8 +171,9 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                             $rank = $row['title'];
  
                             $instructor = $rank." ".$first_name." ".$last_name;
+                            $course_id = $row['course_id'];
 
-                            echo "<tr><td><a href='courseResults.php'>".$fullCode."</td>";
+                            echo "<tr><td><a href='courseResults.php?a=$course_id'>".$fullCode."</td>";
                             echo "<td>".$row['course_title']."</td>";
                             echo "<td><a href='profResults.php'>".$instructor."</a></td>";
                             echo "</tr>";
@@ -197,10 +198,14 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                             $first_name = $row['first_name'];
                             $last_name = $row['last_name'];
                             $rank = $row['title'];
- 
+                            
                             $instructor = $rank." ".$first_name." ".$last_name;
 
-                            echo "<tr><td><a href='courseResults.php'>".$fullCode."</td>";
+                            $course_id = $row['course_id'];
+                            echo "$course_id";
+                            exit;
+
+                            echo "<tr><td><a href='courseResults.php?a=$course_id'>".$fullCode."</td>";
                             echo "<td>".$row['course_title']."</td>";
                             echo "<td><a href='profResults.php'>".$instructor."</a></td>";
                             echo "</tr>";
