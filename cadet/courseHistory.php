@@ -8,6 +8,11 @@
     echo "<script> alert('No user is logged in. Please login using your VMI credentials!'); window.location = 'login.php';</script>";
     }
 
+
+    if(isset($_GET['a'])){
+    $_SESSION['accountability']= $_GET['a'];
+    }
+
     $servername = "localhost";
     $dbname = "capstone";
     $username = "root";
@@ -124,34 +129,34 @@
            
             <?php
 
-            $sql = "select * from accountability join courses on accountability.course_id = courses.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$id' group by date";
+            $account_id = $_SESSION['accountability'];
             
+            $sql = "select cadets.first_name, cadets.last_name, cadets.class, cadets.rank, accountability.status, accountability.comments from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id where accountability_id >= '$account_id'";
 
-
+        
             $result = $conn->query($sql);
+
+            $cadetNum = 1;
 
             if($result->num_rows > 0){
                 while($row = $result->fetch_assoc()) {
 
-                    $date = $row['date'];
-                    $time = $row['time'];
-                    $course_title = $row['course_title'];
-                    $course_code = $row['course_code'];
-                    $course_section = $row['section'];
-                    if($course_section < 10){
-                        $course_section = "0".$course_section;
-                    }
-
-                    $department = $row['department'];
-                    $course = $department . " ".$course_code."-".$course_section;
-
-                    $faculty = $row['title'] . " " . $row['first_name']. " " . $row['last_name'];
-                    $account_id = $row['accountability_id'];
-
-                    echo "<tr><td><a href = 'courseHistory.php?a=$account_id'>$date</a></td>";
-                    echo "<td>$time</td>";
-                    echo "<td>$course</td>";
-                    echo "<td>$faculty</td></tr>";
+                    $first_name = $row['first_name'];
+                    $last_name = $row['last_name'];
+                    $class = $row['class'];
+                    $rank = $row['rank'];
+                    $status = $row['status'];
+                    $comments = $row['comments'];
+                    
+                    echo "<tr><td>$cadetNum</td>";
+                    echo "<td>$first_name</td>";
+                    echo "<td>$last_name</td>";
+                    echo "<td>$class</td>";
+                    echo "<td>$rank</td>";
+                    echo "<td>$status</td>";
+                    echo "<td>$comments</td>";
+                    echo "</tr>";
+                    $cadetNum++;
                 }
             }
             
