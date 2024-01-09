@@ -153,7 +153,13 @@
                     echo "<td>$last_name</td>";
                     echo "<td>$class</td>";
                     echo "<td>$rank</td>";
-                    echo "<td>$status</td>";
+                    if($status == "Present"){
+                        echo "<td style = 'background: green'><a style = 'color: white'>$status</a></td>";
+                    }
+                    else{
+                        echo "<td style = 'background: red'><a style =  'color: white'>$status</a></td>";
+                    }
+                    
                     echo "<td>$comments</td>";
                     echo "</tr>";
                     $cadetNum++;
