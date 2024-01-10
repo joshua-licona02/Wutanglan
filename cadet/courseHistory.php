@@ -104,16 +104,43 @@
 
              if($result->num_rows > 0){
                 while($row = $result->fetch_assoc()) {
+
+
                    
                    $cadet_name = $row['first_name']." ".$row['last_name'];
 
                 }
             }
 
-            echo "<h2>Reports submitted by Cadet $cadet_name</h2>";
+            echo "<h2>Report submitted by Cadet $cadet_name</h2>";
 
-            ?>
+            $account_id = $_SESSION['accountability'];
             
+            $sql = "select cadets.first_name, cadets.last_name, cadets.class, cadets.rank, accountability.status, accountability.comments, courses.course_title, courses.course_code, courses.section, courses.department from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id where accountability_id >= '$account_id'";
+
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()) {
+                    
+                $department = $row['department'];
+                $course_title = $row['course_title'];
+                $course_code = $row['course_code'];
+                $course_section = $row['section'];
+                if($course_section < 10){
+                    $course_section = "0".$course_section;
+                }
+                $course = $department . " ".$course_code."-".$course_section;
+                echo "<h3>$course: $course_title</h3>";
+                echo "<h4>Faculty</h4>";
+                echo "<h4>Course Date and Time</h4>";
+                exit;
+                }
+            }
+            
+            $result = $conn->query($sql);
+
+            $cadetNum = 1;
+
+            ?>            
             
             <table class = "cadet_courses" style = "width: 50%;">
                 <tr>
@@ -129,14 +156,9 @@
            
             <?php
 
-            $account_id = $_SESSION['accountability'];
-            
-            $sql = "select cadets.first_name, cadets.last_name, cadets.class, cadets.rank, accountability.status, accountability.comments from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id where accountability_id >= '$account_id'";
+            $sql = "select cadets.first_name, cadets.last_name, cadets.class, cadets.rank, accountability.status, accountability.comments, courses.course_title, courses.course_code, courses.section, courses.department from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id where accountability_id >= '$account_id'";
 
-        
             $result = $conn->query($sql);
-
-            $cadetNum = 1;
 
             if($result->num_rows > 0){
                 while($row = $result->fetch_assoc()) {
