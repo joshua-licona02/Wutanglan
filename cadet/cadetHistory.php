@@ -24,6 +24,37 @@
     }
 
     $id = $_SESSION['id_number'];
+    $sql = "SELECT cadet_id, section_marcher, semester, cadets.first_name as cadet_first, cadets.last_name as cadet_last,course_title,course_code, section, courses.department, title, professor.first_name, professor.last_name, courses.section_day, courses.section_time, courses.section_end, courses.course_id from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number join courses on courses.course_id = course_enrollment.course_id join professor on professor.professor_id = courses.professor_id where cadet_id = '$id' order by section_marcher";
+
+    $result = $conn->query($sql);
+    $num_of_courses = 0;
+    $course_ids = array();
+    $full_codes = array();
+    $zero_Section = 0;
+
+    if($result->num_rows > 0){
+        while($row = $result->fetch_assoc()) {
+
+            $num_of_courses++;
+            $course_id = $row['course_id'];
+            $department = $row['department'];
+            $course_code = $row['course_code'];
+            $course = $row['course_title'];
+            $section = $row['section'];
+            if($section < 10){
+                $section = '0'.$section;
+            }
+            $full_code = $department . " " .$course_code . "-" . $section;
+            $section_marcher = $row['section_marcher'];
+            $course_ids[] = $row['course_id'];
+            $full_codes[] = $full_code;
+
+            if($section_marcher == 0){
+                $zero_Section++;
+                break;
+                           }
+                       }
+                   }
 
 ?>
 
