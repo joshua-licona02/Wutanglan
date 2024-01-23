@@ -14,40 +14,43 @@
 	if($conn->connect_error){
 		die("Connection failed:" . $conn->connect_error);
 	}
-
+	
 	if(isset($_POST['submit'])){
 
 	$email = $_POST['email'];
 	$password = $_POST['password'];
+	
 	$error = "Email/password is incorrect. An @vmi.edu email is required for access.";
 
-	$sql = "SELECT * FROM cadets WHERE email = '$email' AND password = '$password'";
-
-	$result = $conn->query($sql);
-	
-	if($result->num_rows > 0){
-		while($row = $result->fetch_assoc()) {
-    		$first_name = $row["first_name"];
-    		$id_number = $row["id_number"];
-  		}
+	$sql = "SELECT * FROM cadets WHERE email = ? AND password = ?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("ss", $email, $password);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($result->num_rows > 0) {
+		$row = $result->fetch_assoc();
+		$first_name = $row["first_name"];
+		$id_number = $row["id_number"];
 		header('Location: cadet/cadetHome.php');
 		$_SESSION['email'] = $email;
 		$_SESSION['id_number'] = $id_number;
 		$_SESSION['first_name'] = $first_name;
 		$_SESSION['loggedIn'] = true;
 		$_SESSION['privilege'] = "Cadet";
+
 		exit;
 	}
 
-	$sql = "SELECT * FROM secretary WHERE email = '$email' AND password = '$password'";
+	$sql = "SELECT * FROM secretary WHERE email = ? AND password = ?";
 
-	$result = $conn->query($sql);
-	
-	if($result->num_rows > 0){
-		while($row = $result->fetch_assoc()) {
-    		$first_name = $row["first_name"];
-    		$id_number = $row["id_number"];
-  		}
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("ss", $email, $password);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($result->num_rows > 0) {
+		$row = $result->fetch_assoc();
+		$first_name = $row["first_name"];
+		$id_number = $row["id_number"];
   		header('Location: secretary/sectHome.php');
 		$_SESSION['email'] = $email;
 		$_SESSION['id_number'] = $id_number;
@@ -55,18 +58,17 @@
 		$_SESSION['loggedIn'] = true;
 		$_SESSION['privilege'] = "Sec";
 		exit;
-
 	}
 
-	$sql = "SELECT * FROM commstaff WHERE email = '$email' AND password = '$password'";
-
-	$result = $conn->query($sql);
-	
-	if($result->num_rows > 0){
-		while($row = $result->fetch_assoc()) {
-    		$first_name = $row["first_name"];
-    		$id_number = $row["id_number"];
-  		}
+	$sql = "SELECT * FROM commstaff WHERE email = ? AND password = ?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("ss", $email, $password);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($result->num_rows > 0) {
+		$row = $result->fetch_assoc();
+		$first_name = $row["first_name"];
+		$id_number = $row["id_number"];
   		header('Location: comm/commStaffHome.php');
 		$_SESSION['email'] = $email;
 		$_SESSION['id_number'] = $id_number;
@@ -77,7 +79,7 @@
 		exit;
 
 	}
-		$_SESSION["error"] = $error;
-    	header("location: login.php");
+	$_SESSION["error"] = $error;
+	header("location: login.php");
 }
 ?>
