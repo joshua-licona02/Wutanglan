@@ -152,8 +152,9 @@
            
             <?php
 
-            $sql = "select * from accountability join courses on accountability.course_id = courses.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$id' group by date";
+            //$sql = "select * from accountability join courses on accountability.course_id = courses.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$id' group by date";
             
+            $sql = "select * from accountability join courses on accountability.course_id = courses.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$id' group by courses.course_id, date order by date desc, time desc";
 
 
             $result = $conn->query($sql);
@@ -163,6 +164,7 @@
 
                     $date = $row['date'];
                     $time = $row['time'];
+                    $course_id = $row['course_id'];
                     $course_title = $row['course_title'];
                     $course_code = $row['course_code'];
                     $course_section = $row['section'];
@@ -177,6 +179,8 @@
                     $account_id = $row['accountability_id'];
 
                     echo "<tr><td><a href = 'courseHistory.php?a=$account_id'>$date</a></td>";
+                    $_SESSION['course_id'] = $course_id;
+                    $_SESSION['account_date'] = $date;
                     echo "<td>$time</td>";
                     echo "<td>$course</td>";
                     echo "<td>$faculty</td></tr>";

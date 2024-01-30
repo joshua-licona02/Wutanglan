@@ -7,8 +7,7 @@
     
     echo "<script> alert('No user is logged in. Please login using your VMI credentials!'); window.location = 'login.php';</script>";
     }
-
-
+    //start of accountability ids for that course
     if(isset($_GET['a'])){
     $_SESSION['accountability']= $_GET['a'];
     }
@@ -27,9 +26,8 @@
     if($conn->connect_error){
         die("Connection failed:" . $conn->connect_error);
     }
-
+    //cadet ID number
     $id = $_SESSION['id_number'];
-
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +67,7 @@
             ?>
             </div>
         </div> 
-        <a>History</a>
+        <a href = "cadetHistory.php">History</a>
         <a href = "cadetInstructions.php">Instructions</a>
         <a href="cadetInfo.php">Cadet Info</a>
         <a id = "logout" href="../logout.php">Logout</a>
@@ -104,11 +102,7 @@
 
              if($result->num_rows > 0){
                 while($row = $result->fetch_assoc()) {
-
-
-                   
                    $cadet_name = $row['first_name']." ".$row['last_name'];
-
                 }
             }
 
@@ -116,7 +110,9 @@
 
             $account_id = $_SESSION['accountability'];
             
-            $sql = "select cadets.first_name, cadets.last_name, cadets.class, cadets.rank, accountability.status, accountability.comments, courses.course_title, courses.course_code, courses.section, courses.department from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id where accountability_id >= '$account_id'";
+            $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id where accountability_id >= '$account_id'";
+
+            $result = $conn->query($sql);
 
             if($result->num_rows > 0){
                 while($row = $result->fetch_assoc()) {
@@ -125,20 +121,24 @@
                 $course_title = $row['course_title'];
                 $course_code = $row['course_code'];
                 $course_section = $row['section'];
+                $section_time = $row['section_time'];
+                $date = $_SESSION['account_date'];
                 if($course_section < 10){
                     $course_section = "0".$course_section;
                 }
                 $course = $department . " ".$course_code."-".$course_section;
-                echo "<h3>$course: $course_title</h3>";
-                echo "<h4>Faculty</h4>";
-                echo "<h4>Course Date and Time</h4>";
-                exit;
-                }
             }
+                echo "<h3>$course: $course_title</h3>";
+                echo "<h4>Faculty: FIX THIS</h4>";
+                echo "<h3>Date: $date || Time: $section_time</h4>";
+                }
             
-            $result = $conn->query($sql);
+            
+            
 
             $cadetNum = 1;
+
+
 
             ?>            
             
@@ -156,7 +156,11 @@
            
             <?php
 
-            $sql = "select cadets.first_name, cadets.last_name, cadets.class, cadets.rank, accountability.status, accountability.comments, courses.course_title, courses.course_code, courses.section, courses.department from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id where accountability_id >= '$account_id'";
+            $course_id = $_SESSION['course_id'];
+
+            $account_date = $_SESSION['account_date'];
+
+            $sql = "select cadets.first_name, cadets.last_name, cadets.class, cadets.rank, accountability.status, accountability.comments, courses.course_title, courses.course_code, courses.section, courses.department from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id where accountability_id >= '$account_id' AND date = '$account_date' AND accountability.course_id = '$course_id'";
 
             $result = $conn->query($sql);
 
