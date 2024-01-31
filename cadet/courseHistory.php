@@ -9,7 +9,14 @@
     }
     //start of accountability ids for that course
     if(isset($_GET['a'])){
-    $_SESSION['accountability']= $_GET['a'];
+        $_SESSION['accountability']= $_GET['a'];
+    }
+    if(isset($_GET['b'])){
+        $_SESSION['course_id'] = $_GET['b'];
+    }
+
+    if(isset($_GET['c'])){
+        $_SESSION['account_date'] = $_GET['c'];
     }
 
     $servername = "localhost";
@@ -159,12 +166,19 @@
             $course_id = $_SESSION['course_id'];
 
             $account_date = $_SESSION['account_date'];
+            
+            $sql = "select cadets.first_name, cadets.last_name, cadets.class, cadets.rank, accountability.status, accountability.comments, courses.course_title, courses.course_code, courses.section, courses.department from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN rank on rank.rank = cadets.rank where accountability_id >= '$account_id' AND date = '$account_date' AND accountability.course_id = '$course_id' order by rank_id, class, last_name";
 
-            $sql = "select cadets.first_name, cadets.last_name, cadets.class, cadets.rank, accountability.status, accountability.comments, courses.course_title, courses.course_code, courses.section, courses.department from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id where accountability_id >= '$account_id' AND date = '$account_date' AND accountability.course_id = '$course_id'";
+           //echo "$sql";
+           //exit;
 
             $result = $conn->query($sql);
 
+            
             if($result->num_rows > 0){
+
+
+                
                 while($row = $result->fetch_assoc()) {
 
                     $first_name = $row['first_name'];

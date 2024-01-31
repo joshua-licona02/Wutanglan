@@ -178,9 +178,12 @@
                     $faculty = $row['title'] . " " . $row['first_name']. " " . $row['last_name'];
                     $account_id = $row['accountability_id'];
 
-                    echo "<tr><td><a href = 'courseHistory.php?a=$account_id'>$date</a></td>";
-                    $_SESSION['course_id'] = $course_id;
-                    $_SESSION['account_date'] = $date;
+                    echo "<tr><td><a href = 'courseHistory.php?a=$account_id&b=$course_id&c=$date'>$date</a></td>";
+
+                    //need this to happen on click
+                    //$_SESSION['course_id'] = $course_id;
+                    //$_SESSION['account_date'] = $date;
+                    
                     echo "<td>$time</td>";
                     echo "<td>$course</td>";
                     echo "<td>$faculty</td></tr>";
