@@ -154,7 +154,7 @@
 
             //$sql = "select * from accountability join courses on accountability.course_id = courses.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$id' group by date";
             
-            $sql = "select * from accountability join courses on accountability.course_id = courses.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$id' group by courses.course_id, date order by date desc, time desc";
+            $sql = "select * from accountability join courses on accountability.course_id = courses.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$id' group by courses.course_id, date order by date desc, time desc ";
 
 
             $result = $conn->query($sql);

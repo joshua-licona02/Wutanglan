@@ -169,9 +169,6 @@
             
             $sql = "select cadets.first_name, cadets.last_name, cadets.class, cadets.rank, accountability.status, accountability.comments, courses.course_title, courses.course_code, courses.section, courses.department from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN rank on rank.rank = cadets.rank where accountability_id >= '$account_id' AND date = '$account_date' AND accountability.course_id = '$course_id' order by rank_id, class, last_name";
 
-           //echo "$sql";
-           //exit;
-
             $result = $conn->query($sql);
 
             
@@ -195,6 +192,12 @@
                     echo "<td>$rank</td>";
                     if($status == "Present"){
                         echo "<td style = 'background: green'><a style = 'color: white'>$status</a></td>";
+                    }
+                    else if($status == "Late"){
+                        echo "<td style = 'background: Yellow'><a style =  'color: Black'>$status</a></td>";
+                    }
+                    else if($status == "Late Late"){
+                        echo "<td style = 'background: Orange'><a style =  'color: Black'>$status</a></td>";
                     }
                     else{
                         echo "<td style = 'background: red'><a style =  'color: white'>$status</a></td>";
