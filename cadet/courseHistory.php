@@ -76,6 +76,9 @@
     if($sec < 10){
         $sec = '0'.$sec;
     }
+
+    $current_time = "$hour:$min";
+    
     $current_date = "$date/$month/$year == $hour:$min:$sec";
 
 ?>
@@ -91,8 +94,8 @@
 </head>
 <body>
     <div class = "header">
-            <img id = "mainImg" src = "vmilogo.svg" id = "logo">
-            <h1 id = "esection">E-Section Marcher</h1>
+        <img id = "mainImg" src = "vmilogo.svg" id = "logo">
+        <h1 id = "esection">E-Section Marcher</h1>
     </div>
 
     <div class="navbar">
@@ -103,12 +106,9 @@
             </button>
             <div class="dropdown-content" id="myDropdown">
                 <?php 
-
-                
                     for($i=0; $i<count($course_ids); $i++){
                     echo "<a href = 'newCourse.php?a=$course_ids[$i]'>$full_codes[$i]</a></td>";
                 }
-                
             ?>
             </div>
         </div> 
@@ -155,7 +155,7 @@
 
             $account_id = $_SESSION['accountability'];
             
-            $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time, professor.first_name as prof_first, professor.last_name as prof_last, professor.title from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN professor on professor.professor_id = courses.professor_id where accountability_id >= '$account_id'";
+            $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time, section_end, professor.first_name as prof_first, professor.last_name as prof_last, professor.title from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN professor on professor.professor_id = courses.professor_id where accountability_id >= '$account_id'";
 
             $result = $conn->query($sql);
 
@@ -167,6 +167,13 @@
                 $course_code = $row['course_code'];
                 $course_section = $row['section'];
                 $section_time = $row['section_time'];
+                $section_end = $row['section_end'];
+
+                //echo "$section_end"; //11:50... we need 12:50
+
+
+               
+            
                 $date = $_SESSION['account_date'];
                 if($course_section < 10){
                     $course_section = "0".$course_section;
@@ -184,9 +191,6 @@
                 echo "<h4>Date: $date</h4>";
                 echo "<h4>Time: $section_time</h4>";
                 }
-            
-            
-            
 
             $cadetNum = 1;
 
@@ -208,6 +212,8 @@
            
             <?php
 
+            //if()
+
             $course_id = $_SESSION['course_id'];
 
             $account_date = $_SESSION['account_date'];
@@ -216,11 +222,58 @@
 
             $result = $conn->query($sql);
 
+            $section_end_time = new DateTime($section_end);
+            $time = $section_end_time->format('H:i:s'); 
+            $hours = 1; 
+            $end_edits_time = (clone $section_end_time)->add(new DateInterval("PT{$hours}H")); 
+            $end_edits_time = $end_edits_time->format('H:i:s');
             
+            
+            //THIS IS WHAT NEEDS TO BE FIXED - 02/02/2024
+            //THIS SHOULD CHECK IF THE CURRENT TIME IS OUTSIDE OF THE 
+            //ALLOWED SM REPORTING CAPABALITIES
+            //EX: CP: 1100-1150
+            //REPORTING/EDITING ENDS AT 1250.
+            if($current_time <= $end_edits_time && $current_time >= $section_time){
+                //within time range
+                //allow edits
+                //copy code from newCourse.php
+
+
+                if($result->num_rows > 0){
+
+                while($row = $result->fetch_assoc()) {
+
+                $id = $row["id_number"];
+                        $first_name = $row["first_name"];
+                        $last_name = $row["last_name"];
+                        $rank = $row['rank'];
+                        $company = $row['company'];
+                        $class = $row['class'];
+                        $major = $row['major'];
+
+                        echo "<tr><td>$cadetNum</td>";
+                        echo "<td>$first_name</td>";
+                        echo "<td>$last_name</td>";
+                        echo "<td>$class</td>";
+                        echo "<td>$rank</td>";
+                        echo "<td>
+                        <select id='status' name='status[]' required>
+                        <option selected value='Present'>Present</option>
+                        <option value='Late'>Late <5 mins</option>
+                        <option value='Late Late'>Late 5-15 mins</option>
+                        <option value='Absent'>Absent</option>
+                            </select></td>";
+
+                        echo "<td style = 'padding-top: 1%;'><input style = 'width: 85%;' name = 'comments[]' type='text'>
+                        </td></tr>";
+                        $cadetNum++;
+                    }
+                }
+            }
+
             if($result->num_rows > 0){
 
-
-                
                 while($row = $result->fetch_assoc()) {
 
                     $first_name = $row['first_name'];
