@@ -24,9 +24,6 @@ foreach($_POST['status'] as $value ) {
 	}
 }
 
-
-
-
 foreach($_POST['comments'] as $value ) {
 	if(!isset($value) || trim($value) == ''){
 		$comments[] = 'N/A';

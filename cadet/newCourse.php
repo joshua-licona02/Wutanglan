@@ -39,6 +39,8 @@
             $section_marcher = $row['section_marcher'];
         }
     }
+
+    
     
 ?>
 
@@ -64,39 +66,36 @@
             <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content" id="myDropdown">
-
                 <?php 
+                $id = $_SESSION['id_number'];
+                $sql = "SELECT cadet_id, section_marcher, semester, cadets.first_name as cadet_first, cadets.last_name as cadet_last,course_title,course_code, section, courses.department, title, professor.first_name, professor.last_name, courses.section_day, courses.section_time, courses.section_end, courses.course_id from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number join courses on courses.course_id = course_enrollment.course_id join professor on professor.professor_id = courses.professor_id where cadet_id = '$id' and section_marcher != 0 order by section_marcher";
 
-                        $id = $_SESSION['id_number'];
-                        $sql = "SELECT cadet_id, section_marcher, semester, cadets.first_name as cadet_first, cadets.last_name as cadet_last,course_title,course_code, section, courses.department, title, professor.first_name, professor.last_name, courses.section_day, courses.section_time, courses.section_end, courses.course_id from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number join courses on courses.course_id = course_enrollment.course_id join professor on professor.professor_id = courses.professor_id where cadet_id = '$id' and section_marcher != 0 order by section_marcher";
+                $result = $conn->query($sql);
+                $num_of_courses = 0;
+                $course_ids = array();
+                $full_codes = array();
+                
+                if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()) {
 
-    $result = $conn->query($sql);
-    $num_of_courses = 0;
-    $course_ids = array();
-    $full_codes = array();
-    
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()) {
-
-            $num_of_courses++;
-            $course_id = $row['course_id'];
-            $department = $row['department'];
-            $course_code = $row['course_code'];
-            $course = $row['course_title'];
-            $section = $row['section'];
-            if($section < 10){
-                $section = '0'.$section;
-            }
-            $full_code = $department . " " .$course_code . "-" . $section;
-            $section_marcher = $row['section_marcher'];
-            $course_ids[] = $row['course_id'];
-            $full_codes[] = $full_code;
-                   }
-               }
-
-                        for($i=0; $i<count($course_ids); $i++){
-                        echo "<a href = 'newCourse.php?a=$course_ids[$i]'>$full_codes[$i]</a></td>";
+                        $num_of_courses++;
+                        $course_id = $row['course_id'];
+                        $department = $row['department'];
+                        $course_code = $row['course_code'];
+                        $course = $row['course_title'];
+                        $section = $row['section'];
+                        if($section < 10){
+                            $section = '0'.$section;
+                        }
+                        $full_code = $department . " " .$course_code . "-" . $section;
+                        $section_marcher = $row['section_marcher'];
+                        $course_ids[] = $row['course_id'];
+                        $full_codes[] = $full_code;
                     }
+                }
+                for($i=0; $i<count($course_ids); $i++){
+                    echo "<a href = 'newCourse.php?a=$course_ids[$i]'>$full_codes[$i]</a></td>";
+                }
                 ?>
             </div>
         </div> 
@@ -136,6 +135,10 @@
                 //basic section marcher/course info
                     $cadet_first = $row['cadet_first'];
                     $cadet_last = $row['cadet_last'];
+                    $course_section = $row['section'];
+                    if($course_section < 10){
+                            $course_section = '0'.$course_section;
+                        }
                     $department = $row['course_dept'];
                     $course_code = $row['course_code'];
                     $course = $row['course_title'];
@@ -165,21 +168,66 @@
                 }
             }
 
+
+            date_default_timezone_set('America/New_York'); // Eastern Time
+
+            $info = getdate();
+            $date = $info['mday'];
+            $month = $info['mon'];
+            $year = $info['year'];
+            $hour = $info['hours'];
+            $min = $info['minutes'];
+            $sec = $info['seconds'];
+
+
+            if($hour < 10){
+                $hour = '0'.$hour;
+            }
+            if($min < 10){
+                $min = '0'.$min;
+            }
+            if($sec < 10){
+                $sec = '0'.$sec;
+            }
+            $current_date = "$year-$month-$date";
+            $current_date_time = "$date/$month/$year == $hour:$min:$sec";
+
+            function getWeekday($date) {
+                return date('w', strtotime($date));
+            }
+
+            switch(getWeekday($current_date)){
+                case 0: $current_day = "Sunday"; break;
+                case 1: $current_day = "Monday"; break;
+                case 2: $current_day = "Tuesday"; break;
+                case 3: $current_day = "Wednesday"; break;
+                case 4: $current_day = "Thursday"; break;
+                case 5: $current_day = "Friday"; break;
+                case 6: $current_day = "Saturday"; break;
+            }
+
+            $section_array = array();
+
             for($i = 0; $i < strlen($section_day); $i++) {
                 if($section_day[$i] == "M"){
                     $string = $string . "Monday";
+                    $section_array[] = "Monday";
                 }
                 if($section_day[$i] == "T"){
                     $string = $string . "Tuesday";
+                    $section_array[] = "Tuesday";
                 }
                 if($section_day[$i] == "W"){
                     $string = $string . "Wednesday";
+                    $section_array[] = "Wednesday";
                 }
                 if($section_day[$i] == "R"){
                     $string = $string . "Thursday";
+                    $section_array[] = "Thursday";
                 }
                 if($section_day[$i] == "F"){
                     $string = $string . "Friday";
+                    $section_array[] = "Friday";
                 }
                 if($length == 1) {
                     break;
@@ -188,8 +236,25 @@
                 $string = $string . '/';
             }
 
-            $section_day = $string;?>
-            <?php 
+            $section_day = $string;
+            $isClassToday = False;
+
+            for($i = 0; $i < count($section_array); $i++){
+                if($section_array[$i] == $current_day){
+                    $isClassToday = True;
+                    break;
+                }
+                else{
+
+                }
+            }
+
+            if($isClassToday != True){
+                echo "<h1 style = 'background-color: #ae122a; color: white'>Course Locked</h1>";
+                echo "<h1>$department " . "$course_code-" . "$course_section". ": ". "$course does not meet on $current_day</h1>";
+                exit;
+            }
+
             $email = $_SESSION['email'];
             $course_id = $_SESSION['course_id'];
             $cadet_id = $_SESSION['id_number'];
@@ -213,7 +278,7 @@
             else if($section_marcher == 3){
                 $section_marcher .= "rd";
             }
-            echo $section_marcher?> Section Marcher for <?php echo $department . " " . $course_code ."-". $section .": " . $course?></h3>
+            echo $section_marcher?> Section Marcher for <?php echo $department . " " . $course_code ."-". $course_section .": " . $course?></h3>
             <h4>Faculty: <?php echo $rank . " ".$prof_first . " " . $prof_last?></h4>
             <h4>Class Period: <?php echo $section_start ."-".$section_end?></h4>
             <h5><?php echo $section_day?></h5>

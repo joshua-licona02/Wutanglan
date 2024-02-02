@@ -43,9 +43,7 @@
     $full_codes = array();
     
     if($result->num_rows > 0){
-        
         while($row = $result->fetch_assoc()) {
-
             $num_of_courses++;
             $course_id = $row['course_id'];
             $department = $row['department'];
@@ -59,10 +57,26 @@
             $section_marcher = $row['section_marcher'];
             $course_ids[] = $row['course_id'];
             $full_codes[] = $full_code;
-                   }
-               }
-
-
+        }
+    }
+    date_default_timezone_set('America/New_York'); // Eastern Time
+    $info = getdate();
+    $date = $info['mday'];
+    $month = $info['mon'];
+    $year = $info['year'];
+    $hour = $info['hours'];
+    $min = $info['minutes'];
+    $sec = $info['seconds'];
+    if($hour < 10){
+    $hour = '0'.$hour;
+    }
+    if($min < 10){
+        $min = '0'.$min;
+    }
+    if($sec < 10){
+        $sec = '0'.$sec;
+    }
+    $current_date = "$date/$month/$year == $hour:$min:$sec";
 
 ?>
 
@@ -141,7 +155,7 @@
 
             $account_id = $_SESSION['accountability'];
             
-            $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id where accountability_id >= '$account_id'";
+            $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time, professor.first_name as prof_first, professor.last_name as prof_last, professor.title from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN professor on professor.professor_id = courses.professor_id where accountability_id >= '$account_id'";
 
             $result = $conn->query($sql);
 
@@ -158,10 +172,17 @@
                     $course_section = "0".$course_section;
                 }
                 $course = $department . " ".$course_code."-".$course_section;
+                $faculty_first = $row['prof_first'];
+                $faculty_last = $row['prof_last'];
+                $faculty_title = $row['title'];
+
+                $professor_full = $faculty_title . " " . $faculty_first . " " . $faculty_last;
+
             }
                 echo "<h3>$course: $course_title</h3>";
-                echo "<h4>Faculty: FIX THIS</h4>";
-                echo "<h3>Date: $date || Time: $section_time</h4>";
+                echo "<h4>Faculty: $professor_full</h4>";
+                echo "<h4>Date: $date</h4>";
+                echo "<h4>Time: $section_time</h4>";
                 }
             
             
