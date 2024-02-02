@@ -21,6 +21,7 @@ if($sec < 10){
 	$sec = '0'.$sec;
 }
 $current_date = "$year-$month-$date";
+$current_time = "$hour:$min:$sec";
 $current_date_time = "$date/$month/$year == $hour:$min:$sec";
 
 function getWeekday($date) {
@@ -37,7 +38,16 @@ switch(getWeekday($current_date)){
     case 6: $current_day = "Saturday"; break;
 }
 
-echo $current_day;
+
+$now = new DateTime($current_time); //now
+echo $now->format('H:i:s'); //01:01:55
+
+$hours = 1; // hours amount (integer) you want to add
+$modified = (clone $now)->add(new DateInterval("PT{$hours}H")); // use clone to avoid modification of $now object
+echo "\n". $modified->format('H:i:s'); // 2021-09-12 13:01:55
+
+
+//echo $current_day;
 
 
 ?>
