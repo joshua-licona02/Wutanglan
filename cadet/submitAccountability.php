@@ -48,7 +48,6 @@ $sql = "SELECT * FROM cadets JOIN rank on cadets.rank=rank.rank join course_enro
  		$time = date("h:i:s");
  		$cadet_id = $row['id_number'];
 
-
  		if($comments[$count] == '0'){
  			$comment[$count] = '';
  		}
