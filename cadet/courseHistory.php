@@ -35,6 +35,7 @@
     }
     //cadet ID number
     $id = $_SESSION['id_number'];
+    //shows courses you are section marcher
     $sql = "SELECT cadet_id, section_marcher, semester, cadets.first_name as cadet_first, cadets.last_name as cadet_last,course_title,course_code, section, courses.department, title, professor.first_name, professor.last_name, courses.section_day, courses.section_time, courses.section_end, courses.course_id from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number join courses on courses.course_id = course_enrollment.course_id join professor on professor.professor_id = courses.professor_id where cadet_id = '$id' and section_marcher != 0 order by section_marcher";
 
     $result = $conn->query($sql);
@@ -154,10 +155,12 @@
             echo "<h2>Report submitted by Cadet $cadet_name</h2>";
 
             $account_id = $_SESSION['accountability'];
+
             
-            $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time, section_end, professor.first_name as prof_first, professor.last_name as prof_last, professor.title from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN professor on professor.professor_id = courses.professor_id where accountability_id >= '$account_id'";
+            $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time, section_end, professor.first_name as prof_first, professor.last_name as prof_last, professor.title from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN professor on professor.professor_id = courses.professor_id where accountability_id >= '$account_id' LIMIT 1";
 
             $result = $conn->query($sql);
+
 
             if($result->num_rows > 0){
                 while($row = $result->fetch_assoc()) {
@@ -234,11 +237,14 @@
             //ALLOWED SM REPORTING CAPABALITIES
             //EX: CP: 1100-1150
             //REPORTING/EDITING ENDS AT 1250.
+            //if(5 < 10){
             if($current_time <= $end_edits_time && $current_time >= $section_time){
                 //within time range
                 //allow edits
                 //copy code from newCourse.php
 
+
+                echo "<form action = 'updateAccountability.php' method='post'>";
 
                 if($result->num_rows > 0){
 
@@ -251,25 +257,58 @@
                         $company = $row['company'];
                         $class = $row['class'];
                         $major = $row['major'];
+                        $status = $row['status'];
+                        $comments = $row['comments'];
 
                         echo "<tr><td>$cadetNum</td>";
                         echo "<td>$first_name</td>";
                         echo "<td>$last_name</td>";
                         echo "<td>$class</td>";
                         echo "<td>$rank</td>";
-                        echo "<td>
-                        <select id='status' name='status[]' required>
-                        <option selected value='Present'>Present</option>
-                        <option value='Late'>Late <5 mins</option>
-                        <option value='Late Late'>Late 5-15 mins</option>
-                        <option value='Absent'>Absent</option>
-                            </select></td>";
+                        echo "<td><select id='status' name='status[]' required>";
+                        if($status == "Present"){
+                            echo 
+                            "<option selected value='Present'>Present</option>
+                            <option value='Late'>Late <5 mins</option>
+                            <option value='Late Late'>Late 5-15 mins</option>
+                            <option value='Absent'>Absent</option>";
+                        }
+                        else if($status == "Absent"){
+                            echo 
+                            "<option value='Present'>Present</option>
+                            <option value='Late'>Late <5 mins</option>
+                            <option value='Late Late'>Late 5-15 mins</option>
+                            <option selected value='Absent'>Absent</option>";
+                        }
+                        else if($status == "Late"){
+                            echo 
+                            "<option value='Present'>Present</option>
+                            <option selected value='Late'>Late <5 mins</option>
+                            <option value='Late Late'>Late 5-15 mins</option>
+                            <option value='Absent'>Absent</option>";
+                        }
+                        else{
+                            echo 
+                            "<option value='Present'>Present</option>
+                            <option value='Late'>Late <5 mins</option>
+                            <option selected value='Late Late'>Late 5-15 mins</option>
+                            <option value='Absent'>Absent</option>";
+                        }
+                        echo "</select></td>";
 
-                        echo "<td style = 'padding-top: 1%;'><input style = 'width: 85%;' name = 'comments[]' type='text'>
+                        echo "<td style = 'padding-top: 1%;'><input style = 'width: 85%;' name = 'comments[]' type='text' value = '$comments'>
                         </td></tr>";
                         $cadetNum++;
                     }
                 }
+
+                echo "<tr><td style = 'padding-top: 2%;' align = 'center' colspan='7'>";
+                echo "<input style='width: 30%;' type = 'submit'></td></tr>";
+                echo "</form>";
+                echo "</table>";
+                echo "<h2 style='border: solid; background: #ae122a; color: white;'>THIS IS A REMINDER THAT SUBMITTING THE SECTION MARCHER REPORT IS A CERTIFIED STATEMENT.</h2>";
+
+
             }
 
             if($result->num_rows > 0){
