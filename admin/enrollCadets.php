@@ -45,22 +45,17 @@ if($_SESSION['loggedIn']) {
     </div>
 
     <div class="navbar">
-        <a class = "active">Home</a>
+        <a href="adminHome.php">Home</a>
         <a href="adminOrdersSM.html">Re-Order SM</a>
         <a href="adminAddCadets.html">Add Cadets</a>
         <a href="adminAddCourse.html">Add Courses</a>
-        <a href="enrollCadets.php">Enroll Cadets</a>
+        <a class = "active">Enroll Cadets</a>
         <a id = "logout" href="logout.php">Logout</a>
     </div>
 
     <div>
-
         <center>
-            <h2>Welcome Admin!</h2>
-            <a>Use this dashboard to add cadets and courses to VMI system, as well as enrolling cadets in courses.</a><br>
-            <a> After enrolling more cadets in courses, please remember to Re-order the section marchers for all classes.
-            </a>
-            
+            <h1>Enroll Cadets</h1>
         </center>
     </div>
 </body>

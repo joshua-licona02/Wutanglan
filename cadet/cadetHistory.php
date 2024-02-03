@@ -210,7 +210,7 @@
 
                     //need this to happen on click
                     //$_SESSION['course_id'] = $course_id;
-                    //$_SESSION['account_date'] = $date;
+                    //$_accountabilityount_date'] = $date;
                     
                     echo "<td>$time</td>";
                     echo "<td>$course</td>";
