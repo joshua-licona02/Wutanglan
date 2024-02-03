@@ -96,7 +96,7 @@ $num_of_students = $result->num_rows;
 		}
 	}	
 
- 	echo "<script> alert('Accountability Updated Successfully!'); window.location = 'cadetHome.php';</script>";
+ 	echo "<script> alert('Accountability Updated Successfully!'); window.location = 'cadetHistory.php';</script>";
  	
 
 ?>
