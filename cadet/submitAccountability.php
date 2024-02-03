@@ -45,7 +45,7 @@ $sql = "SELECT * FROM cadets JOIN rank on cadets.rank=rank.rank join course_enro
  	while($row = $result->fetch_assoc()) {
  		date_default_timezone_set('America/New_York');
  		$date = date("m/d/Y");
- 		$time = date("h:i:s");
+ 		$time = date("H:i:s");
  		$cadet_id = $row['id_number'];
 
  		if($comments[$count] == '0'){

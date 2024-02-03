@@ -56,6 +56,12 @@ if($_SESSION['loggedIn']) {
     <div>
         <center>
             <h1>Enroll Cadets</h1>
+            <?php
+
+            ?>
+
+
+
         </center>
     </div>
 </body>
