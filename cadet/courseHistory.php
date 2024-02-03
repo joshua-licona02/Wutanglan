@@ -241,8 +241,8 @@
             //ALLOWED SM REPORTING CAPABALITIES
             //EX: CP: 1100-1150
             //REPORTING/EDITING ENDS AT 1250.
-            if(5 < 10){
-            //if($current_time <= $end_edits_time && $current_time >= $section_time){
+            //if(5 < 10){
+            if($current_time <= $end_edits_time && $current_time >= $section_time){
                 //within time range
                 //allow edits
                 //copy code from newCourse.php
