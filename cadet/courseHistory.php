@@ -156,11 +156,15 @@
 
             $account_id = $_SESSION['accountability'];
 
+
+
             
-            $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time, section_end, professor.first_name as prof_first, professor.last_name as prof_last, professor.title from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN professor on professor.professor_id = courses.professor_id where accountability_id >= '$account_id' LIMIT 1";
+            $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time, section_end, professor.first_name as prof_first, professor.last_name as prof_last, professor.title from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN professor on professor.professor_id = courses.professor_id where accountability_id = '$account_id'";
+
+            //echo $sql;
+            //exit;
 
             $result = $conn->query($sql);
-
 
             if($result->num_rows > 0){
                 while($row = $result->fetch_assoc()) {
