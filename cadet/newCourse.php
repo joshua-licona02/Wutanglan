@@ -38,9 +38,7 @@
         while($row = $result->fetch_assoc()) {
             $section_marcher = $row['section_marcher'];
         }
-    }
-
-    
+    }    
     
 ?>
 
@@ -191,6 +189,7 @@
             }
             $current_date = "$year-$month-$date";
             $current_date_time = "$date/$month/$year == $hour:$min:$sec";
+            $current_time = $current_time = "$hour:$min";
 
             function getWeekday($date) {
                 return date('w', strtotime($date));
@@ -252,6 +251,23 @@
             if($isClassToday != True){
                 echo "<h1 style = 'background-color: #ae122a; color: white'>Course Locked</h1>";
                 echo "<h1>$department " . "$course_code-" . "$course_section". ": ". "$course does not meet on $current_day</h1>";
+                exit;
+            }
+
+            $section_start_time = new DateTime($section_start);
+            $section_start_time->modify('-2 minutes');
+            $section_start_time = $section_start_time->format('H:i:s');
+
+            $section_end_time = new DateTime($section_end);
+            $time = $section_end_time->format('H:i:s'); 
+            $hours = 1; 
+            $end_edits_time = (clone $section_end_time)->add(new DateInterval("PT{$hours}H")); 
+            $end_edits_time = $end_edits_time->format('H:i:s');
+            
+            if($current_time > $end_edits_time || $current_time < $section_start_time){
+
+                echo "<h1 style = 'background-color: #ae122a; color: white'>Course Locked</h1>";
+                echo "<h1>$department " . "$course_code-" . "$course_section". ": ". "$course forms up at $section_start.</h1>";
                 exit;
             }
 
