@@ -27,8 +27,8 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
     if(isset($_POST['searchSubmit'])){
         if(!empty($_POST['search'])){         
-            $_SESSION['searchbar'] = $_POST['search'];
-            $_SESSION['person'] = $_POST['role'];
+            $_GET['searchbar'] = $_POST['search'];
+            $_GET['person'] = $_POST['role'];
 
             $search = $_POST['search'];
             $role = $_POST['role'];
@@ -110,23 +110,23 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                                 
                                     <?php
 
-                                    if(isset($_SESSION['person'])){
+                                    if(isset($_GET['person'])){
 
-                                    if($_SESSION['person'] == "Cadet"){
+                                    if($_GET['person'] == "Cadet"){
                                         echo "
                                     <option selected value='Cadet'>Cadet</option>
                                     <option value='Department'>Department</option>
                                     <option value='Course'>Course</option>
                                     <option value='Professor'>Instructor</option>";
                                     }
-                                    else if($_SESSION['person'] == "Department"){
+                                    else if($_GET['person'] == "Department"){
                                         echo "
                                     <option value='Cadet'>Cadet</option>
                                     <option selected value='Department'>Department</option>
                                     <option value='Course'>Course</option>
                                     <option value='Professor'>Instructor</option>";
                                     }
-                                    else if($_SESSION['person'] == "Course"){
+                                    else if($_GET['person'] == "Course"){
                                         echo "
                                     <option value='Cadet'>Cadet</option>
                                     <option value='Department'>Department</option>
@@ -169,7 +169,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                     </tr>
                     <tr>
                         <td >
-                            <input name = "search" style="width: 95%" type = "text" minlength="3" value = "<?php echo $_SESSION['searchbar'];?>">
+                            <input name = "search" style="width: 95%" type = "text" minlength="3" value = "<?php echo $_GET['searchbar'];?>">
                         </td>
                     </tr>
                     <tr>
