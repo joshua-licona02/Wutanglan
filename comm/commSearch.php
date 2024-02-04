@@ -139,7 +139,8 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                         <th>E-mail</th>
                         </tr>";
                         while($row = $result->fetch_assoc()) {
-                            echo "<tr><td><a href = 'cadetResults.php'>".
+                            $cadet_id = $row['id_number'];
+                            echo "<tr><td><a href = 'cadetResults.php?a=$cadet_id'>".
                             $row['id_number']."</a></td>";
                             echo "<td>".$row['first_name']."</td>";
                             echo "<td>".$row['last_name']."</td>";
