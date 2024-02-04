@@ -43,11 +43,6 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                 $result = $conn->query($sql);
             }
 
-            if($role == "Department"){
-                $sql = "SELECT course_title,course_code, section, courses.department, first_name, last_name, title from courses JOIN professor on courses.professor_id = professor.professor_id where courses.department like '%$search%'";
-                $result = $conn->query($sql);
-            }
-
             if($role == "Professor"){
                 $sql = "SELECT course_title,course_code, section, courses.department, first_name, last_name, title from courses JOIN professor on courses.professor_id = professor.professor_id where last_name like '%$search%'";
                 $result = $conn->query($sql);
@@ -101,68 +96,40 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     <div>
         <center>
             <form method="POST" style="margin-top: 2%;">
-                            <label style = "font-weight: bold;">Search by:</label>
-                            <select style = "width:10%; font-size: 15px;"id="role" name="role" required>
-
-                                
-                              
-
-                                
-                                    <?php
-
-                                    if(isset($_GET['person'])){
-
-                                    if($_GET['person'] == "Cadet"){
-                                        echo "
-                                    <option selected value='Cadet'>Cadet</option>
-                                    <option value='Department'>Department</option>
-                                    <option value='Course'>Course</option>
-                                    <option value='Professor'>Instructor</option>";
-                                    }
-                                    else if($_GET['person'] == "Department"){
-                                        echo "
-                                    <option value='Cadet'>Cadet</option>
-                                    <option selected value='Department'>Department</option>
-                                    <option value='Course'>Course</option>
-                                    <option value='Professor'>Instructor</option>";
-                                    }
-                                    else if($_GET['person'] == "Course"){
-                                        echo "
-                                    <option value='Cadet'>Cadet</option>
-                                    <option value='Department'>Department</option>
-                                    <option selected value='Course'>Course</option>
-                                    <option value='Professor'>Instructor</option>";
-                                    }
-                                    else{
-                                        echo "
-                                    <option value='Cadet'>Cadet</option>
-                                    <option value='Department'>Department</option>
-                                    <option value='Course'>Course</option>
-                                    <option selected value='Professor'>Instructor</option>";
-                                    }
-
-                                }
-                                else{
-                                    echo "
-                                    <option selected value='Cadet'>Cadet</option>
-                                    <option value='Department'>Department</option>
-                                    <option value='Course'>Course</option>
-                                    <option value='Professor'>Instructor</option>"; 
-                                }
-
-
-                                    ?>
-
-                                
-                                     
-
-                                
-
-                                
-                            </select>
+                <label style = "font-weight: bold;">Search by:</label>
+                <select style = "width:10%; font-size: 15px;"id="role" name="role" required>
+                    <?php
+                    if(isset($_GET['person'])){
+                        if($_GET['person'] == "Cadet"){
+                            echo "
+                            <option selected value='Cadet'>Cadet</option>
+                            <option value='Course'>Course</option>
+                            <option value='Professor'>Instructor</option>";
+                        else if($_GET['person'] == "Course"){
+                            echo "
+                            <option value='Cadet'>Cadet</option>
+                            <option selected value='Course'>Course</option>
+                            <option value='Professor'>Instructor</option>";
+                        }
+                        else{
+                            echo "
+                            <option value='Cadet'>Cadet</option>
+                            <option value='Course'>Course</option>
+                            <option selected value='Professor'>Instructor</option>";
+                        }
+                    }
+                    else{
+                        echo "
+                        <option selected value='Cadet'>Cadet</option>
+                        <option value='Course'>Course</option>
+                        <option value='Professor'>Instructor</option>"; 
+                    }
+                    ?>
                         
-                <table class = "search">
-                    <tr>
+                    </select>
+
+                    <table class = "search">
+                        <tr>
                         <td style="text-align: center;">
                             <label for = "search" style = "font-weight: bold;">Search for Cadets, Courses, Sections, Instructors</label>
                         </td>
@@ -181,11 +148,10 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
             <section>
 
-                <table class = "results" width="98%" border="solid">
-                    <?php
-
-
-
+                <?php 
+                if(isset($_POST['searchSubmit'])){
+                echo "<table class = 'results' width='98%' border='solid'>";
+                    
                     if ($role == "Cadet" && $result->num_rows > 0) {
                         echo "<tr>
                         <th>ID Number</th>
@@ -238,38 +204,6 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
                     }
                 }
-                else if($role == "Department" && $result->num_rows > 0){
-                        echo "<tr>
-                        <th>Course Code</th>
-                        <th>Course Name</th>
-                        <th>Instructor</th>
-                        </tr>";
-                        while($row = $result->fetch_assoc()) {
-                            $dept = $row['department'];
-                            $code = $row['course_code'];
-                            $section = $row['section'];
-                            if($section < 10){
-                                $section = '0'.$section;
-                            }
-                            $fullCode = $dept." ".$code."-".$section;
-
-                            $first_name = $row['first_name'];
-                            $last_name = $row['last_name'];
-                            $rank = $row['title'];
-                            
-                            $instructor = $rank." ".$first_name." ".$last_name;
-
-                            $course_id = $row['course_id'];
-                            echo "$course_id";
-                            exit;
-
-                            echo "<tr><td><a href='courseResults.php?a=$course_id'>".$fullCode."</td>";
-                            echo "<td>".$row['course_title']."</td>";
-                            echo "<td><a href='profResults.php'>".$instructor."</a></td>";
-                            echo "</tr>";
-
-                    }
-                }
 
                 else if($role == "Professor" && $result->num_rows > 0){
                         echo "<tr>
@@ -304,10 +238,9 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                     echo "<tr><th>No Results Found</th></tr>";
                 }
 
-            $result->free();
+            }
 
-
-                                  
+            $result->free();       
 
             ?>
                 </table>
