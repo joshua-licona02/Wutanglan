@@ -95,7 +95,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
             <table>
                 <tr><td><a href = "cadetAttendance.php?a=<?php echo "$cadet_id";?>">View Attendance</td></tr>
-                <tr><td>View Submitted Section Marcher Reports</td></tr>
+                <tr><td><a href = "submittedSMReports.php?a=<?php echo "$cadet_id";?>">View Submitted Section Marcher Reports</a></td></tr>
 
             </table>
         </center>

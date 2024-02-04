@@ -88,19 +88,17 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     </script>
     <div>
         <center>
-            <h1>Attendance Report for <?php echo "Cadet $cadet_first $cadet_last: Class of $cadet_class";?></h1>
+            <h1>Submitted Section Marcher Reports by: <br><?php echo "Cadet $cadet_first $cadet_last</h1><h2>Class of $cadet_class</h2>";?>
             <table class = "cadet_courses">
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-                <th>Comments</th>
+                <th>Date Submitted</th>
+                <th>Time Submitted</th>
                 <th>Course</th>
                 <th>Course Time</th>
                 <th>Instructor</th>
                
                 <?php
 
-                $sql = "SELECT accountability.course_id, date, time, status, comments, course_title, courses.department,course_code, section, section_day, section_time, section_end, professor.title, professor.first_name, professor.last_name from accountability join cadets on accountability.cadet_id = cadets.id_number join courses on courses.course_id = accountability.course_id join professor on courses.professor_id = professor.professor_id where accountability.cadet_id = '$cadet_id' order by date, time desc";
+                $sql = "SELECT submitted_by, accountability.course_id, date, time, status, comments, course_title, courses.department,course_code, section, section_day, section_time, section_end, professor.title, professor.first_name, professor.last_name from accountability join cadets on accountability.cadet_id = cadets.id_number join courses on courses.course_id = accountability.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$cadet_id' group by date, course_id order by date, time desc";
 
                 $result = $conn->query($sql);
 
@@ -129,22 +127,11 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                         echo "<tr><td><a href = 'courseDateAccountability.php?a=$account_date&b=$course_id'>$account_date</a></td>";
                         echo "<td>$account_time</td>";
                         
-                        if($account_status == "Present"){
-                            echo "<td style = 'background: green'><a style = 'color: white'>$account_status</a></td>";
-                        }
-                        else if($account_status == "Late"){
-                            echo "<td style = 'background: Yellow'><a style =  'color: Black'>$account_status</a></td>";
-                        }
-                        else if($account_status == "Late Late"){
-                            echo "<td style = 'background: Orange'><a style =  'color: Black'>$account_status</a></td>";
-                        }
-                        else{
-                            echo "<td style = 'background: red'><a style =  'color: white'>$account_status</a></td>";
-                        }
+                        
 
                         $course = $course_department." ".$course_code. "-".$course_section.": ".$course_title;
 
-                        echo "<td>$account_comments</td>";
+                        
                         echo "<td>$course</td>";
 
                         $course_time = str_replace(':', '', $course_time);
@@ -163,7 +150,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                     }
                 }
                 else{
-                    echo "<tr><td colspan = 7>No Results Found.</td><tr>";
+                    echo "<tr><td colspan = 5>No Results Found.</td><tr>";
                 }
 
                 ?>

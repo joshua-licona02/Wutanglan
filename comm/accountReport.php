@@ -113,7 +113,19 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 		echo "<td>$first_name</td>";
 		echo "<td>$last_name</td>";
 		echo "<td>$cadet_class</td>";
-		echo "<td>$status</td>";
+		
+		if($status == "Present"){
+                            echo "<td style = 'background: green'><a style = 'color: white'>$status</a></td>";
+                        }
+                        else if($status == "Late"){
+                            echo "<td style = 'background: Yellow'><a style =  'color: Black'>$status</a></td>";
+                        }
+                        else if($status == "Late Late"){
+                            echo "<td style = 'background: Orange'><a style =  'color: Black'>$status</a></td>";
+                        }
+                        else{
+                            echo "<td style = 'background: red'><a style =  'color: white'>$status</a></td>";
+                        }
 		echo "<td>$comments</tr>";
 
 	}
