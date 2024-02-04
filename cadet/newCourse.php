@@ -29,6 +29,63 @@
     $course_id = $_SESSION['course_id'];
     $cadet_id = $_SESSION['id_number'];
 
+    date_default_timezone_set('America/New_York'); // Eastern Time
+
+            $info = getdate();
+            $date = $info['mday'];
+            $month = $info['mon'];
+            $year = $info['year'];
+            $hour = $info['hours'];
+            $min = $info['minutes'];
+            $sec = $info['seconds'];
+
+            if($date < 10){
+                $date = '0'.$date;
+            }
+
+            if($month < 10){
+                $month = '0'.$month;
+            }
+
+            if($hour < 10){
+                $hour = '0'.$hour;
+            }
+            if($min < 10){
+                $min = '0'.$min;
+            }
+            if($sec < 10){
+                $sec = '0'.$sec;
+            }
+            $current_date = "$year-$month-$date";
+            $current_date_new = "$month/$date/$year";
+            $current_date_time = "$date/$month/$year == $hour:$min:$sec";
+            $current_time = $current_time = "$hour:$min";
+
+            function getWeekday($date) {
+                return date('w', strtotime($date));
+            }
+
+            
+
+    //checks if code has already been submitted
+            $sql = "SELECT * FROM accountability where course_id = '$course_id' AND date = '$current_date_new' ORDER BY accountability_id asc LIMIT 1";
+            
+
+            $result = $conn->query($sql);
+
+            if($result->num_rows > 0){
+            
+                while($row = $result->fetch_assoc()) {
+
+                    $account_id = $row['accountability_id'];
+
+                header("Location: courseHistory.php?a=$account_id&b=$course_id&c=$current_date_new");
+                exit;
+
+
+            }
+        }
+
     $sql = "SELECT cadets.first_name, cadets.last_name, section_marcher, if(course_enrollment.section_marcher > 0, 'true','false') as 'is Section Marcher' from course_enrollment join cadets on course_enrollment.cadet_id = '$cadet_id' where cadets.id_number = course_enrollment.cadet_id AND section_marcher>0 and course_enrollment.course_id = '$course_id'";
 
     $result = $conn->query($sql);
@@ -124,6 +181,10 @@
         <center>
             <h3><?php 
             $course_id = $_SESSION['course_id'];
+
+
+            
+
             $sql = "SELECT cadets.first_name as cadet_first,cadets.last_name as cadet_last, courses.department as course_dept,courses.course_code, courses.section, courses.course_title, courses.section_time, courses.section_end, courses.section_day, course_enrollment.course_id, course_enrollment.semester, professor.title,professor.first_name,professor.last_name FROM cadets join course_enrollment on cadets.id_number = course_enrollment.cadet_id JOIN courses ON courses.course_id = course_enrollment.course_id join professor on courses.professor_id = professor.professor_id WHERE course_enrollment.course_id = '$course_id'";
 
             $result = $conn->query($sql);
@@ -167,33 +228,7 @@
             }
 
 
-            date_default_timezone_set('America/New_York'); // Eastern Time
-
-            $info = getdate();
-            $date = $info['mday'];
-            $month = $info['mon'];
-            $year = $info['year'];
-            $hour = $info['hours'];
-            $min = $info['minutes'];
-            $sec = $info['seconds'];
-
-
-            if($hour < 10){
-                $hour = '0'.$hour;
-            }
-            if($min < 10){
-                $min = '0'.$min;
-            }
-            if($sec < 10){
-                $sec = '0'.$sec;
-            }
-            $current_date = "$year-$month-$date";
-            $current_date_time = "$date/$month/$year == $hour:$min:$sec";
-            $current_time = $current_time = "$hour:$min";
-
-            function getWeekday($date) {
-                return date('w', strtotime($date));
-            }
+            
 
             switch(getWeekday($current_date)){
                 case 0: $current_day = "Sunday"; break;
@@ -247,7 +282,7 @@
 
                 }
             }
-
+            //delete here this is for testing purposes
             //$isClassToday = True;
 
             if($isClassToday != True){

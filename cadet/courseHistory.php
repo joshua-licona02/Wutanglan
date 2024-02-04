@@ -80,7 +80,7 @@
 
     $current_time = "$hour:$min";
     
-    $current_date = "$date/$month/$year == $hour:$min:$sec";
+    $current_date = "$month/$date/$year == $hour:$min:$sec";
 
 ?>
 
@@ -234,7 +234,7 @@
             $hours = 1; 
             $end_edits_time = (clone $section_end_time)->add(new DateInterval("PT{$hours}H")); 
             $end_edits_time = $end_edits_time->format('H:i:s');
-            
+ 
             
             //THIS IS WHAT NEEDS TO BE FIXED - 02/02/2024
             //THIS SHOULD CHECK IF THE CURRENT TIME IS OUTSIDE OF THE 
