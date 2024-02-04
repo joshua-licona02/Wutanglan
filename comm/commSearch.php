@@ -99,31 +99,35 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                 <label style = "font-weight: bold;">Search by:</label>
                 <select style = "width:10%; font-size: 15px;"id="role" name="role" required>
                     <?php
+
+
                     if(isset($_GET['person'])){
                         if($_GET['person'] == "Cadet"){
                             echo "
                             <option selected value='Cadet'>Cadet</option>
                             <option value='Course'>Course</option>
                             <option value='Professor'>Instructor</option>";
+                        } 
                         else if($_GET['person'] == "Course"){
                             echo "
                             <option value='Cadet'>Cadet</option>
                             <option selected value='Course'>Course</option>
                             <option value='Professor'>Instructor</option>";
-                        }
+                        } 
                         else{
                             echo "
                             <option value='Cadet'>Cadet</option>
                             <option value='Course'>Course</option>
                             <option selected value='Professor'>Instructor</option>";
                         }
-                    }
+                    } 
                     else{
                         echo "
                         <option selected value='Cadet'>Cadet</option>
                         <option value='Course'>Course</option>
                         <option value='Professor'>Instructor</option>"; 
                     }
+                    
                     ?>
                         
                     </select>
@@ -147,11 +151,12 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
             </form>
 
             <section>
+                <table class = 'results' width='98%' border='solid'>
 
                 <?php 
-                if(isset($_POST['searchSubmit'])){
-                echo "<table class = 'results' width='98%' border='solid'>";
+                
                     
+
                     if ($role == "Cadet" && $result->num_rows > 0) {
                         echo "<tr>
                         <th>ID Number</th>
@@ -238,7 +243,8 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                     echo "<tr><th>No Results Found</th></tr>";
                 }
 
-            }
+
+
 
             $result->free();       
 
