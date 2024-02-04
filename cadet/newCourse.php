@@ -248,6 +248,8 @@
                 }
             }
 
+            //$isClassToday = True;
+
             if($isClassToday != True){
                 echo "<h1 style = 'background-color: #ae122a; color: white'>Course Locked</h1>";
                 echo "<h1>$department " . "$course_code-" . "$course_section". ": ". "$course does not meet on $current_day</h1>";
@@ -265,6 +267,7 @@
             $end_edits_time = $end_edits_time->format('H:i:s');
             
             if($current_time > $end_edits_time || $current_time < $section_start_time){
+            //if(5>6){
 
                 echo "<h1 style = 'background-color: #ae122a; color: white'>Course Locked</h1>";
                 echo "<h1>$department " . "$course_code-" . "$course_section". ": ". "$course forms up at $section_start.</h1>";

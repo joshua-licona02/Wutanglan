@@ -1,3 +1,23 @@
+<?php
+    session_start();
+
+    $servername = "localhost";
+    $dbname = "capstone";
+    $username = "root";
+    $password = "";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if(!$conn){
+        echo "<script> alert('Connection failed.)</script>";
+    }
+
+    if($conn->connect_error){
+        die("Connection failed:" . $conn->connect_error);
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang = "en">
 <head>
@@ -54,6 +74,7 @@
                 <option value="IS">IS</option>
                 <option value="ML">ML</option>
                 <option value="BU">BU</option>
+                <option value="AS">AS</option>
                 </select>
                 </td>
             </tr>
@@ -105,11 +126,60 @@
             </tr>
 
             <tr>
+ 
 
-                <td><label class = "emailLog">Section Start Time: </label></td>
-                <td><select id="major" name="major" required></td>
 
+
+                <td><label class = "emailLog">Instructor</label></td>
+                <td><select id="professor" name="professor" required>
+                    <?php 
+
+                    $sql = "select * from professor";
+
+                    $result = $conn->query($sql);
+   
+    
+                    if($result->num_rows > 0){
+                        while($row = $result->fetch_assoc()) {
+                            $prof_id = $row['professor_id'];
+                            $title = $row['title'];
+                            $professor_first = $row['first_name'];
+                            $professor_last = $row['last_name'];
+                            $prof_full = $title." ".$professor_first." ".$professor_last;
+                            echo "<option value='$prof_id'>$prof_full</option>";
+                        }
+                    }
+                    ?>
+                </select></td>
             </tr>
+
+            <tr><td><label class = "emailLog">Building</label></td>
+                <td><select id="building" name="building" required>
+
+                    <?php 
+
+                    $sql = "select * from building";
+                    $result = $conn->query($sql);
+                    if($result->num_rows > 0){
+                        while($row = $result->fetch_assoc()) {
+                            
+                            $building_name = $row['building_name'];
+                            echo "<option value='$building_name'>$building_name</option>";
+                        }
+                    }
+                    ?>
+
+                </select></td>
+            </tr>
+
+            <tr><td><label class = "emailLog">Classroom</label></td>
+                <td><input id="classroom" name = "classroom" type="number"></td>
+            </tr>
+
+
+
+
+
             <tr>
                 <td align = "center" colspan="5" class = "submitLine"><input type = "submit" name = "submit" id = "submitBtn"></td>
             </tr>

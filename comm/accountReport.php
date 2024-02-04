@@ -140,7 +140,16 @@ else{
 
 	</table>
 
-
 </center>
+
+<footer style = "
+            height: 50px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center; 
+            line-height: 50px;"><?php echo $date?></footer>
+
 
 </html>

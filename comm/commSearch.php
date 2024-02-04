@@ -154,9 +154,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                 <table class = 'results' width='98%' border='solid'>
 
                 <?php 
-                
                     
-
                     if ($role == "Cadet" && $result->num_rows > 0) {
                         echo "<tr>
                         <th>ID Number</th>
@@ -246,10 +244,13 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
 
 
+
+
             $result->free();       
 
             ?>
-                </table>
+        </table>
+               
             </section>
 
         </center>

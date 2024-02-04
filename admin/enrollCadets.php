@@ -56,12 +56,60 @@ if($_SESSION['loggedIn']) {
     <div>
         <center>
             <h1>Enroll Cadets</h1>
-            <?php
+            
+            <table>
+                <form action = "insertEnroll.php" class = "addCadet" method="POST">
+                    <tr><td>
+                    <label>Select Cadet     </label></td>
+                    <td><select id="cadet" name="cadet" required>
+                        <?php 
+                        $sql = "SELECT * FROM cadets order by last_name";
+                        $result = $conn->query($sql);
+                        if($result->num_rows > 0){
+                            while($row = $result->fetch_assoc()) {
 
-            ?>
+                            $cadet_id = $row['id_number'];
+                            $cadet_first = $row['first_name'];
+                            $cadet_last = $row['last_name'];
+                            echo "<option value = '$cadet_id'>$cadet_first $cadet_last</option>";
+                        }
+                    }
+                    ?>
+                    </select></td></tr>
 
+                    <tr>
 
+                    <td><label>Select Course     </label></td>
+                    <td><select id="course" name="course" required>
+                    <?php
+                    $sql = "SELECT * FROM courses join professor on professor.professor_id = courses.professor_id order by courses.department";
+                    $result = $conn->query($sql);
+                    if($result->num_rows > 0){
+                        while($row = $result->fetch_assoc()) {
+                            $course_id = $row['course_id'];
+                            $department = $row['courses.department'];
+                            $course_code = $row['course_code'];
+                            $section = $row['section'];
+                            if($section < 10){
+                                $section = "0".$section;
+                            }
+                            $prof_id = $row['professor_id'];
+                            $title = $row['title'];
+                            $professor_first = $row['first_name'];
+                            $professor_last = $row['last_name'];
+                            $prof_full = $title." ".$professor_first." ".$professor_last;
+                            $course = $department. " ".$course_code."-".$section;
 
+                            echo "<option value = '$course_id'>$course - $prof_full</option>";
+                        }
+                    }
+                    ?>
+                     </select></td></tr>
+
+                     <tr ><td colspan = "2"><input type="submit" name="submit" style = "width: 100%;"></td></tr>
+
+        </form>
+        </table>
         </center>
     </div>
 </body>

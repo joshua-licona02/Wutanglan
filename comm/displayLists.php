@@ -25,17 +25,22 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
     $id = $_SESSION['id_number'];
 
-    if(isset($_POST['searchSubmit'])){
-        if(!empty($_POST['search'])){
-            $search = $_POST['search'];
-            $sql = "SELECT * FROM cadets WHERE first_name like '%$search%' or last_name like '%$search%' or id_number like '%$search%' or email like '%$search%' or class like '%$search%'";
+    if(isset($_POST['submit'])){
+        if(!empty($_POST['role']) && $_POST['role'] == "Cadet"){
+            $search = $_POST['role'];
+            $sql = "SELECT * FROM cadets order by last_name";
             $result = $conn->query($sql);
-            $conn->close();
         }
-        else{
-
+        /*
+        else if(!empty($_POST['role']) && $_POST['role'] == "Department"){
+            $search = $_POST['role'];
+            $sql = "SELECT * FROM courses order by department";
+            $result = $conn->query($sql);
         }
+        */
     }
+
+        $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang = "en">
@@ -78,7 +83,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     </script>
     <div>
         <center>
-            <h2>Search for</h2>
+            <h2>Display by: </h2>
             <form method="POST" style="margin-top: 2%;">
                 
                     <select id="role" name="role" required>
@@ -86,6 +91,9 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                         <option value="Department">Department</option>
                         <option value="Course">Course</option>
                     </select>
+                    <br><br>
+
+                    <input style = "width: 6%;" type="submit" name="submit" value = "Go">
 
                 
             </form>
@@ -104,8 +112,8 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                         <th>E-mail</td>
                         </tr>";
                         while($row = $result->fetch_assoc()) {
-                            echo "<tr><td><a href = 'cadetResults.php'>".
-                            $row['id_number']."</a></td>";
+                            $id_num = $row['id_number'];
+                            echo "<tr><td><a href = 'cadetResults.php?a=$id_num'>$id_num</a></td>";
                             echo "<td>".$row['first_name']."</td>";
                             echo "<td>".$row['last_name']."</td>";
                             echo "<td>".$row['rank']."</td>";
