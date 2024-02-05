@@ -98,7 +98,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                
                 <?php
 
-                $sql = "SELECT submitted_by, accountability.course_id, date, time, status, comments, course_title, courses.department,course_code, section, section_day, section_time, section_end, professor.title, professor.first_name, professor.last_name from accountability join cadets on accountability.cadet_id = cadets.id_number join courses on courses.course_id = accountability.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$cadet_id' group by date, course_id order by date, time desc";
+                $sql = "SELECT submitted_by, accountability.course_id, date, time, status, comments, course_title, courses.department,course_code, section, section_day, section_time, section_end, professor.title, professor.first_name, professor.last_name from accountability join cadets on accountability.cadet_id = cadets.id_number join courses on courses.course_id = accountability.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$cadet_id' group by date, course_id order by date desc, time desc";
 
                 $result = $conn->query($sql);
 

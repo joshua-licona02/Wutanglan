@@ -152,11 +152,19 @@
                 }
             }
 
-            echo "<h2>Report submitted by Cadet $cadet_name</h2>";
-
             $account_id = $_SESSION['accountability'];
 
+            $sql = "select time from accountability where accountability_id = '$account_id'";
+            $result = $conn->query($sql);
 
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()) {
+                   $time_submitted = $row['time'];
+                }
+            }   
+
+
+            echo "<h2>Report submitted by Cadet $cadet_name at $time_submitted</h2>";
 
             
             $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time, section_end, professor.first_name as prof_first, professor.last_name as prof_last, professor.title from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN professor on professor.professor_id = courses.professor_id where accountability_id = '$account_id'";
@@ -203,8 +211,9 @@
 
 
 
-            ?>            
-            
+            ?>         
+
+                
             <table class = "cadet_courses" style = "width: 50%;">
                 <tr>
                     <th>Cadet Number</th>
@@ -218,8 +227,6 @@
                 
            
             <?php
-
-            //if()
 
             $course_id = $_SESSION['course_id'];
 
@@ -352,7 +359,7 @@
             
             ?>
         </table>
+        </div>
         </center>
-    </div>
 </body>
 </html>
