@@ -154,17 +154,20 @@
 
             $account_id = $_SESSION['accountability'];
 
-            $sql = "select time from accountability where accountability_id = '$account_id'";
+            $sql = "select first_name, last_name, time from accountability join cadets on accountability.submitted_by = cadets.id_number where accountability_id = '$account_id'";
             $result = $conn->query($sql);
 
             if($result->num_rows > 0){
                 while($row = $result->fetch_assoc()) {
                    $time_submitted = $row['time'];
+                   $submitted_by_first = $row['first_name'];
+                   $submitted_by_last = $row['last_name'];
+                   $submitted_by = $submitted_by_first." ".$submitted_by_last;
                 }
             }   
 
 
-            echo "<h2>Report submitted by Cadet $cadet_name at $time_submitted</h2>";
+            echo "<h2>Report submitted by Cadet $submitted_by at $time_submitted</h2>";
 
             
             $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time, section_end, professor.first_name as prof_first, professor.last_name as prof_last, professor.title from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN professor on professor.professor_id = courses.professor_id where accountability_id = '$account_id'";
