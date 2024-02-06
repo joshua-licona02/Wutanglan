@@ -188,10 +188,7 @@
                 $section_end = $row['section_end'];
 
                 //echo "$section_end"; //11:50... we need 12:50
-
-
-               
-            
+                
                 $date = $_SESSION['account_date'];
                 if($course_section < 10){
                     $course_section = "0".$course_section;
