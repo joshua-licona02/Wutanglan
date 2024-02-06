@@ -68,19 +68,89 @@
     $hour = $info['hours'];
     $min = $info['minutes'];
     $sec = $info['seconds'];
-    if($hour < 10){
-    $hour = '0'.$hour;
-    }
-    if($min < 10){
-        $min = '0'.$min;
-    }
-    if($sec < 10){
-        $sec = '0'.$sec;
-    }
+    
+            if($date < 10){
+                $date = '0'.$date;
+            }
+
+            if($month < 10){
+                $month = '0'.$month;
+            }
+
+            if($hour < 10){
+                $hour = '0'.$hour;
+            }
+            if($min < 10){
+                $min = '0'.$min;
+            }
+            if($sec < 10){
+                $sec = '0'.$sec;
+            }
 
     $current_time = "$hour:$min";
     
-    $current_date = "$month/$date/$year == $hour:$min:$sec";
+    //$current_date = "$month/$date/$year == $hour:$min:$sec";
+    $current_date = "$year-$month-$date";
+
+            function getWeekday($date) {
+                return date('w', strtotime($date));
+            }
+
+            switch(getWeekday($current_date)){
+                case 0: $current_day = "Sunday"; break;
+                case 1: $current_day = "Monday"; break;
+                case 2: $current_day = "Tuesday"; break;
+                case 3: $current_day = "Wednesday"; break;
+                case 4: $current_day = "Thursday"; break;
+                case 5: $current_day = "Friday"; break;
+                case 6: $current_day = "Saturday"; break;
+            }
+
+            $section_array = array();
+
+            for($i = 0; $i < strlen($section_day); $i++) {
+                if($section_day[$i] == "M"){
+                    $string = $string . "Monday";
+                    $section_array[] = "Monday";
+                }
+                if($section_day[$i] == "T"){
+                    $string = $string . "Tuesday";
+                    $section_array[] = "Tuesday";
+                }
+                if($section_day[$i] == "W"){
+                    $string = $string . "Wednesday";
+                    $section_array[] = "Wednesday";
+                }
+                if($section_day[$i] == "R"){
+                    $string = $string . "Thursday";
+                    $section_array[] = "Thursday";
+                }
+                if($section_day[$i] == "F"){
+                    $string = $string . "Friday";
+                    $section_array[] = "Friday";
+                }
+                if($length == 1) {
+                    break;
+                }
+                $length--;
+                $string = $string . '/';
+            }
+
+            $section_day = $string;
+            $isClassToday = "False";
+
+            for($i = 0; $i < count($section_array); $i++){
+                if($section_array[$i] == $current_day){
+                    $isClassToday = "True";
+                    break;
+                }
+                else{
+
+                }
+            }
+
+
+
 
 ?>
 
@@ -142,6 +212,8 @@
 
         <center>
             <?php 
+
+
 
             $sql = "select first_name, last_name from cadets where id_number = '$id'";
             $result = $conn->query($sql);
@@ -249,7 +321,11 @@
             //EX: CP: 1100-1150
             //REPORTING/EDITING ENDS AT 1250.
             //if(5 < 10){
-            if($current_time <= $end_edits_time && $current_time >= $section_time){
+
+
+
+
+            if($current_time <= $end_edits_time && $current_time >= $section_time && $isClassToday == "True"){
                 //within time range
                 //allow edits
                 //copy code from newCourse.php

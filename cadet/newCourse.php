@@ -268,21 +268,24 @@
             }
 
             $section_day = $string;
-            $isClassToday = False;
+            $isClassToday = "False";
 
             for($i = 0; $i < count($section_array); $i++){
                 if($section_array[$i] == $current_day){
-                    $isClassToday = True;
+                    $isClassToday = "True";
                     break;
                 }
                 else{
 
                 }
             }
+
+            //echo $isClassToday;
+            //exit;
             //delete here this is for testing purposes
             //$isClassToday = True;
 
-            if($isClassToday != True){
+            if($isClassToday != "True"){
                 echo "<h1 style = 'background-color: #ae122a; color: white'>Course Locked</h1>";
                 echo "<h1>$department " . "$course_code-" . "$course_section". ": ". "$course does not meet on $current_day</h1>";
                 exit;
