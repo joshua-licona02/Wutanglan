@@ -96,61 +96,6 @@
                 return date('w', strtotime($date));
             }
 
-            switch(getWeekday($current_date)){
-                case 0: $current_day = "Sunday"; break;
-                case 1: $current_day = "Monday"; break;
-                case 2: $current_day = "Tuesday"; break;
-                case 3: $current_day = "Wednesday"; break;
-                case 4: $current_day = "Thursday"; break;
-                case 5: $current_day = "Friday"; break;
-                case 6: $current_day = "Saturday"; break;
-            }
-
-            $section_array = array();
-
-            for($i = 0; $i < strlen($section_day); $i++) {
-                if($section_day[$i] == "M"){
-                    $string = $string . "Monday";
-                    $section_array[] = "Monday";
-                }
-                if($section_day[$i] == "T"){
-                    $string = $string . "Tuesday";
-                    $section_array[] = "Tuesday";
-                }
-                if($section_day[$i] == "W"){
-                    $string = $string . "Wednesday";
-                    $section_array[] = "Wednesday";
-                }
-                if($section_day[$i] == "R"){
-                    $string = $string . "Thursday";
-                    $section_array[] = "Thursday";
-                }
-                if($section_day[$i] == "F"){
-                    $string = $string . "Friday";
-                    $section_array[] = "Friday";
-                }
-                if($length == 1) {
-                    break;
-                }
-                $length--;
-                $string = $string . '/';
-            }
-
-            $section_day = $string;
-            $isClassToday = "False";
-
-            for($i = 0; $i < count($section_array); $i++){
-                if($section_array[$i] == $current_day){
-                    $isClassToday = "True";
-                    break;
-                }
-                else{
-
-                }
-            }
-
-
-
 
 ?>
 
@@ -303,6 +248,20 @@
             $course_id = $_SESSION['course_id'];
 
             $account_date = $_SESSION['account_date'];
+
+
+            $sql = "SELECT cadets.first_name as cadet_first,cadets.last_name as cadet_last, courses.department as course_dept,courses.course_code, courses.section, courses.course_title, courses.section_time, courses.section_end, courses.section_day, course_enrollment.course_id, course_enrollment.semester, professor.title,professor.first_name,professor.last_name FROM cadets join course_enrollment on cadets.id_number = course_enrollment.cadet_id JOIN courses ON courses.course_id = course_enrollment.course_id join professor on courses.professor_id = professor.professor_id WHERE course_enrollment.course_id = '$course_id'";
+
+            $result = $conn->query($sql);
+
+            if($result->num_rows > 0){
+
+                while($row = $result->fetch_assoc()) {
+                    $section_day = $row['section_day'];
+
+                }
+            }
+
             
             $sql = "select cadets.first_name, cadets.last_name, cadets.class, cadets.rank, accountability.status, accountability.comments, courses.course_title, courses.course_code, courses.section, courses.department from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN rank on rank.rank = cadets.rank where accountability_id >= '$account_id' AND date = '$account_date' AND accountability.course_id = '$course_id' order by rank_id, class, last_name";
 
@@ -321,11 +280,59 @@
             //EX: CP: 1100-1150
             //REPORTING/EDITING ENDS AT 1250.
             //if(5 < 10){
+            switch(getWeekday($current_date)){
+                case 0: $current_day = "Sunday"; break;
+                case 1: $current_day = "Monday"; break;
+                case 2: $current_day = "Tuesday"; break;
+                case 3: $current_day = "Wednesday"; break;
+                case 4: $current_day = "Thursday"; break;
+                case 5: $current_day = "Friday"; break;
+                case 6: $current_day = "Saturday"; break;
+            }
 
+            $section_array = array();
 
+            for($i = 0; $i < strlen($section_day); $i++) {
+                if($section_day[$i] == "M"){
+                    $string = $string . "Monday";
+                    $section_array[] = "Monday";
+                }
+                if($section_day[$i] == "T"){
+                    $string = $string . "Tuesday";
+                    $section_array[] = "Tuesday";
+                }
+                if($section_day[$i] == "W"){
+                    $string = $string . "Wednesday";
+                    $section_array[] = "Wednesday";
+                }
+                if($section_day[$i] == "R"){
+                    $string = $string . "Thursday";
+                    $section_array[] = "Thursday";
+                }
+                if($section_day[$i] == "F"){
+                    $string = $string . "Friday";
+                    $section_array[] = "Friday";
+                }
+                if($length == 1) {
+                    break;
+                }
+                $length--;
+                $string = $string . '/';
+            }
 
+            $section_day = $string;
+            $isClassToday = "False";
+
+            for($i = 0; $i < count($section_array); $i++){
+                if($section_array[$i] == $current_day){
+                    $isClassToday = "True";
+                    break;
+                }
+                
+            }
 
             if($current_time <= $end_edits_time && $current_time >= $section_time && $isClassToday == "True"){
+
                 //within time range
                 //allow edits
                 //copy code from newCourse.php

@@ -280,8 +280,7 @@
                 }
             }
 
-            //echo $isClassToday;
-            //exit;
+            
             //delete here this is for testing purposes
             //$isClassToday = True;
 
