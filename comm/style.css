@@ -349,7 +349,7 @@ width: 40%;
 }
 
 .results{
-  width: 50%;
+  width: 60%;
 }
 
 .results td{
@@ -357,5 +357,21 @@ width: 40%;
 }
 
 .results th{
+  background-color: #ffcd00;
+}
+
+
+
+.commHome{
+  width: 26%;
+  -webkit-initial-letter-align: alphabetic;
+  initial-letter-align: alphabetic;
+}
+/*
+.commHome td{
+  text-align: center;
+}
+*/
+.commHome th{
   background-color: #ffcd00;
 }

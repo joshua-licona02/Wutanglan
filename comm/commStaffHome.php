@@ -71,6 +71,11 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     <div>
         <center>
             <h2>Welcome <?php echo $_SESSION['first_name'] . '!';?></h2>
+
+
+            <table class = "commHome">
+
+
             <?php date_default_timezone_set('America/New_York');
 			for($i = 0; $i < 9; $i++){
 				$date = date('m/d/Y',strtotime('-'.$i.'days'));
@@ -79,10 +84,12 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 				if($day == "Saturday" || $day == 'Sunday'){
 
 			}else{
-				echo "<a target = '_blank' href='accountReport.php?a=$date'>Pull Daily Report for " .$date. " (".$day.")</a><br>";
+				echo "<tr><td><a target = '_blank' href='accountReport.php?a=$date'>Pull Daily Report for " .$date. " (".$day.")</a></td></tr>";
 			}			}
             
-        ?>   
+        ?>
+
+    </table>
         </center>
     </div>
 </body>
