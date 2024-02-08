@@ -83,6 +83,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
 
         <center>
             <h2>Welcome <?php echo $_SESSION['first_name'] . '!';?></h2>
+            <table>
             <?php date_default_timezone_set('America/New_York');
 			for($i = 0; $i < 9; $i++){
 				$date = date('m/d/Y',strtotime('-'.$i.'days'));
@@ -91,12 +92,12 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
 				if($day == "Saturday" || $day == 'Sunday'){
 
 			}else{
-				echo "<a target = '_blank' href='deptaccountReport.php?a=$date'>Pull Daily Report for " .$date. " (".$day.")</a><br>";
+				echo "<tr><td><a target = '_blank' href='deptaccountReport.php?a=$date'>Pull Daily Report for " .$date. " (".$day.")</a></td></tr>";
 			}			}
             
         ?>
 
-            
+            </table>
         </center>
     </div>
 </body>

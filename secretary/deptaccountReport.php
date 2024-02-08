@@ -107,7 +107,7 @@ if($_SESSION['loggedIn']) {
 		echo "<td>$accountability_id</td>";
 		echo "<td>$date_submitted</td>";
 		echo "<td>$time_submitted</td>";
-		echo "<td>$submitted_by_id</td>";
+		echo "<td><a href = 'cadetResults.php?a=$submitted_by_id'>$submitted_by_id</a></td>";
 		echo "<td>$course_id</td>";
 		echo "<td>$course_title</td>";
 		echo "<td>$course_dept " . "$course_code"."-$section</td>";
