@@ -346,3 +346,15 @@ input{
 .search td{
 width: 40%;
 }
+
+.results{
+  width: 60%;
+}
+
+.results td{
+  text-align: center;
+}
+
+.results th{
+  background-color: #ffcd00;
+}

@@ -55,9 +55,8 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
 
     <div class="navbar">
         <a class = "active">Home</a>
-        <a href="search.php">Search</a>
-        <a href="">Instructions</a>
-        <a href="">Template</a>
+        <a href="sectSearch.php">Search</a>
+        <a href="displayLists.php">Find</a>
         <a id = "logout" href="../logout.php">Logout</a>
     </div>
 

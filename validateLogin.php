@@ -51,11 +51,13 @@
 		$row = $result->fetch_assoc();
 		$first_name = $row["first_name"];
 		$id_number = $row["id_number"];
+		$department = $row['dept'];
   		header('Location: secretary/sectHome.php');
 		$_SESSION['email'] = $email;
 		$_SESSION['id_number'] = $id_number;
 		$_SESSION['first_name'] = $first_name;
 		$_SESSION['loggedIn'] = true;
+		$_SESSION['secDept'] = $department;
 		$_SESSION['privilege'] = "Sec";
 		exit;
 	}
