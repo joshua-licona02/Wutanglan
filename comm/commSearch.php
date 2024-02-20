@@ -241,11 +241,6 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                     echo "<tr><th>No Results Found</th></tr>";
                 }
 
-
-
-
-
-
             $result->free();       
 
             ?>

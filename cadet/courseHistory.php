@@ -221,7 +221,7 @@
                 echo "<h3>$course: $course_title</h3>";
                 echo "<h4>Faculty: $professor_full</h4>";
                 echo "<h4>Date: $date</h4>";
-                echo "<h4>Time: $section_time</h4>";
+                echo "<h4>Section Time: $section_time</h4>";
                 }
 
             $cadetNum = 1;
@@ -330,6 +330,7 @@
                 }
                 
             }
+
 
             if($current_time <= $end_edits_time && $current_time >= $section_time && $isClassToday == "True"){
 

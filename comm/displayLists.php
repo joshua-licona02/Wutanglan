@@ -209,12 +209,6 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                             echo "<td>$prof</td>";
                             echo "<td>$classroom</td>";
 
-
-
-
-
-
-
                             echo "</tr>";
 
                         }

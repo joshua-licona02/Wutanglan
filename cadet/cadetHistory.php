@@ -172,7 +172,7 @@
             <table class = "cadet_courses" style = "width: 50%;">
                 <tr>
                     <th>Date</th>
-                    <th>Time</th>
+                    <th>Time Submitted</th>
                     <th>Course</th>
                     <th>Faculty</th>
                 </tr>
