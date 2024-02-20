@@ -132,7 +132,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
             </form>
 
             <section>
-
+                
                 <table class = "results" width="100%" border="solid">
                     <?php
 
@@ -170,6 +170,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                         <th>Classroom</td>
                         </tr>";
                         while($row = $result->fetch_assoc()) {
+                            $course_id = $row['course_id'];
                             $course_title = $row['course_title'];
                             $section = $row['section'];
                             $section_time = $row['section_time'];
@@ -189,7 +190,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                             }
 
                             $course_code = $course_dept . " " . $course_code."-".$section;
-                            echo "<tr><td>$course_code</td>";
+                            echo "<tr><td><a href = 'courseResults.php?a=$course_id'>$course_code</a></td>";
                             echo "<td>$course_title</td>";
 
                             $section_day = $row['section_day'];
@@ -199,6 +200,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                             $prof_last = $row['last_name'];
 
                             $prof = $title . " ".$prof_first . " " . $prof_last;
+                            $prof_id = $row['professor_id'];
 
                             $building = $row['building'];
                             $classroom = $row['classroom'];
@@ -206,7 +208,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
                             echo "<td>$section_day</td>";
                             echo "<td>$section_time</td>";
-                            echo "<td>$prof</td>";
+                            echo "<td><a href = 'profResults.php?a=$prof_id'>$prof</a></td>";
                             echo "<td>$classroom</td>";
 
                             echo "</tr>";

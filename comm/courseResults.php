@@ -27,21 +27,46 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     if(isset($_GET['a'])){
     $course_id = $_GET['a'];
     }
-    
 
     
-    $sql = "SELECT * FROM courses where course_id = '$course_id'";
+    $sql = "SELECT * FROM courses join professor on courses.professor_id = professor.professor_id where course_id = '$course_id'";
+
+    $result = $conn->query($sql);
+
 
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()){
+            $course_code = $row['course_code'];
+            $course_dept = $row['department'];
+            
+            $course_section = $row['section'];
+            if($course_section < 10){
+                $course_section = "0".$course_section;
+            }
+            $course_code = $course_dept." ".$course_code."-".$course_section;
+            $prof_first = $row['first_name'];
+            $prof_last = $row['last_name'];
+            $prof_rank = $row['title'];
 
-
+            $prof = $prof_rank. " ".$prof_first. " ".$prof_last;
+            
             $course_title = $row['course_title'];
-            echo "$course_title";
+
+            $section_day = $row['section_day'];
+            $section_start = $row['section_time'];
+            $section_end = $row['section_end'];
+
+            $section_start = str_replace(':', '', $section_start);
+            $section_start = substr($section_start, 0,4);
+            $section_end = str_replace(':', '', $section_end);
+            $section_end = substr($section_end, 0,4);
+
+
+            $section_time = $section_start."-".$section_end;
+
 
         }
     }
-
 
 
 ?>
@@ -87,8 +112,19 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     <div>
         <center>
             
-            
+            <h1>
+                <?php
+                echo $course_code.": ".$course_title;
+                ?>
+            </h1>
 
+            <h2>
+                Faculty: <?php echo $prof;?>
+            </h2>
+            <h3><?php echo $section_day." ".$section_time;?></h3>
+
+
+            <a href = "courseAttendance.php?a=<?php echo $course_id?>">View Course Attendance</a>
         </center>
     </div>
 </body>

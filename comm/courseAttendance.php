@@ -24,26 +24,45 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     }
 
     if(isset($_GET['a'])){
-        $cadet_id= $_GET['a'];
+        $course_id= $_GET['a'];
     }
 
     //user_id
     $id = $_SESSION['id_number'];
 
-    $sql = "SELECT * FROM `cadets` where id_number = '$cadet_id'";
+    $sql = "SELECT * FROM courses join professor on courses.professor_id = professor.professor_id where course_id = '$course_id'";
 
     $result = $conn->query($sql);
 
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()) {
-            $cadet_first = $row['first_name'];
-            $cadet_last = $row['last_name'];
-            $cadet_class = $row['class'];
-            $cadet_rank = $row['rank'];
-            $cadet_email = $row['email'];
+
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()){
+            $course_code = $row['course_code'];
+            $course_dept = $row['department'];
+            $course_section = $row['section'];
+            $course_code = $course_dept." ".$course_code."-".$course_section;
+            $prof_first = $row['first_name'];
+            $prof_last = $row['last_name'];
+            $prof_rank = $row['title'];
+
+            $prof = $prof_rank. " ".$prof_first. " ".$prof_last;
+            $course_title = $row['course_title'];
+            $course_title = $row['course_title'];
+
+            $section_day = $row['section_day'];
+            $section_start = $row['section_time'];
+            $section_end = $row['section_end'];
+
+            $section_start = str_replace(':', '', $section_start);
+            $section_start = substr($section_start, 0,4);
+            $section_end = str_replace(':', '', $section_end);
+            $section_end = substr($section_end, 0,4);
+
+
+            $section_time = $section_start."-".$section_end;
+
 
         }
-
     }
 
 ?>
@@ -88,19 +107,24 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     </script>
     <div>
         <center>
-            <h1>Submitted Section Marcher Reports by: <br><?php echo "Cadet $cadet_first $cadet_last</h1><h2>Class of $cadet_class</h2>";?>
+            <h1>Attendance Report for <?php echo $course_code.": ".$course_title;?></h1>
+           <h2>
+                Faculty: <?php echo $prof;?>
+            </h2>
+            <h3><?php echo $section_day." ".$section_time;?></h3>
             <table class = "cadet_courses">
-                <th>Date Submitted</th>
+                <th>Date</th>
                 <th>Time Submitted</th>
                 <th>Course</th>
                 <th>Course Time</th>
-                <th>Instructor</th>
+                <th>Submitted By</th>
+                
                
                 <?php
 
-                $sql = "SELECT submitted_by, accountability.course_id, date, time, status, comments, course_title, courses.department,course_code, section, section_day, section_time, section_end, professor.title, professor.first_name, professor.last_name from accountability join cadets on accountability.cadet_id = cadets.id_number join courses on courses.course_id = accountability.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$cadet_id' group by date, course_id order by date desc, time desc";
+                $sql = "SELECT accountability.course_id, date, time, course_title, courses.department, course_code, section, section_day, section_time, section_end, cadets.first_name, cadets.last_name, submitted_by from accountability join cadets on accountability.submitted_by = cadets.id_number join courses on courses.course_id = accountability.course_id join professor on courses.professor_id = professor.professor_id where accountability.course_id = '$course_id' group by date order by date desc, time desc";
 
-               
+
 
                 $result = $conn->query($sql);
 
@@ -129,11 +153,10 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                         echo "<tr><td><a href = 'courseDateAccountability.php?a=$account_date&b=$course_id'>$account_date</a></td>";
                         echo "<td>$account_time</td>";
                         
-                        
 
                         $course = $course_department." ".$course_code. "-".$course_section.": ".$course_title;
 
-                        
+                       
                         echo "<td>$course</td>";
 
                         $course_time = str_replace(':', '', $course_time);
@@ -143,9 +166,14 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                         $course_time = $course_time."-".$course_end;
                         echo "<td>$course_time</td>";
 
-                        $prof = $prof_title." ".$prof_first." ".$prof_last;
+                        
+                        //submitted by
+                        $first_name = $row['first_name'];
+                        $last_name = $row['last_name'];
+                        $cadet_id = $row['submitted_by'];
 
-                        echo "<td>$prof</td>";
+                        $cadet = "CDT ".$first_name." ".$last_name;
+                        echo "<td><a href = 'cadetResults.php?a=$cadet_id'>$cadet</a></td>";
 
                     
                         

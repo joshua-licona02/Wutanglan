@@ -39,12 +39,13 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                 $result = $conn->query($sql);
             }
             if($role == "Course"){
-                $sql = "SELECT course_id, course_title,course_code, section, courses.department, first_name, last_name, title from courses JOIN professor on courses.professor_id = professor.professor_id where courses.department like '%$search%' or last_name like '%$search%' or course_title like '%$search%' or course_code like '%$search%'";
+                $sql = "SELECT course_id, course_title,course_code, section, courses.department, first_name, last_name, title, professor.professor_id from courses JOIN professor on courses.professor_id = professor.professor_id where courses.department like '%$search%' or last_name like '%$search%' or course_title like '%$search%' or course_code like '%$search%' order by department, course_code, section";
+                
                 $result = $conn->query($sql);
             }
 
             if($role == "Professor"){
-                $sql = "SELECT course_title,course_code, section, courses.department, first_name, last_name, title from courses JOIN professor on courses.professor_id = professor.professor_id where last_name like '%$search%'";
+                $sql = "SELECT course_title,course_code, section, courses.department, first_name, last_name, title, professor.professor_id from courses JOIN professor on courses.professor_id = professor.professor_id where last_name like '%$search%'";
                 $result = $conn->query($sql);
             }
 
@@ -185,6 +186,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                         <th>Instructor</th>
                         </tr>";
                         while($row = $result->fetch_assoc()) {
+                            $prof_id = $row['professor_id'];
                             $dept = $row['department'];
                             $code = $row['course_code'];
                             $section = $row['section'];
@@ -202,7 +204,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
                             echo "<tr><td><a href='courseResults.php?a=$course_id'>".$fullCode."</td>";
                             echo "<td>".$row['course_title']."</td>";
-                            echo "<td><a href='profResults.php'>".$instructor."</a></td>";
+                            echo "<td><a href='profResults.php?a=$prof_id'>".$instructor."</a></td>";
                             echo "</tr>";
 
                     }
