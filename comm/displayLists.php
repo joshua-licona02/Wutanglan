@@ -133,8 +133,11 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
             <section>
                 
-                <table class = "results" width="100%" border="solid">
-                    <?php
+                <?php
+
+
+               echo "<table class = 'results' width='100%' border='solid'>";
+                    
 
                     if($list_role == "Cadet"){
                     if ($result->num_rows > 0) {

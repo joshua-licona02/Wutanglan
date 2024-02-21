@@ -107,7 +107,9 @@ input{
 
 .loginForm{
   padding-top: 2%;
-  padding-right: 5%;
+  padding-right: 7%;
+ 
+
 }
 
 #submitBtn{
@@ -122,6 +124,9 @@ input{
 
 .loginTable{
   font-size: 20px;
+  width: 50%;
+  
+
 }
 /*
 #password, #email{
