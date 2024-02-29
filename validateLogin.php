@@ -1,24 +1,12 @@
 <?php
 	session_start();
-	$servername = "localhost";
-	$dbname = "capstone";
-	$username = "root";
-	$password = "";
-
-	$conn = new mysqli($servername, $username, $password, $dbname);
-
-	if(!$conn){
-		echo "<script> alert('Connection failed.)</script>";
-	}
-
-	if($conn->connect_error){
-		die("Connection failed:" . $conn->connect_error);
-	}
+	include "config.php";
 	
 	if(isset($_POST['submit'])){
 
 	$email = $_POST['email'];
 	$password = $_POST['password'];
+
 	
 	$error = "Email/password is incorrect. An @vmi.edu email is required for access.";
 

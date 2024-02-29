@@ -8,21 +8,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     
 }
 
-    $servername = "localhost";
-    $dbname = "capstone";
-    $username = "root";
-    $password = "";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if(!$conn){
-        echo "<script> alert('Connection failed.)</script>";
-    }
-
-    if($conn->connect_error){
-        die("Connection failed:" . $conn->connect_error);
-    }
-
+    include ("../config.php");
     $id = $_SESSION['id_number'];
     if(isset($_GET['a'])){
     $course_id = $_GET['a'];

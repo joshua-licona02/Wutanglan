@@ -6,20 +6,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Cadet") {
 else{
     echo "<script> alert('No user is logged in. Please login using your VMI credentials!'); window.location = 'login.php';</script>";
 }
-$servername = "localhost";
-$dbname = "capstone";
-$username = "root";
-$password = "";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if(!$conn){
-    echo "<script> alert('Connection failed.)</script>";
-}
-
-if($conn->connect_error){
-    die("Connection failed:" . $conn->connect_error);
-}
+include ("../config.php");
 
 $id = $_SESSION['id_number'];
 $sql = "SELECT cadet_id, section_marcher, semester, cadets.first_name as cadet_first, cadets.last_name as cadet_last,course_title,course_code, section, courses.department, title, professor.first_name, professor.last_name, courses.section_day, courses.section_time, courses.section_end, courses.course_id from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number join courses on courses.course_id = course_enrollment.course_id join professor on professor.professor_id = courses.professor_id where cadet_id = '$id' and section_marcher != 0 order by section_marcher";

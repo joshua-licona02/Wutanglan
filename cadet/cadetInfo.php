@@ -7,20 +7,7 @@ else{
     echo "<script> alert('No user is logged in. Please login using your VMI credentials!'); window.location = 'login.php';</script>"; 
 }
 
-$servername = "localhost";
-$dbname = "capstone";
-$username = "root";
-$password = "";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if(!$conn){
-    echo "<script> alert('Connection failed.)</script>";
-}
-
-if($conn->connect_error){
-    die("Connection failed:" . $conn->connect_error);
-}
+include ("../config.php");
 
 $id = $_SESSION['id_number'];
 
