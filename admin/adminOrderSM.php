@@ -1,21 +1,7 @@
 <?php
     session_start();
 
-    $servername = "localhost";
-    $dbname = "capstone";
-    $username = "root";
-    $password = "";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if(!$conn){
-        echo "<script> alert('Connection failed.)</script>";
-    }
-
-    if($conn->connect_error){
-        die("Connection failed:" . $conn->connect_error);
-    }
-
+   include ("../config.php");
     //now need to edit to where it does this for all courses
 
     $sql = "SELECT course_id FROM courses";
