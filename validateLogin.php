@@ -41,6 +41,26 @@
 		exit;
 	}
 
+	$sql = "SELECT * FROM professor WHERE email = ? AND password = ?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("ss", $email, $password);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($result->num_rows > 0) {
+		$row = $result->fetch_assoc();
+		$first_name = $row["first_name"];
+		$id_number = $row["professor_id"];
+		header('Location: professor/profHome.php');
+		$_SESSION['email'] = $email;
+		$_SESSION['id_number'] = $id_number;
+		$_SESSION['first_name'] = $first_name;
+		$_SESSION['loggedIn'] = true;
+		$_SESSION['profDept'] = $department;
+		$_SESSION['privilege'] = "Professor";
+
+		exit;
+	}
+
 	$sql = "SELECT * FROM secretary WHERE email = ? AND password = ?";
 
 	$stmt = $conn->prepare($sql);

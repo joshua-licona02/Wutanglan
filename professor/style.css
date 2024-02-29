@@ -63,10 +63,6 @@ body{
 	background-color: #ffcd00;/*yellow*/
 	border: solid;
 }
-#profBtn{
-  background-color: white;/*yellow*/
-  border: solid;
-}
 #sectBtn{
 	background-color: #ae122a; /*red*/
 	color: white;
@@ -111,9 +107,7 @@ input{
 
 .loginForm{
   padding-top: 2%;
-  padding-right: 7%;
- 
-
+  padding-right: 5%;
 }
 
 #submitBtn{
@@ -128,9 +122,6 @@ input{
 
 .loginTable{
   font-size: 20px;
-  width: 50%;
-  
-
 }
 /*
 #password, #email{
@@ -354,4 +345,16 @@ input{
 
 .search td{
 width: 40%;
+}
+
+.results{
+  width: 60%;
+}
+
+.results td{
+  text-align: center;
+}
+
+.results th{
+  background-color: #ffcd00;
 }

@@ -143,8 +143,8 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                     if ($result->num_rows > 0) {
                         echo "<tr>
                         <th>ID Number</td>
-                        <th>First Name</td>
                         <th>Last Name</td>
+                        <th>First Name</td>
                         <th>Rank</td>
                         <th>Class</td>
                         <th>E-mail</td>
@@ -152,8 +152,8 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                         while($row = $result->fetch_assoc()) {
                             $id_num = $row['id_number'];
                             echo "<tr><td><a href = 'cadetResults.php?a=$id_num'>$id_num</a></td>";
-                            echo "<td>".$row['first_name']."</td>";
                             echo "<td>".$row['last_name']."</td>";
+                            echo "<td>".$row['first_name']."</td>";
                             echo "<td>".$row['rank']."</td>";
                             echo "<td>".$row['class']."</td>";
                             echo "<td><a href = 'mailto:".$row['email']."'>".$row['email']."</td>";

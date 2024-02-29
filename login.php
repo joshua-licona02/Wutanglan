@@ -9,6 +9,28 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VMI E-Section Marcher | Login</title>
     <link href="style.css" rel="stylesheet"/>
+    <script>
+        <!--
+        function jsEnc(orgval){
+
+            //find online and return value of encrypted password
+
+
+            
+        }
+
+
+        function encpwd(){
+            var orgval = document.getElementByName('password').value;
+            //call JS encryption method here
+            var encVal = jsEnc(orgval);
+
+            document.getElementByName('encKey').value = encVal;
+
+        }
+
+        -->
+    </script>
 </head>
 <body>
     <center>
@@ -26,17 +48,19 @@ session_start();
 
 
     <div class = "loginForm" border = "solid">
-    <form class = "cadetLogin" action = "validateLogin.php" method="post">
+    <form class = "cadetLogin" action = "validateLogin.php" method="post" >
 
      
         <table class = "loginTable">
             <tr class="emailLog">
                 <td><label>Email:</label></td>
+
                 <td><input id = "email" name = "email" type = "email" required></td>
             </tr>
             <tr>
                 <td><label class = "passLog">Password:</label></td>
                 <td><input id = "password" name = "password" type = "password" required></td>
+                <input type = "hidden" name = "encKey" >
             </tr>
             <tr>
                 <td align = "center" colspan="2" class = "submitLine"><input type = "submit" name = "submit" id = "submitBtn"></td>
