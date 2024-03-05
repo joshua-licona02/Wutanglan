@@ -8,6 +8,8 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
     
 }
 
+   
+
     include ("../config.php");
 
     $id = $_SESSION['id_number'];
@@ -15,19 +17,19 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
     $secDepartment = $_SESSION['secDept'];
 
 
-    if(isset($_POST['submit'])){
-        if(!empty($_POST['role']) && $_POST['role'] == "Cadet"){
-            $_GET['role'] = $_POST['role'];
-            $search = $_POST['role'];
+    if(isset($_GET['submit'])){
+        if(!empty($_GET['role']) && $_GET['role'] == "Cadet"){
+            $_GET['role'] = $_GET['role'];
+            $search = $_GET['role'];
             $list_role = "Cadet";
             $sql = "SELECT * FROM cadets order by last_name, class";
             $result = $conn->query($sql);
         }
         
-        else if(!empty($_POST['role']) && $_POST['role'] == "Course"){
-            $_GET['role'] = $_POST['role'];
+        else if(!empty($_GET['role']) && $_GET['role'] == "Course"){
+            $_GET['role'] = $_GET['role'];
             $list_role = "Course";
-            $search = $_POST['role'];
+            $search = $_GET['role'];
             $sql = "SELECT * FROM courses join professor on professor.professor_id = courses.professor_id WHERE courses.department = '$secDepartment' order by courses.department, course_code, section, section_time";
             $result = $conn->query($sql);
         }
@@ -41,8 +43,9 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VMI E-Section Marcher | Comm Search</title>
+    <title>VMI E-Section Marcher | Secretary</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script type = "text/javascript" src="sortable-table.js"></script>
     <link href="style.css" rel="stylesheet"/>
 </head>
 <body>
@@ -78,7 +81,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
     <div>
         <center>
             <h2>Display by: </h2>
-            <form method="POST" style="margin-top: 2%;">
+            <form method="GET" style="margin-top: 2%;">
                 
                     <select id="role" name="role" required>
                         <?php 
@@ -112,24 +115,29 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
 
             <section>
 
-                <table class = "results" width="100%" border="solid">
+                <table class = "results sortable" width="100%" border="solid">
+
                     <?php
+
 
                     if($list_role == "Cadet"){
                     if ($result->num_rows > 0) {
                         echo "<tr>
-                        <th>ID Number</td>
-                        <th>First Name</td>
-                        <th>Last Name</td>
-                        <th>Rank</td>
-                        <th>Class</td>
-                        <th>E-mail</td>
+                        <th>ID Number
+          
+                        </th>
+                        
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Rank</th>
+                        <th>Class</th>
+                        <th>E-mail</th>
                         </tr>";
                         while($row = $result->fetch_assoc()) {
                             $id_num = $row['id_number'];
                             echo "<tr><td><a href = 'cadetResults.php?a=$id_num'>$id_num</a></td>";
-                            echo "<td>".$row['first_name']."</td>";
-                            echo "<td>".$row['last_name']."</td>";
+                            echo "<td><a href = 'cadetResults.php?a=$id_num'>".$row['first_name']."</a></td>";
+                            echo "<td><a href = 'cadetResults.php?a=$id_num'>".$row['last_name']."</a></td>";
                             echo "<td>".$row['rank']."</td>";
                             echo "<td>".$row['class']."</td>";
                             echo "<td><a href = 'mailto:".$row['email']."'>".$row['email']."</td>";
@@ -162,13 +170,14 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
                             $section_time = $section_start."-".$section_end;
                             $course_dept = $row['department'];
                             $course_code = $row['course_code'];
+                            $course_id = $row['course_id'];
 
                             if($section < 10){
                             $section = '0'.$section;
                             }
 
                             $course_code = $course_dept . " " . $course_code."-".$section;
-                            echo "<tr><td>$course_code</td>";
+                            echo "<tr><td><a href = 'courseResults.php?a=$course_id'>$course_code</a></td>";
                             echo "<td>$course_title</td>";
 
                             $section_day = $row['section_day'];
@@ -176,6 +185,8 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
                             $title = $row['title'];
                             $prof_first = $row['first_name'];
                             $prof_last = $row['last_name'];
+
+                            $prof_id = $row['professor_id'];
 
                             $prof = $title . " ".$prof_first . " " . $prof_last;
 
@@ -185,7 +196,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
 
                             echo "<td>$section_day</td>";
                             echo "<td>$section_time</td>";
-                            echo "<td>$prof</td>";
+                            echo "<td><a href = 'profResults.php?a=$prof_id'>$prof</a></td>";
                             echo "<td>$classroom</td>";
 
                             echo "</tr>";

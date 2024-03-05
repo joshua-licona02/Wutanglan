@@ -38,6 +38,9 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
             $conn->close();
         }
         else{
+
+            $empty = true;
+
         }
     }
 ?>
@@ -138,7 +141,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
             </form>
 
             <section>
-                <table class = 'results' width='98%' border='solid'>
+                <table class = 'results sortable' width='98%' border='solid'>
 
                 <?php 
                     
@@ -225,7 +228,14 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Sec") {
                 }
 
                 else{
-                    echo "<tr><th>No Results Found</th></tr>";
+                   
+                   if($empty == true){
+                        echo "<h1 style = 'color: red;'>Nothing Entered! Please try again.</h1>";
+                    }
+                    if($empty == false && !empty($_POST['search'])){
+                        echo "<h1 style = 'color: red;'>No Results Found! Please try again.</h1>";
+                    }
+
                 }
 
 

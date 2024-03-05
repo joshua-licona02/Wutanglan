@@ -257,6 +257,28 @@ input{
   color: white;
 }
 
+.prof_attendance{
+  width: 90%;
+}
+.prof_attendance, .prof_attendance tr, .prof_attendance td,
+.prof_attendance th{
+  border-collapse: collapse;
+  border: solid;
+  text-align: center;
+}
+
+.prof_attendance td{
+  padding: 3px;
+}
+
+.prof_attendance th{
+  background-color: #ffcd00;;
+}
+
+.cadet_courses{
+  width: 30%;
+}
+
 .cadet_courses, .cadet_courses tr, .cadet_courses td,
 .cadet_courses th{
   border-collapse: collapse;
@@ -357,4 +379,8 @@ width: 40%;
 
 .results th{
   background-color: #ffcd00;
+}
+
+.profOptions tr, td{
+  padding-bottom: 2%;
 }

@@ -37,11 +37,15 @@
 	if ($result->num_rows > 0) {
 		$row = $result->fetch_assoc();
 		$first_name = $row["first_name"];
+		$last_name = $row["last_name"];
+		$title = $row["title"];
+		$prof_name = $title." ".$first_name." ".$last_name;
 		$id_number = $row["professor_id"];
 		header('Location: professor/profHome.php');
 		$_SESSION['email'] = $email;
 		$_SESSION['id_number'] = $id_number;
 		$_SESSION['first_name'] = $first_name;
+		$_SESSION['prof_name'] = $prof_name;
 		$_SESSION['loggedIn'] = true;
 		$_SESSION['profDept'] = $department;
 		$_SESSION['privilege'] = "Professor";

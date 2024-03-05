@@ -14,24 +14,24 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
 
 
-    if(isset($_POST['submit'])){
-        if(!empty($_POST['role']) && $_POST['role'] == "Cadet"){
-            $_GET['role'] = $_POST['role'];
-            $search = $_POST['role'];
+    if(isset($_GET['submit'])){
+        if(!empty($_GET['role']) && $_GET['role'] == "Cadet"){
+            $_GET['role'] = $_GET['role'];
+            $search = $_GET['role'];
             $list_role = "Cadet";
             $sql = "SELECT * FROM cadets order by last_name, class";
             $result = $conn->query($sql);
         }
         
-        else if(!empty($_POST['role']) && $_POST['role'] == "Department"){
-            $_GET['role'] = $_POST['role'];
-            $list_role = "Department";
-            $search = $_POST['role'];
+        else if(!empty($_GET['role']) && $_GET['role'] == "Courses"){
+            $_GET['role'] = $_GET['role'];
+            $list_role = "Courses";
+            $search = $_GET['role'];
             $sql = "SELECT * FROM courses join professor on professor.professor_id = courses.professor_id order by courses.department, course_code, section, section_time";
             $result = $conn->query($sql);
-        }
-        
+        }        
     }
+
 
         $conn->close();
 ?>
@@ -77,7 +77,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     <div>
         <center>
             <h2>Display by: </h2>
-            <form method="POST" style="margin-top: 2%;">
+            <form method="GET" style="margin-top: 2%;">
                 
                     <select id="role" name="role" required>
                         <?php 
@@ -85,26 +85,17 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                         if($_GET['role'] == "Cadet"){
                             echo "
                             <option selected value='Cadet'>Cadet</option>
-                            <option value='Department'>Department</option>
-                            <option value='Course'>Course</option>";
+                            <option value='Courses'>Courses</option>";
                         }
-                        else if($_GET['role'] == "Department"){
+                        else if($_GET['role'] == "Courses"){
                             echo "
                             <option value='Cadet'>Cadet</option>
-                            <option selected value='Department'>Department</option>
-                            <option value='Course'>Course</option>";
-                        }
-                        else if($_GET['role'] == "Course"){
-                            echo "
-                            <option value='Cadet'>Cadet</option>
-                            <option value='Department'>Department</option>
-                            <option selected value='Course'>Course</option>";
+                            <option selected value='Courses'>Courses</option>";
                         }
                         else{
                             echo "
                             <option selected value='Cadet'>Cadet</option>
-                            <option value='Department'>Department</option>
-                            <option value='Course'>Course</option>";
+                            <option value='Courses'>Courses</option>";
                         }
 
 
@@ -139,8 +130,8 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                         while($row = $result->fetch_assoc()) {
                             $id_num = $row['id_number'];
                             echo "<tr><td><a href = 'cadetResults.php?a=$id_num'>$id_num</a></td>";
-                            echo "<td>".$row['last_name']."</td>";
-                            echo "<td>".$row['first_name']."</td>";
+                            echo "<td><a href = 'cadetResults.php?a=$id_num'>".$row['last_name']."</a></td>";
+                            echo "<td><a href = 'cadetResults.php?a=$id_num'>".$row['first_name']."</a></td>";
                             echo "<td>".$row['rank']."</td>";
                             echo "<td>".$row['class']."</td>";
                             echo "<td><a href = 'mailto:".$row['email']."'>".$row['email']."</td>";
@@ -149,7 +140,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                     }
                 }
 
-                else if($list_role == "Department"){
+                else if($list_role == "Courses"){
                     if ($result->num_rows > 0) {
                         echo "<tr>
                         <th>Course Code</td>

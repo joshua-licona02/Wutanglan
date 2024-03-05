@@ -15,6 +15,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
         if(!empty($_POST['search'])){         
             $_GET['searchbar'] = $_POST['search'];
             $_GET['person'] = $_POST['role'];
+            $empty = false;
 
             $search = $_POST['search'];
             $role = $_POST['role'];
@@ -37,7 +38,8 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
 
             $conn->close();
         }
-        else{
+        else{ 
+            $empty = true;
         }
     }
 ?>
@@ -138,10 +140,9 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
             </form>
 
             <section>
-                <table class = 'results' width='98%' border='solid'>
-
                 <?php 
-                    
+
+                echo "<table class = 'results' width='98%' border='solid'>";
                     if ($role == "Cadet" && $result->num_rows > 0) {
                         echo "<tr>
                         <th>ID Number</th>
@@ -226,7 +227,13 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
                 }
 
                 else{
-                    echo "<tr><th>No Results Found</th></tr>";
+
+                    if($empty == true){
+                        echo "<h1 style = 'color: #ae122a;'>Nothing Entered! Please try again.</h1>";
+                    }
+                    if($empty == false && !empty($_POST['search'])){
+                        echo "<h1 style = 'color: #ae122a;'>No Results Found! Please try again.</h1>";
+                    }
                 }
 
             $result->free();       

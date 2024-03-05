@@ -67,8 +67,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
 
     <div class="navbar">
         <a href="profHome.php">Home</a>
-        <a href="commSearch.php">Search</a>
-        <a href="displayLists.php">Find</a>
+        
         <a id = "logout" href="../logout.php">Logout</a>
     </div>
 
@@ -95,7 +94,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
 
             <?php 
 
-            $sql = "SELECT accountability.time, first_name, last_name submitted_by FROM accountability join cadets on accountability.submitted_by = cadets.id_number join rank on rank.rank = cadets.rank where date = '$date' and course_id = '$course_id' order by rank_id, class, last_name limit 1";
+            $sql = "SELECT accountability.time, first_name, last_name submitted_by, submitted_by_role FROM accountability join cadets on accountability.submitted_by = cadets.id_number join rank on rank.rank = cadets.rank where date = '$date' and course_id = '$course_id' order by rank_id, class, last_name limit 1";
 
 
             $result = $conn->query($sql);
@@ -104,11 +103,11 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
                 while($row = $result->fetch_assoc()) {
 
                     $time_submitted = $row['time'];
+                    $submitted_by_role = $row['submitted_by_role'];
                     $submitted_by_first = $row['first_name'];
                     $submitted_by_last = $row['submitted_by'];
-                    $cadet_name = $submitted_by_first." ".$submitted_by_last;
 
-
+                    
                 }
             }
             ?>
@@ -116,7 +115,22 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
 
 
             <h2><?php echo "Submitted on $date at $time_submitted"?></h2>
-            <h3><?php echo "Submitted by: $cadet_name";?></h3>
+            <?php 
+            if($submitted_by_role == "Cadet"){
+                $cadet_name = $submitted_by_first." ".$submitted_by_last;echo "<h3>Submitted by: CDT $cadet_name</h3>";
+            }
+            else{
+                $prof_name = $_SESSION['prof_name'];
+                echo "<h3>Submitted by: $prof_name</h3>";
+            }
+
+
+
+
+
+            ?>
+
+            
             <table class = "cadet_courses">
                 <?php 
                 $cadet_number = 1;

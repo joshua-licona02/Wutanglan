@@ -346,3 +346,8 @@ input{
 .search td{
 width: 40%;
 }
+.course_info{
+  /*border: solid;*/
+  width: 20%;
+  margin-top: 0px;
+}

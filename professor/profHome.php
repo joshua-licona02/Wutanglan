@@ -13,6 +13,29 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
 
     $sql = "SELECT * from courses where professor_id = '$id' order by course_code asc, section asc";
 
+    $result = $conn->query($sql);
+    $num_of_courses = 0;
+    $course_ids = array();
+    $full_codes = array();
+    
+    if($result->num_rows > 0){
+        while($row = $result->fetch_assoc()) {
+
+            $num_of_courses++;
+            $course_id = $row['course_id'];
+            $department = $row['department'];
+            $course_code = $row['course_code'];
+            $course = $row['course_title'];
+            $section = $row['section'];
+            if($section < 10){
+                $section = '0'.$section;
+            }
+            $full_code = $department . " " .$course_code . "-" . $section;
+            $section_marcher = $row['section_marcher'];
+            $course_ids[] = $row['course_id'];
+            $full_codes[] = $full_code;
+                   }
+               }
 
 ?>
 <!DOCTYPE html>
@@ -29,11 +52,23 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
             <img id = "mainImg" src = "vmilogo.svg" id = "logo">
             <h1 id = "esection">E-Section Marcher</h1>
     </div>
-
     <div class="navbar">
         <a class = "active">Home</a>
-        <a href="sectSearch.php">Search</a>
-        <a href="displayLists.php">Find</a>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="myFunction()">Courses
+            <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content" id="myDropdown">
+                <?php 
+
+                    for($i=0; $i<count($course_ids); $i++){
+                        echo "<a href = 'courseResults.php?a=$course_ids[$i]'>$full_codes[$i]</a></td>";
+                    }
+                
+            ?>
+            </div>
+        </div> 
+
         <a id = "logout" href="../logout.php">Logout</a>
     </div>
 
@@ -60,14 +95,18 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
 
         <center>
             <h2>Welcome <?php echo $_SESSION['first_name'] . '!';?></h2>
+            <h3>Below are your current courses:</h3>
             <table class = "cadet_courses">
                 <tr>
                     <th>Course Number</th>
                     <th>Course Title</th>
-                    <th>Day/Time</th>
+                    <th>Day</th>
+                    <th>Time</th>
                     
                 </tr>
                     <?php
+
+                    $sql = "SELECT * from courses where professor_id = '$id' order by course_code asc, section asc";
 
                     $result = $conn->query($sql);
                     if($result->num_rows > 0){
@@ -97,7 +136,8 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
        
                         echo "<tr><td><a href = 'courseResults.php?a=$course_id'>$full_code</a></td>";
                         echo "<td>$course</td>";
-                        echo "<td>$section_day: $section_time</td>";
+                        echo "<td>$section_day</td>";
+                        echo "<td>$section_time</td>";
                         echo "</tr>";
                     }}
                     ?>

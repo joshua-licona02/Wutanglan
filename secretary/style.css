@@ -358,3 +358,12 @@ width: 40%;
 .results th{
   background-color: #ffcd00;
 }
+
+table.sortable tbody tr:nth-child(odd) {
+  background-color: #ddd;
+}
+
+
+
+
+

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Cadet") {
+    if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
     //allow
     }
     else{
@@ -20,33 +20,9 @@
     }
 
     include ("../config.php");
-    //cadet ID number
+    //prof ID number
     $id = $_SESSION['id_number'];
-    //shows courses you are section marcher
-    $sql = "SELECT cadet_id, section_marcher, semester, cadets.first_name as cadet_first, cadets.last_name as cadet_last,course_title,course_code, section, courses.department, title, professor.first_name, professor.last_name, courses.section_day, courses.section_time, courses.section_end, courses.course_id from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number join courses on courses.course_id = course_enrollment.course_id join professor on professor.professor_id = courses.professor_id where cadet_id = '$id' and section_marcher != 0 order by section_marcher";
-
-    $result = $conn->query($sql);
-    $num_of_courses = 0;
-    $course_ids = array();
-    $full_codes = array();
     
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()) {
-            $num_of_courses++;
-            $course_id = $row['course_id'];
-            $department = $row['department'];
-            $course_code = $row['course_code'];
-            $course = $row['course_title'];
-            $section = $row['section'];
-            if($section < 10){
-                $section = '0'.$section;
-            }
-            $full_code = $department . " " .$course_code . "-" . $section;
-            $section_marcher = $row['section_marcher'];
-            $course_ids[] = $row['course_id'];
-            $full_codes[] = $full_code;
-        }
-    }
     date_default_timezone_set('America/New_York'); // Eastern Time
     $info = getdate();
     $date = $info['mday'];
@@ -83,7 +59,6 @@
                 return date('w', strtotime($date));
             }
 
-
 ?>
 
 <!DOCTYPE html>
@@ -102,22 +77,41 @@
     </div>
 
     <div class="navbar">
-        <a href = "cadetHome.php">Home</a>
-        <div class="dropdown">
-            <button class="dropbtn" onclick="myFunction()">Courses
-            <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content" id="myDropdown">
-                <?php 
-                    for($i=0; $i<count($course_ids); $i++){
-                    echo "<a href = 'newCourse.php?a=$course_ids[$i]'>$full_codes[$i]</a></td>";
+        <a href = "profHome.php">Home</a>
+
+        <?php 
+
+        $sql = "SELECT * from courses where professor_id = '$id' order by course_code asc, section asc";
+
+        $result = $conn->query($sql);
+        $num_of_courses = 0;
+        $course_ids = array();
+        $full_codes = array();
+
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()) {
+                $num_of_courses++;
+                $course_id_temp = $row['course_id'];
+                $department = $row['department'];
+                $course_code = $row['course_code'];
+                $course = $row['course_title'];
+                $section = $row['section'];
+                if($section < 10){
+                    $section = '0'.$section;
                 }
-            ?>
-            </div>
-        </div> 
-        <a href = "cadetHistory.php">History</a>
-        <a href = "cadetInstructions.php">Instructions</a>
-        <a href="cadetInfo.php">Cadet Info</a>
+                $full_code = $department . " " .$course_code . "-" . $section;
+                $section_marcher = $row['section_marcher'];
+                $course_ids[] = $row['course_id'];
+                $full_codes[] = $full_code;
+                       }
+                   }
+
+                    for($i=0; $i<count($course_ids); $i++){
+                        echo "<a href = 'courseResults.php?a=$course_ids[$i]'>$full_codes[$i]</a></td>";
+                    }
+
+        ?>
+
         <a id = "logout" href="../logout.php">Logout</a>
     </div>
 
@@ -138,27 +132,13 @@
       }
     }
     </script>
-
-
-    <div>
-
+    <div style="padding: 2%;">
         <center>
             <?php 
 
-
-
-            $sql = "select first_name, last_name from cadets where id_number = '$id'";
-            $result = $conn->query($sql);
-
-             if($result->num_rows > 0){
-                while($row = $result->fetch_assoc()) {
-                   $cadet_name = $row['first_name']." ".$row['last_name'];
-                }
-            }
-
             $account_id = $_SESSION['accountability'];
 
-            $sql = "select first_name, last_name, time from accountability join cadets on accountability.submitted_by = cadets.id_number where accountability_id = '$account_id'";
+            $sql = "select first_name, last_name, time, submitted_by_role from accountability join cadets on accountability.submitted_by = cadets.id_number where accountability_id = '$account_id'";
             $result = $conn->query($sql);
 
             if($result->num_rows > 0){
@@ -166,12 +146,19 @@
                    $time_submitted = $row['time'];
                    $submitted_by_first = $row['first_name'];
                    $submitted_by_last = $row['last_name'];
+                   $submitted_by_role = $row['submitted_by_role'];
                    $submitted_by = $submitted_by_first." ".$submitted_by_last;
                 }
-            }   
+            }
 
+            $prof_name = $_SESSION['prof_name'];
 
-            echo "<h2 style = 'background: #ae122a; color: white; margin-bottom: 0px; width: 50%;'>Report submitted by Cadet $submitted_by at $time_submitted</h2>";
+            if($submitted_by_role == "Cadet"){
+                echo "<h2>Report submitted by Cadet $submitted_by at $time_submitted</h2>";
+            }
+            else{
+                echo "<h2>Report submitted by $prof_name</h2>";
+            }
 
             
             $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time, section_end, professor.first_name as prof_first, professor.last_name as prof_last, professor.title from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN professor on professor.professor_id = courses.professor_id where accountability_id = '$account_id'";
@@ -205,12 +192,10 @@
                 $professor_full = $faculty_title . " " . $faculty_first . " " . $faculty_last;
 
             }
-                echo "<div class = 'course_info'>";
                 echo "<h3>$course: $course_title</h3>";
                 echo "<h4>Faculty: $professor_full</h4>";
                 echo "<h4>Date: $date</h4>";
                 echo "<h4>Section Time: $section_time</h4>";
-                echo "</div>";
                 }
 
             $cadetNum = 1;
@@ -390,9 +375,6 @@
                 echo "<input style='width: 30%;' type = 'submit'></td></tr>";
                 echo "</form>";
                 echo "</table>";
-                echo "<h2 style='border: solid; background: #ae122a; color: white;'>THIS IS A REMINDER THAT SUBMITTING THE SECTION MARCHER REPORT IS A CERTIFIED STATEMENT.</h2>";
-
-
             }
 
             if($result->num_rows > 0){

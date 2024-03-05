@@ -13,10 +13,11 @@ session_start();
         <!--
         function jsEnc(orgval){
 
-            //find online and return value of encrypted password
-
-
             
+            var pass = sha512(orgval);
+            System.out.print(pass);
+
+            //find online and return value of encrypted password
         }
 
 
