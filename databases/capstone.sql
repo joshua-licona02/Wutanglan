@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 12, 2023 at 04:11 PM
+-- Generation Time: Mar 12, 2024 at 03:11 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -49,33 +49,128 @@ CREATE TABLE `accountability` (
   `cadet_id` varchar(11) NOT NULL,
   `status` varchar(255) NOT NULL,
   `comments` varchar(255) NOT NULL,
-  `submitted_by` varchar(255) NOT NULL
+  `submitted_by` varchar(255) NOT NULL,
+  `submitted_by_role` varchar(255) NOT NULL DEFAULT 'Cadet'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `accountability`
 --
 
-INSERT INTO `accountability` (`accountability_id`, `date`, `time`, `course_id`, `cadet_id`, `status`, `comments`, `submitted_by`) VALUES
-(39, '12/11/2023', '07:11:31', 3, '1234543', 'Absent', '3.2 Cut', '0609724'),
-(40, '12/11/2023', '07:11:31', 3, '0669027', 'Absent', '3.2 Cut', '0609724'),
-(41, '12/11/2023', '07:11:31', 3, '0609724', 'Present', 'N/A', '0609724'),
-(42, '12/11/2023', '07:11:31', 3, '10675729', 'Present', 'N/A', '0609724'),
-(43, '12/11/2023', '07:11:31', 3, '0619046', 'Present', 'N/A', '0609724'),
-(44, '12/11/2023', '07:11:31', 3, '0655502', 'Present', 'N/A', '0609724'),
-(45, '12/11/2023', '09:36:20', 4, '0609724', 'Present', 'N/A', '0609724'),
-(46, '12/11/2023', '09:36:20', 4, '12346782', 'Present', 'N/A', '0609724'),
-(47, '12/11/2023', '11:23:33', 4, '0609724', 'Present', 'N/A', '0609724'),
-(48, '12/11/2023', '11:23:33', 4, '12346782', 'Late', 'N/A', '0609724'),
-(49, '12/11/2023', '11:24:24', 1, '0609724', 'Late Late', 'N/A', '0609724'),
-(50, '12/12/2023', '08:21:06', 1, '0609724', 'Present', 'N/A', '0609724'),
-(51, '12/12/2023', '08:21:22', 4, '0609724', 'Present', 'N/A', '0609724'),
-(52, '12/12/2023', '08:21:56', 3, '1234543', 'Present', 'N/A', '0609724'),
-(53, '12/12/2023', '08:21:56', 3, '0669027', 'Present', 'N/A', '0609724'),
-(54, '12/12/2023', '08:21:56', 3, '0609724', 'Present', 'N/A', '0609724'),
-(55, '12/12/2023', '08:21:56', 3, '10675729', 'Absent', '3.2 Cut', '0609724'),
-(56, '12/12/2023', '08:21:56', 3, '0619046', 'Absent', 'All-Duty for Soccer', '0609724'),
-(57, '12/12/2023', '08:21:56', 3, '0655502', 'Present', 'N/A', '0609724');
+INSERT INTO `accountability` (`accountability_id`, `date`, `time`, `course_id`, `cadet_id`, `status`, `comments`, `submitted_by`, `submitted_by_role`) VALUES
+(1, '02/02/2024', '06:28:23', 4, '0609724', 'Present', 'N/A', '0609724', 'Cadet'),
+(2, '02/02/2024', '06:28:23', 4, '12346782', 'Present', 'N/A', '0609724', 'Cadet'),
+(3, '02/02/2024', '09:13:19', 3, '1234543', 'Present', 'N/A', '0609724', 'Cadet'),
+(4, '02/02/2024', '09:13:19', 3, '0669027', 'Present', 'N/A', '0609724', 'Cadet'),
+(5, '02/02/2024', '09:13:19', 3, '0609724', 'Present', 'N/A', '0609724', 'Cadet'),
+(6, '02/02/2024', '09:13:19', 3, '10675729', 'Present', 'N/A', '0609724', 'Cadet'),
+(7, '02/02/2024', '09:13:19', 3, '0619046', 'Present', 'N/A', '0609724', 'Cadet'),
+(8, '02/02/2024', '09:13:19', 3, '0655502', 'Present', 'N/A', '0609724', 'Cadet'),
+(16, '02/02/2024', '22:44:30', 6, '1', 'Late', 'dumb', '0609724', 'Cadet'),
+(17, '02/02/2024', '22:44:30', 6, '0669027', 'Present', 'N/A', '0609724', 'Cadet'),
+(18, '02/02/2024', '22:44:30', 6, '0609724', 'Present', 'N/A', '0609724', 'Cadet'),
+(19, '02/02/2024', '22:44:30', 6, '10675729', 'Present', 'N/A', '0609724', 'Cadet'),
+(20, '02/02/2024', '22:44:30', 6, '0345632', 'Absent', 'Sick, covid', '0609724', 'Cadet'),
+(21, '02/02/2024', '22:44:30', 6, '0619046', 'Present', 'N/A', '0609724', 'Cadet'),
+(22, '02/02/2024', '22:44:30', 6, '0655502', 'Late Late', 'with jake.', '0609724', 'Cadet'),
+(34, '02/05/2024', '09:01:54', 9, '0609724', 'Present', 'N/A', '0609724', 'Cadet'),
+(35, '02/05/2024', '09:01:54', 9, '5555432', 'Present', 'N/A', '0609724', 'Cadet'),
+(36, '02/05/2024', '09:01:54', 9, '8888372', 'Absent', 'N/A', '0609724', 'Cadet'),
+(37, '02/05/2024', '09:01:54', 9, '10675728', 'Present', 'N/A', '0609724', 'Cadet'),
+(38, '02/05/2024', '09:01:54', 9, '0345632', 'Present', 'N/A', '0609724', 'Cadet'),
+(39, '02/05/2024', '09:01:54', 9, '10675727', 'Present', 'N/A', '0609724', 'Cadet'),
+(40, '02/05/2024', '09:01:54', 9, '0655505', 'Absent', 'Capstone', '0609724', 'Cadet'),
+(41, '02/05/2024', '09:01:54', 9, '1234547', 'Present', 'N/A', '0609724', 'Cadet'),
+(42, '02/05/2024', '09:01:54', 9, '4311234', 'Absent', 'All-Duty: Sick', '0609724', 'Cadet'),
+(43, '02/05/2024', '09:01:54', 9, '4321237', 'Present', 'N/A', '0609724', 'Cadet'),
+(44, '02/05/2024', '09:01:54', 9, '1234546', 'Absent', 'Capstone', '0609724', 'Cadet'),
+(49, '02/06/2024', '10:38:09', 1, '1234543', 'Absent', 'N/A', '0609724', 'Cadet'),
+(50, '02/06/2024', '10:38:09', 1, '0609724', 'Present', 'N/A', '0609724', 'Cadet'),
+(51, '02/06/2024', '10:38:09', 1, '10675729', 'Present', 'N/A', '0609724', 'Cadet'),
+(52, '02/06/2024', '10:38:09', 1, '24356312', 'Late Late', '7 mins', '0609724', 'Cadet'),
+(53, '02/06/2024', '10:38:09', 1, '0619046', 'Present', 'N/A', '0609724', 'Cadet'),
+(54, '02/06/2024', '10:38:09', 1, '7635123', 'Present', 'N/A', '0609724', 'Cadet'),
+(55, '02/07/2024', '09:02:18', 9, '0609724', 'Present', 'N/A', '0609724', 'Cadet'),
+(56, '02/07/2024', '09:02:18', 9, '5555432', 'Absent', 'All-Duty', '0609724', 'Cadet'),
+(57, '02/07/2024', '09:02:18', 9, '8888372', 'Present', 'N/A', '0609724', 'Cadet'),
+(58, '02/07/2024', '09:02:18', 9, '10675728', 'Present', 'N/A', '0609724', 'Cadet'),
+(59, '02/07/2024', '09:02:18', 9, '0345632', 'Present', 'N/A', '0609724', 'Cadet'),
+(60, '02/07/2024', '09:02:18', 9, '10675727', 'Present', 'N/A', '0609724', 'Cadet'),
+(61, '02/07/2024', '09:02:18', 9, '0655505', 'Present', 'N/A', '0609724', 'Cadet'),
+(62, '02/07/2024', '09:02:18', 9, '1234547', 'Present', 'N/A', '0609724', 'Cadet'),
+(63, '02/07/2024', '09:02:18', 9, '4311234', 'Present', 'N/A', '0609724', 'Cadet'),
+(64, '02/07/2024', '09:02:18', 9, '4321237', 'Present', 'N/A', '0609724', 'Cadet'),
+(65, '02/07/2024', '09:02:18', 9, '1234546', 'Present', 'N/A', '0609724', 'Cadet'),
+(66, '02/09/2024', '09:00:20', 9, '0609724', 'Present', 'N/A', '0609724', 'Cadet'),
+(67, '02/09/2024', '09:00:20', 9, '5555432', 'Present', 'N/A', '0609724', 'Cadet'),
+(68, '02/09/2024', '09:00:20', 9, '8888372', 'Present', 'N/A', '0609724', 'Cadet'),
+(69, '02/09/2024', '09:00:20', 9, '10675728', 'Present', 'N/A', '0609724', 'Cadet'),
+(70, '02/09/2024', '09:00:20', 9, '0345632', 'Present', 'N/A', '0609724', 'Cadet'),
+(71, '02/09/2024', '09:00:20', 9, '10675727', 'Present', 'N/A', '0609724', 'Cadet'),
+(72, '02/09/2024', '09:00:20', 9, '0655505', 'Present', 'N/A', '0609724', 'Cadet'),
+(73, '02/09/2024', '09:00:20', 9, '1234547', 'Present', 'N/A', '0609724', 'Cadet'),
+(74, '02/09/2024', '09:00:20', 9, '4311234', 'Present', 'N/A', '0609724', 'Cadet'),
+(75, '02/09/2024', '09:00:20', 9, '4321237', 'Present', 'N/A', '0609724', 'Cadet'),
+(76, '02/09/2024', '09:00:20', 9, '1234546', 'Present', 'N/A', '0609724', 'Cadet'),
+(77, '02/12/2024', '09:00:49', 9, '0609724', 'Present', 'N/A', '0609724', 'Cadet'),
+(78, '02/12/2024', '09:00:49', 9, '5555432', 'Present', 'N/A', '0609724', 'Cadet'),
+(79, '02/12/2024', '09:00:49', 9, '8888372', 'Present', 'N/A', '0609724', 'Cadet'),
+(80, '02/12/2024', '09:00:49', 9, '10675728', 'Present', 'N/A', '0609724', 'Cadet'),
+(81, '02/12/2024', '09:00:49', 9, '0345632', 'Present', 'N/A', '0609724', 'Cadet'),
+(82, '02/12/2024', '09:00:49', 9, '10675727', 'Present', 'N/A', '0609724', 'Cadet'),
+(83, '02/12/2024', '09:00:49', 9, '0655505', 'Present', 'N/A', '0609724', 'Cadet'),
+(84, '02/12/2024', '09:00:49', 9, '1234547', 'Present', 'N/A', '0609724', 'Cadet'),
+(85, '02/12/2024', '09:00:49', 9, '4311234', 'Present', 'N/A', '0609724', 'Cadet'),
+(86, '02/12/2024', '09:00:49', 9, '4321237', 'Present', 'N/A', '0609724', 'Cadet'),
+(87, '02/12/2024', '09:00:49', 9, '1234546', 'Present', 'N/A', '0609724', 'Cadet'),
+(94, '02/19/2024', '20:35:31', 10, '0609724', 'Present', 'N/A', '0609724', 'Cadet'),
+(95, '02/19/2024', '20:35:31', 10, '10675729', 'Late', 'N/A', '0609724', 'Cadet'),
+(96, '02/19/2024', '20:35:31', 10, '0345632', 'Present', 'N/A', '0609724', 'Cadet'),
+(97, '02/19/2024', '20:35:31', 10, '7635123', 'Absent', 'N/A', '0609724', 'Cadet'),
+(98, '02/19/2024', '20:35:31', 10, '0655502', 'Present', 'N/A', '0609724', 'Cadet'),
+(99, '02/19/2024', '20:35:31', 10, '3437261', 'Present', 'N/A', '0609724', 'Cadet'),
+(100, '02/29/2024', '13:56:36', 10, '0609724', 'Absent', 'N/A', '0609724', 'Cadet'),
+(101, '02/29/2024', '13:56:36', 10, '10675729', 'Absent', 'N/A', '0609724', 'Cadet'),
+(102, '02/29/2024', '13:56:36', 10, '0345632', 'Present', 'N/A', '0609724', 'Cadet'),
+(103, '02/29/2024', '13:56:36', 10, '7635123', 'Present', 'N/A', '0609724', 'Cadet'),
+(104, '02/29/2024', '13:56:36', 10, '0655502', 'Present', 'N/A', '0609724', 'Cadet'),
+(105, '02/29/2024', '13:56:36', 10, '3437261', 'Present', 'N/A', '0609724', 'Cadet'),
+(106, '02/29/2024', '10:01:49', 1, '1234543', 'Absent', '3.2 Cut', '1234543', 'Cadet'),
+(107, '02/29/2024', '10:01:49', 1, '0609724', 'Absent', 'N/A', '1234543', 'Cadet'),
+(108, '02/29/2024', '10:01:49', 1, '10675729', 'Present', 'N/A', '1234543', 'Cadet'),
+(109, '02/29/2024', '10:01:49', 1, '24356312', 'Present', 'N/A', '1234543', 'Cadet'),
+(110, '02/29/2024', '10:01:49', 1, '0619046', 'Present', 'N/A', '1234543', 'Cadet'),
+(111, '02/29/2024', '10:01:49', 1, '7635123', 'Present', 'N/A', '1234543', 'Cadet'),
+(119, '03/01/2024', '11:18:17', 1, '1234543', 'Present', 'N/A', '1', 'Professor'),
+(120, '03/01/2024', '11:18:17', 1, '0609724', 'Present', 'N/A', '1', 'Professor'),
+(121, '03/01/2024', '11:18:17', 1, '10675729', 'Present', 'N/A', '1', 'Professor'),
+(122, '03/01/2024', '11:18:17', 1, '24356312', 'Present', 'N/A', '1', 'Professor'),
+(123, '03/01/2024', '11:18:17', 1, '0619046', 'Present', 'N/A', '1', 'Professor'),
+(124, '03/01/2024', '11:18:17', 1, '7635123', 'Present', 'N/A', '1', 'Professor'),
+(125, '03/04/2024', '13:03:24', 10, '0609724', 'Present', 'N/A', '0609724', 'Cadet'),
+(126, '03/04/2024', '13:03:24', 10, '10675729', 'Absent', '3.2 Cut', '0609724', 'Cadet'),
+(127, '03/04/2024', '13:03:24', 10, '0345632', 'Present', 'N/A', '0609724', 'Cadet'),
+(128, '03/04/2024', '13:03:24', 10, '7635123', 'Absent', 'All-Duty', '0609724', 'Cadet'),
+(129, '03/04/2024', '13:03:24', 10, '0655502', 'Absent', 'Guard', '0609724', 'Cadet'),
+(130, '03/04/2024', '13:03:24', 10, '3437261', 'Present', 'N/A', '0609724', 'Cadet'),
+(131, '03/05/2024', '09:47:40', 1, '1234543', 'Absent', '3.2 Cut', '1', 'Professor'),
+(132, '03/05/2024', '09:47:40', 1, '0609724', 'Present', 'N/A', '1', 'Professor'),
+(133, '03/05/2024', '09:47:40', 1, '10675729', 'Present', 'N/A', '1', 'Professor'),
+(134, '03/05/2024', '09:47:40', 1, '24356312', 'Present', 'N/A', '1', 'Professor'),
+(135, '03/05/2024', '09:47:40', 1, '0619046', 'Present', 'N/A', '1', 'Professor'),
+(136, '03/05/2024', '09:47:40', 1, '7635123', 'Present', 'N/A', '1', 'Professor'),
+(137, '03/06/2024', '16:41:29', 1, '1234543', 'Absent', '3.2 Cut', '1', 'Professor'),
+(138, '03/06/2024', '16:41:29', 1, '0609724', 'Present', 'N/A', '1', 'Professor'),
+(139, '03/06/2024', '16:41:29', 1, '10675729', 'Present', 'N/A', '1', 'Professor'),
+(140, '03/06/2024', '16:41:29', 1, '24356312', 'Present', 'N/A', '1', 'Professor'),
+(141, '03/06/2024', '16:41:29', 1, '0619046', 'Present', 'N/A', '1', 'Professor'),
+(142, '03/06/2024', '16:41:29', 1, '7635123', 'Present', 'N/A', '1', 'Professor'),
+(143, '03/07/2024', '10:10:46', 1, '1234543', 'Absent', 'N/A', '1', 'Professor'),
+(144, '03/07/2024', '10:10:46', 1, '0609724', 'Present', 'N/A', '1', 'Professor'),
+(145, '03/07/2024', '10:10:46', 1, '10675729', 'Present', 'N/A', '1', 'Professor'),
+(146, '03/07/2024', '10:10:46', 1, '24356312', 'Present', 'N/A', '1', 'Professor'),
+(147, '03/07/2024', '10:10:46', 1, '0619046', 'Present', 'N/A', '1', 'Professor'),
+(148, '03/07/2024', '10:10:46', 1, '7635123', 'Present', 'N/A', '1', 'Professor');
 
 -- --------------------------------------------------------
 
@@ -95,6 +190,30 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `username`, `password`) VALUES
 (1, 'admin', 'admin-password');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `building`
+--
+
+CREATE TABLE `building` (
+  `building_id` int(11) NOT NULL,
+  `building_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `building`
+--
+
+INSERT INTO `building` (`building_id`, `building_name`) VALUES
+(1, 'Mallory Hall'),
+(2, 'Scott Ship Hall'),
+(3, 'Kilbourne Hall'),
+(4, 'Nichols Engineering Building'),
+(5, 'Maury Brooke Hall'),
+(6, 'Cormack Field House'),
+(7, 'Cocke Hall');
 
 -- --------------------------------------------------------
 
@@ -122,11 +241,27 @@ INSERT INTO `cadets` (`id_number`, `first_name`, `last_name`, `email`, `class`, 
 ('0345632', 'Dan', 'Lee', 'leedk24@vmi.edu', 2024, 'PVT', 'CE', 'password', 'Company'),
 ('0609724', 'Jacob', 'Johnston', 'johnstonjr24@vmi.edu', 2024, 'CPT', 'CIS', 'password', 'Staff'),
 ('0619046', 'Josh', 'Licona', 'liconajr24@vmi.edu', 2024, 'PVT', 'CIS', 'password', 'Company'),
+('0627956', 'Ian', 'Struzzeri', 'struzzeriic24@vmi.edu', 2024, '2LT', 'HI', 'password', 'Company'),
 ('0655502', 'Rachel', 'Greathouse', 'greathousere25@vmi.edu', 2025, 'PVT', 'EC', 'password', 'Company'),
+('0655505', 'Malcolm', 'McIntosh', 'mcintoshmx24@vmi.edu', 2024, 'PVT', 'AM', 'password', 'Company'),
 ('0669027', 'Ella', 'Flickinger', 'flickingerem24@vmi.edu', 2024, 'CPT', 'ME', 'password', 'Staff'),
+('1', 'Cadet', 'Cadet', 'cadet@vmi.edu', 2024, 'CPT', 'ERH', 'password', 'Staff'),
+('10675727', 'Jacob', 'Leonard', 'leonardja24@vmi.edu', 2024, 'PVT', 'CE', 'password', 'Company'),
+('10675728', 'Caleb', 'Dufrene', 'dufrenecs24@vmi.edu', 2024, 'PVT', 'IS', 'password', 'Company'),
 ('10675729', 'Jacob', 'Hill', 'hillja24@vmi.edu', 2024, '1LT', 'CIS', 'password', 'Staff'),
+('123432432', 'Test', 'Cadet', 'test@vmi.edu', 2024, 'PVT', 'CIS', '$2y$10$Ys/S93NgEB63/cl0.hMoguCWMh8S6TA6rYWcGd7cYezyE4V3ZxBBa', 'Company'),
 ('1234543', 'Mark', 'Shelton', 'sheltonml24@vmi.edu', 2024, '1CPT', 'CIS', 'password', 'Staff'),
-('12346782', 'Sam', 'Patterson', 'pattersonsb24@vmi.edu', 2024, '2LT', 'CE', 'password', 'Company');
+('1234546', 'Matthew', 'Zieg', 'ziegmj24@vmi.edu', 2024, 'PVT', 'HI', 'password', 'Company'),
+('1234547', 'Sudarshana', 'Rajagopal', 'rajagopalsk24@vmi.edu', 2024, 'PVT', 'EE', 'password', 'Company'),
+('12346782', 'Sam', 'Patterson', 'pattersonsb24@vmi.edu', 2024, '2LT', 'CE', 'password', 'Company'),
+('24356312', 'Joseph', 'Hipp', 'hippjt24@vmi.edu', 2024, 'PVT', 'CIS', 'password', 'Company'),
+('3437261', 'Brennan', 'Watkins', 'watkinsbr25@vmi.edu', 2025, 'PVT', 'EC', 'password', 'Company'),
+('4311234', 'Braedyn', 'Rose', 'roseba24@vmi.edu', 2024, 'PVT', 'CIS', 'password', 'Company'),
+('4321234', 'Jerrel', 'Andrews', 'andrewsjw27@vmi.edu', 2027, 'PVT', 'EC', 'password', 'Company'),
+('4321237', 'Abigail', 'Soyars', 'soyarsag24@vmi.edu', 2024, 'PVT', 'PY', 'password', 'Company'),
+('5555432', 'Josh', 'Kent', 'kentje24@vmi.edu', 2024, '1LT', 'CE', 'password', 'Staff'),
+('7635123', 'Dylan', 'Palmer', 'palmerde24@vmi.edu', 2024, 'PVT', 'CIS', 'password', 'Company'),
+('8888372', 'Julian', 'Major', 'majorja24@vmi.edu', 2024, '2LT', 'HI', 'password', 'Company');
 
 -- --------------------------------------------------------
 
@@ -147,7 +282,8 @@ CREATE TABLE `commstaff` (
 --
 
 INSERT INTO `commstaff` (`id_number`, `first_name`, `last_name`, `email`, `password`) VALUES
-('5401234', 'Kelley', 'Bennett', 'bennettkt@vmi.edu', 'password');
+('5401234', 'Kelley', 'Bennett', 'bennettkt@vmi.edu', 'password'),
+('5409998', 'COMM', 'COMM', 'commstaff@vmi.edu', 'password');
 
 -- --------------------------------------------------------
 
@@ -176,11 +312,15 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`course_id`, `course_title`, `course_code`, `section`, `section_day`, `section_time`, `section_end`, `date_start`, `date_end`, `professor_id`, `building`, `classroom`, `department`) VALUES
-(1, 'Pre-Capstone', '480', 2, 'TR', '09:25:00', '10:40:00', '2023-08-29', '2023-12-14', 1, 'Mallory Hall', 318, 'CIS'),
-(2, 'Pre-Capstone', '480', 1, 'TR', '08:00:00', '09:15:00', '2023-08-29', '2023-12-14', 1, 'Mallory Hall', 318, 'CIS'),
-(3, 'Information Organization/Management', '431', 1, 'MWF', '13:00:00', '13:50:00', '2023-08-29', '2023-12-14', 2, 'Mallory Hall', 211, 'CIS'),
-(4, 'Introduction to Computer Science', '101', 1, 'MWF', '10:00:00', '10:50:00', '2023-08-29', '2023-12-14', 3, 'Mallory Hall', 314, 'CIS'),
-(5, 'Introduction to Computer Science', '101', 2, 'MWF', '10:00:00', '10:50:00', '2023-08-29', '2023-12-14', 4, 'Mallory Hall', 314, 'CIS');
+(1, 'Capstone', '490', 2, 'TR', '09:25:00', '10:40:00', '2024-01-17', '2024-05-06', 1, 'Mallory Hall', 318, 'CIS'),
+(2, 'Capstone', '490', 1, 'TR', '08:00:00', '09:15:00', '2024-01-17', '2024-05-06', 1, 'Mallory Hall', 318, 'CIS'),
+(3, 'Information Organization/Management', '431', 1, 'MWF', '13:00:00', '13:50:00', '2024-01-17', '2024-05-06', 2, 'Mallory Hall', 211, 'CIS'),
+(4, 'Introduction to Computer Science', '101', 1, 'MWF', '10:00:00', '10:50:00', '2024-01-17', '2024-05-06', 3, 'Mallory Hall', 314, 'CIS'),
+(5, 'Introduction to Computer Science', '101', 2, 'MWF', '10:00:00', '10:50:00', '2024-01-17', '2024-05-06', 4, 'Mallory Hall', 314, 'CIS'),
+(6, 'Comparative Religion', '211-WX', 3, 'MWF', '11:00:00', '11:50:00', '2024-01-17', '2024-05-06', 6, 'Scott Ship Hall', 406, 'ERH'),
+(8, 'Intro to CS', '101', 1, 'MWF', '09:00:00', '09:50:00', '2024-01-17', '2024-05-06', 4, 'Mallory Hall', 316, 'CIS'),
+(9, 'National Security Prep II', '404', 1, 'MWF', '09:00:00', '09:50:00', '2024-01-17', '2024-05-06', 7, 'Kilbourne Hall', 4004, 'AS'),
+(10, 'Test Course', '679', 1, 'MTWRF', '13:30:00', '14:00:00', '2024-01-16', '2024-05-16', 2, 'Mallory Hall', 310, 'CIS');
 
 -- --------------------------------------------------------
 
@@ -193,7 +333,7 @@ CREATE TABLE `course_enrollment` (
   `cadet_id` varchar(255) NOT NULL,
   `course_id` int(255) NOT NULL,
   `section_marcher` int(255) NOT NULL DEFAULT 0,
-  `semester` varchar(255) NOT NULL
+  `semester` varchar(255) NOT NULL DEFAULT 'SP24'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -201,15 +341,29 @@ CREATE TABLE `course_enrollment` (
 --
 
 INSERT INTO `course_enrollment` (`enrollment_id`, `cadet_id`, `course_id`, `section_marcher`, `semester`) VALUES
-(1, '0609724', 1, 1, 'FL23'),
-(2, '0609724', 3, 3, 'FL23'),
-(3, '1234543', 3, 1, 'FL23'),
-(4, '0655502', 3, 0, 'FL23'),
-(5, '12346782', 4, 2, 'FL23'),
-(6, '0609724', 4, 1, 'FL23'),
-(7, '10675729', 3, 3, 'FL23'),
-(8, '0619046', 3, 0, 'FL23'),
-(9, '0669027', 3, 2, 'FL23');
+(29, '0609724', 9, 1, 'SP24'),
+(30, '0345632', 9, 2, 'SP24'),
+(31, '10675728', 9, 0, 'SP24'),
+(32, '5555432', 9, 2, 'SP24'),
+(33, '0655505', 9, 0, 'SP24'),
+(34, '1234546', 9, 0, 'SP24'),
+(35, '4311234', 9, 0, 'SP24'),
+(36, '10675727', 9, 0, 'SP24'),
+(37, '8888372', 9, 3, 'SP24'),
+(38, '1234547', 9, 0, 'SP24'),
+(39, '4321237', 9, 0, 'SP24'),
+(40, '10675729', 1, 3, 'SP24'),
+(41, '0619046', 1, 0, 'SP24'),
+(43, '0609724', 1, 2, 'SP24'),
+(44, '1234543', 1, 1, 'SP24'),
+(45, '7635123', 1, 0, 'SP24'),
+(46, '24356312', 1, 0, 'SP24'),
+(47, '0609724', 10, 1, 'SP24'),
+(48, '0345632', 10, 3, 'SP24'),
+(49, '10675729', 10, 2, 'SP24'),
+(50, '7635123', 10, 0, 'SP24'),
+(51, '0655502', 10, 0, 'SP24'),
+(52, '3437261', 10, 0, 'SP24');
 
 -- --------------------------------------------------------
 
@@ -255,7 +409,9 @@ INSERT INTO `professor` (`professor_id`, `first_name`, `last_name`, `email`, `de
 (1, 'Denis', 'Gracanin', 'gracanind@vmi.edu', 'CIS', 'password', 'Dr.'),
 (2, 'Imran', 'Ghani', 'ghanii@vmi.edu', 'CIS', 'password', 'LTC'),
 (3, 'Doug', 'Wainwright', 'wainwrightdb@vmi.edu', 'CIS', 'password', 'MAJ'),
-(4, 'Ramoni', 'Lasisi', 'lasisiro@vmi.edu', 'CIS', 'password', 'LTC');
+(4, 'Ramoni', 'Lasisi', 'lasisiro@vmi.edu', 'CIS', 'password', 'LTC'),
+(6, 'George', 'Walter', 'waltergd@vmi.edu', 'ERH', 'password', 'Mr.'),
+(7, 'Nichole', 'Scott', 'scottnk@vmi.edu', 'AS', 'password', 'Col');
 
 -- --------------------------------------------------------
 
@@ -308,7 +464,8 @@ CREATE TABLE `secretary` (
 --
 
 INSERT INTO `secretary` (`id_number`, `first_name`, `last_name`, `email`, `dept`, `password`) VALUES
-('5402222', 'Sandra', 'Williams', 'williamssr@vmi.edu', 'CIS', 'password');
+('5402222', 'Sandra', 'Williams', 'williamssr@vmi.edu', 'CIS', 'password'),
+('5405401', 'Secretary', 'Secretary', 'erhsecretary@vmi.edu', 'ERH', 'password');
 
 -- --------------------------------------------------------
 
@@ -346,6 +503,12 @@ ALTER TABLE `accountability`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `building`
+--
+ALTER TABLE `building`
+  ADD PRIMARY KEY (`building_id`);
 
 --
 -- Indexes for table `cadets`
@@ -400,7 +563,7 @@ ALTER TABLE `secretary`
 -- AUTO_INCREMENT for table `accountability`
 --
 ALTER TABLE `accountability`
-  MODIFY `accountability_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `accountability_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -409,22 +572,28 @@ ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `building`
+--
+ALTER TABLE `building`
+  MODIFY `building_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `course_enrollment`
 --
 ALTER TABLE `course_enrollment`
-  MODIFY `enrollment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `enrollment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `professor`
 --
 ALTER TABLE `professor`
-  MODIFY `professor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `professor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
