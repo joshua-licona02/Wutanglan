@@ -377,3 +377,7 @@ width: 40%;
 .commHome th{
   background-color: #ffcd00;
 }
+
+@media print {
+body {-webkit-print-color-adjust: exact;}
+}

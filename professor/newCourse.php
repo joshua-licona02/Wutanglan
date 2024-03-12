@@ -255,6 +255,7 @@
             }
 
             $section_day = $string;
+
             $isClassToday = "False";
 
             for($i = 0; $i < count($section_array); $i++){
@@ -287,7 +288,7 @@
             $end_edits_time = (clone $section_end_time)->add(new DateInterval("PT{$hours}H")); 
             $end_edits_time = $end_edits_time->format('H:i:s');
 
-        
+            //unedit this to fix
             if($current_time > $end_edits_time || $current_time < $section_start_time){
 
             //if(5>6){

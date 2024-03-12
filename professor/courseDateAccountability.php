@@ -20,34 +20,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
     //user_id
     $id = $_SESSION['id_number'];
 
-    $sql = "SELECT * FROM courses where course_id = '$course_id'";
-
     
-    $result = $conn->query($sql);
-
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()) {
-            /*
-            $cadet_first = $row['first_name'];
-            $cadet_last = $row['last_name'];
-            $cadet_class = $row['class'];
-            $cadet_rank = $row['rank'];
-            $cadet_email = $row['email'];
-            */
-            $course_title = $row['course_title'];
-            $course_code = $row['course_code'];
-            $course_section = $row['section'];
-            if($course_section < 10){
-                $course_section = "0".$course_section;
-            }
-            $course_department = $row['department'];
-            $course_day = $row['section_day'];
-            $course_time = $row['section_time'];
-            $course_end = $row['section_end'];
-            $course = $course_department." ".$course_code. "-".$course_section.": ".$course_title;
-        }
-
-    }
     
 ?>
 <!DOCTYPE html>
@@ -67,6 +40,46 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
 
     <div class="navbar">
         <a href="profHome.php">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="myFunction()">Courses
+            <i class="fa fa-caret-down"></i>
+            </button>
+        <div class="dropdown-content" id="myDropdown">
+            <?php 
+
+        $sql = "SELECT * from courses where professor_id = '$id' order by course_code asc, section asc";
+
+        $result = $conn->query($sql);
+        $num_of_courses = 0;
+        $course_ids = array();
+        $full_codes = array();
+
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()) {
+                $num_of_courses++;
+                $course_id_temp = $row['course_id'];
+                $department = $row['department'];
+                $course_code = $row['course_code'];
+                $course = $row['course_title'];
+                $section = $row['section'];
+                if($section < 10){
+                    $section = '0'.$section;
+                }
+                $full_code = $department . " " .$course_code . "-" . $section;
+                $section_marcher = $row['section_marcher'];
+                $course_ids[] = $row['course_id'];
+                $full_codes[] = $full_code;
+                       }
+                   }
+
+                    for($i=0; $i<count($course_ids); $i++){
+                        echo "<a href = 'courseResults.php?a=$course_ids[$i]'>$full_codes[$i]</a></td>";
+                    }
+
+        ?>
+    </div>
+</div>
+
         
         <a id = "logout" href="../logout.php">Logout</a>
     </div>
@@ -90,6 +103,39 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
     </script>
     <div>
         <center>
+
+            <?php
+
+            $sql = "SELECT * FROM courses where course_id = '$course_id'";
+
+    
+            $result = $conn->query($sql);
+
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()) {
+                    /*
+                    $cadet_first = $row['first_name'];
+                    $cadet_last = $row['last_name'];
+                    $cadet_class = $row['class'];
+                    $cadet_rank = $row['rank'];
+                    $cadet_email = $row['email'];
+                    */
+                    $course_title = $row['course_title'];
+                    $course_code = $row['course_code'];
+                    $course_section = $row['section'];
+                    if($course_section < 10){
+                        $course_section = "0".$course_section;
+                    }
+                    $course_department = $row['department'];
+                    $course_day = $row['section_day'];
+                    $course_time = $row['section_time'];
+                    $course_end = $row['section_end'];
+                    $course = $course_department." ".$course_code. "-".$course_section.": ".$course_title;
+                }
+
+            }
+
+            ?>
             <h1>Attendance Report for <?php echo "$course";?></h1>
 
             <?php 

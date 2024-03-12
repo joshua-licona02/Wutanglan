@@ -12,10 +12,9 @@ if($_SESSION['loggedIn']) {
 
     $id = $_SESSION['id_number'];
 
-    if(isset($_POST['submitCourse'])){
+    if(isset($_GET['submit_course'])){
         
-            $selected_course = $_POST['course_select'];
-       
+        $selected_course = $_GET['course_select'];
     }
 
 
@@ -51,7 +50,7 @@ if($_SESSION['loggedIn']) {
         <center>
             <h2>Edit Course Enrollment</h2>
             
-            <form class = "edit_course" method="POST">
+            <form action = 'editCourseEnrollment.php?a=<?php echo $selected_course?>' class = "edit_course" method="GET">
             <label>Select Course</label>
             <select name = "course_select">
 
@@ -70,14 +69,14 @@ if($_SESSION['loggedIn']) {
                         $full_course = $course_department." ".$course_code."-".$course_section.": ".$course_title;
                         $course_id = $row['course_id'];
 
-                        echo "<option value = '$course_id'>$full_course</option>";
+                        echo "<option id = 'course' value = '$course_id'>$full_course</option>";
 
                     }
                 }
                 ?>
             </select>
             <br>
-            <input type = 'submit' text = "submit" name = "submitCourse">
+            <input type = 'submit' text = "submit" name = submit_course>
 
         </form>
 
@@ -85,40 +84,47 @@ if($_SESSION['loggedIn']) {
         <?php 
 
         if(isset($selected_course)){
-
-            echo "<table class = 'cadet_info'>";
-
-            echo "<th>Cadet Name</th>";
-
-            $sql = "Select * from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number where course_id = '$course_id'";
-
+            $sql = "Select * from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number join rank on rank.rank = cadets.rank where course_id = '$selected_course' order by rank_id, class, last_name";
             $result = $conn->query($sql);
             if($result->num_rows > 0){
+            echo "<form action = '' method = 'GET' >";
+            echo "<table class = 'cadet_info'>";
+
+            echo "<th>Delete</th>";
+            echo "<th>Cadet Name</th>";
+            echo "<th>Rank</th>";
+            echo "<th>Class</th>";
+
+            
+
+           
                 while($row = $result->fetch_assoc()) {
 
+                    $cadet_id_temp = $row['id_number'];
                     $cadet_first = $row['first_name'];
                     $cadet_last = $row['last_name'];
                     $cadet_name = $cadet_first." ".$cadet_last;
+                    $rank = $row['rank'];
+                    $class = $row['class'];
 
                     echo "<tr>";
+                    echo "<td style = 'margin-right: 10%'><input type = 'checkbox' id = $cadet_id></td>";
                     echo "<td>$cadet_name</td>";
+                    echo "<td>$rank</td>";
+                    echo "<td>$class</td>";
                     echo "</tr>";
-
                 }
+                    echo "<tr><td colspan = 4><input style = 'width: 50%' type = 'submit' value = 'Delete Cadets'></td></tr>";
+                    echo "</table>";
+                    echo "</form>";
+            }
+            else{
+                echo "<h1>Currently no cadets enrolled.</h1>";
             }
 
-
-            
-            
-            echo "</table>";
-
-
         }
-
-
-
+            
         ?>
-
             
         </center>
     </div>

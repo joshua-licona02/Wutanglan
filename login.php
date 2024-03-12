@@ -14,9 +14,6 @@ session_start();
         function jsEnc(orgval){
 
             
-            var pass = sha512(orgval);
-            System.out.print(pass);
-
             //find online and return value of encrypted password
         }
 

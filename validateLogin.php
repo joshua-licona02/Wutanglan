@@ -7,7 +7,8 @@
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 
-	
+	$hash = password_verify($password, '$2y$10$Ys/S93NgEB63/cl0.hMoguCWMh8S6TA6rYWcGd7cYezyE4V3ZxBBa');
+
 	$error = "Email/password is incorrect. An @vmi.edu email is required for access.";
 
 	$sql = "SELECT * FROM cadets WHERE email = ? AND password = ?";

@@ -78,6 +78,11 @@
 
     <div class="navbar">
         <a href = "profHome.php">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="myFunction()">Courses
+            <i class="fa fa-caret-down"></i>
+            </button>
+        <div class="dropdown-content" id="myDropdown">
 
         <?php 
 
@@ -111,6 +116,8 @@
                     }
 
         ?>
+    </div>
+</div>
 
         <a id = "logout" href="../logout.php">Logout</a>
     </div>
@@ -306,7 +313,10 @@
             }
 
 
+
             if($current_time <= $end_edits_time && $current_time >= $section_time && $isClassToday == "True"){
+
+            //if(5<6){
 
                 //within time range
                 //allow edits
