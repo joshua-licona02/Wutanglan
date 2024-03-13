@@ -42,6 +42,7 @@ if($_SESSION['loggedIn']) {
         <a href="adminAddCourse.html">Add Courses</a>
         <a href="enrollCadets.php">Enroll Cadets</a>
         <a class = "active">Course Roster Edit</a>
+        <a href="courseOverride.php">Course Override</a>
         <a id = "logout" href="logout.php">Logout</a>
     </div>
 
@@ -65,6 +66,9 @@ if($_SESSION['loggedIn']) {
                         $course_title = $row['course_title'];
                         $course_code = $row['course_code'];
                         $course_section = $row['section'];
+                        if($course_section < 10){
+                            $course_section = '0'.$course_section;
+                        }
                         $course_department = $row['department'];
                         $full_course = $course_department." ".$course_code."-".$course_section.": ".$course_title;
                         $course_id = $row['course_id'];
@@ -87,7 +91,7 @@ if($_SESSION['loggedIn']) {
             $sql = "Select * from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number join rank on rank.rank = cadets.rank where course_id = '$selected_course' order by rank_id, class, last_name";
             $result = $conn->query($sql);
             if($result->num_rows > 0){
-            echo "<form action = '' method = 'GET' >";
+            echo "<form action = 'deleteCadetsFromCourse.php' method = 'POST' >";
             echo "<table class = 'cadet_info'>";
 
             echo "<th>Delete</th>";
@@ -95,9 +99,6 @@ if($_SESSION['loggedIn']) {
             echo "<th>Rank</th>";
             echo "<th>Class</th>";
 
-            
-
-           
                 while($row = $result->fetch_assoc()) {
 
                     $cadet_id_temp = $row['id_number'];
@@ -108,13 +109,13 @@ if($_SESSION['loggedIn']) {
                     $class = $row['class'];
 
                     echo "<tr>";
-                    echo "<td style = 'margin-right: 10%'><input type = 'checkbox' id = $cadet_id></td>";
+                    echo "<td style = 'margin-right: 10%'><input type = 'checkbox' name = 'cadet_ids[]' value = '$cadet_id_temp'></td>";
                     echo "<td>$cadet_name</td>";
                     echo "<td>$rank</td>";
                     echo "<td>$class</td>";
                     echo "</tr>";
                 }
-                    echo "<tr><td colspan = 4><input style = 'width: 50%' type = 'submit' value = 'Delete Cadets'></td></tr>";
+                    echo "<tr><td colspan = 4><input style = 'width: 50%' type = 'submit' value = 'Delete Cadets' name = 'checkSubmit'></td></tr>";
                     echo "</table>";
                     echo "</form>";
             }

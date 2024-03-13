@@ -37,6 +37,8 @@ if($_SESSION['loggedIn']) {
         <a href="adminAddCadets.html">Add Cadets</a>
         <a href="adminAddCourse.html">Add Courses</a>
         <a class = "active">Enroll Cadets</a>
+        <a href="editCourseEnrollment.php">Course Roster Edit</a>
+        <a href="courseOverride.php">Course Override</a>
         <a id = "logout" href="logout.php">Logout</a>
     </div>
 
@@ -85,7 +87,7 @@ if($_SESSION['loggedIn']) {
                             $professor_first = $row['first_name'];
                             $professor_last = $row['last_name'];
                             $prof_full = $title." ".$professor_first." ".$professor_last;
-                            $course = $department. " ".$course_code."-".$section;
+                            $course = $department." ".$course_code."-".$section;
 
                             echo "<option value = '$course_id'>$course - $prof_full</option>";
                         }

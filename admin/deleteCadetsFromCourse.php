@@ -5,26 +5,39 @@
 
 include ("../config.php");
 
-    $id_number = $_POST['id_number'];
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $class = $_POST['class'];
-    $rank = $_POST['rank'];
-    $major = $_POST['major'];
-    $company = $_POST['company'];
 
-    $sql = "INSERT INTO cadets (id_number, first_name, last_name, email, password, class, rank, major, company) VALUES ('$id_number', '$first_name', '$last_name', '$email', '$password', '$class', '$rank', '$major', '$company')";
+    if(isset($_POST['checkSubmit'])){
 
-    if ($conn->query($sql) === TRUE) {
-    header('Location: adminAddCadets.html');
-    echo "<script> alert('Account Successfully Created.)</script>";
+        if(isset($_POST['cadet_ids'])){
+            
+            foreach($_POST['cadet_ids'] as $selected){
+
+                $cadet_id = $selected;
+                $sql = "DELETE FROM course_enrollment WHERE cadet_id = '$cadet_id'";
+
+                if ($conn->query($sql) === TRUE) {
+                    continue;
+                }
+                else{
+                    echo "<script> alert('Cadet not removed from course!')</script>";
+                    exit;
+                }
+
+
+
+            }
+
+        }
+
+        
+        //fix this alert
+        //echo "<script> alert('Cadets successfully removed from course.')</script>";
+        echo "<script>alert('Cadets successfully removed from course'); window.location = 'editCourseEnrollment.php'</script>";
         exit;
+
+        
     }
 
-    else { 
-    echo "<script> alert('Account was not created. Please try again.)</script>";
-} 
-
+   
+    
 ?>

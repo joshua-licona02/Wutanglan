@@ -142,7 +142,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
                 Faculty: <?php echo $prof;?>
             </h2>
             <h3><?php echo $section_day." ".$section_time;?></h3>
-            <table class = "prof_attendance">
+            <table class = "prof_attendance sortable">
                 <th>Date</th>
                 <th>Time Submitted</th>
                 <th>Course</th>

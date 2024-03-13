@@ -142,7 +142,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
             <section>
                 <?php 
 
-                echo "<table class = 'results' width='98%' border='solid'>";
+                echo "<table class = 'results sortable' width='98%' border='solid'>";
                     if ($role == "Cadet" && $result->num_rows > 0) {
                         echo "<tr>
                         <th>ID Number</th>

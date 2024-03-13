@@ -39,6 +39,8 @@
         <a href="adminAddCadets.html">Add Cadets</a>
         <a class = "active">Add Courses</a>
         <a href="enrollCadets.php">Enroll Cadets</a>
+        <a href="editCourseEnrollment.php">Course Roster Edit</a>
+        <a href="courseOverride.php">Course Override</a>
         <a id = "logout" href="logout.php">Logout</a>
     </div>
 

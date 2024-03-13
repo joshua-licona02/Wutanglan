@@ -16,6 +16,17 @@
     $course_id = $_SESSION['course_id'];
     $cadet_id = $_SESSION['id_number'];
 
+    $sql = "SELECT * from course_schedule";
+            $result = $conn->query($sql);
+
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()) {
+
+                    $isCourseOverride = $row['isClassNormal'];
+                    //1 means normal schedule continue with normal operations
+                }
+            }
+
     date_default_timezone_set('America/New_York'); // Eastern Time
 
             $info = getdate();
@@ -265,6 +276,10 @@
                 else{
 
                 }
+            }
+
+            if($isCourseOverride == '0'){
+                $isClassToday = "True";
             }
 
             

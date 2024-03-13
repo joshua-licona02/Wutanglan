@@ -107,7 +107,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Cadet") {
             Use php to pull courses section marcher in and what section marcher number
 
             --> 
-            <table class = "cadet_courses">
+            <table class = "cadet_courses sortable">
                 <tr>
                     <th>Course Number</th>
                     <th>Course Title</th>

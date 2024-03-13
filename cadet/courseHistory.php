@@ -22,6 +22,19 @@
     include ("../config.php");
     //cadet ID number
     $id = $_SESSION['id_number'];
+
+    $sql = "SELECT * from course_schedule";
+            $result = $conn->query($sql);
+
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()) {
+
+                    $isCourseOverride = $row['isClassNormal'];
+                    //1 means normal schedule continue with normal operations
+                }
+            }
+
+
     //shows courses you are section marcher
     $sql = "SELECT cadet_id, section_marcher, semester, cadets.first_name as cadet_first, cadets.last_name as cadet_last,course_title,course_code, section, courses.department, title, professor.first_name, professor.last_name, courses.section_day, courses.section_time, courses.section_end, courses.course_id from course_enrollment join cadets on course_enrollment.cadet_id = cadets.id_number join courses on courses.course_id = course_enrollment.course_id join professor on professor.professor_id = courses.professor_id where cadet_id = '$id' and section_marcher != 0 order by section_marcher";
 
@@ -159,20 +172,44 @@
 
             $account_id = $_SESSION['accountability'];
 
-            $sql = "select first_name, last_name, time from accountability join cadets on accountability.submitted_by = cadets.id_number where accountability_id = '$account_id'";
+            $sql = "select first_name, last_name, time, submitted_by, submitted_by_role from accountability join cadets on accountability.submitted_by = cadets.id_number where accountability_id = '$account_id'";
             $result = $conn->query($sql);
 
             if($result->num_rows > 0){
                 while($row = $result->fetch_assoc()) {
                    $time_submitted = $row['time'];
+                   $submitted_by_role = $row['submitted_by_role'];
+                   $submitted_by_id = $row['submitted_by'];
+
                    $submitted_by_first = $row['first_name'];
                    $submitted_by_last = $row['last_name'];
                    $submitted_by = $submitted_by_first." ".$submitted_by_last;
+
+               }
+            } 
+            if($submitted_by_role == "Cadet"){
+                echo "<h2 style = 'background: #ae122a; color: white; margin-bottom: 0px; width: 50%;'>Report submitted by Cadet $submitted_by at $time_submitted</h2>";
+
+            }
+            else if($submitted_by_role == "Professor"){
+
+                $sql = "SELECT title, first_name, last_name from professor where professor_id = '$submitted_by_id'";
+                $result = $conn->query($sql);
+                if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()) {
+                    $first_name = $row['first_name'];
+                    $last_name = $row['last_name'];
+                    $title = $row['title'];
+                    $submitted_by = $title." ".$first_name." ".$last_name;
                 }
-            }   
+
+            }
+
+                echo "<h2 style = 'background: #ae122a; color: white; margin-bottom: 0px; width: 50%;'>Report submitted by $submitted_by at $time_submitted</h2>";
+            }  
 
 
-            echo "<h2 style = 'background: #ae122a; color: white; margin-bottom: 0px; width: 50%;'>Report submitted by Cadet $submitted_by at $time_submitted</h2>";
+            
 
             
             $sql = "select courses.course_title, courses.course_code, courses.section, courses.department, section_time, section_end, professor.first_name as prof_first, professor.last_name as prof_last, professor.title from accountability join cadets on accountability.cadet_id = cadets.id_number JOIN courses on courses.course_id = accountability.course_id JOIN professor on professor.professor_id = courses.professor_id where accountability_id = '$account_id'";
@@ -321,6 +358,9 @@
                 
             }
 
+            if($isCourseOverride == '0'){
+                $isClassToday = "True";
+            }
 
             if($current_time <= $end_edits_time && $current_time >= $section_time && $isClassToday == "True"){
 

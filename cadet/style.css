@@ -352,3 +352,6 @@ width: 40%;
   margin-top: 0px;
 }
 
+table.sortable tbody tr:nth-child(odd) {
+  background-color: #ddd;
+}

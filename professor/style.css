@@ -384,3 +384,7 @@ width: 40%;
 .profOptions tr, td{
   padding-bottom: 2%;
 }
+
+table.sortable tbody tr:nth-child(odd) {
+  background-color: #ddd;
+}

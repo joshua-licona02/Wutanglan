@@ -1,0 +1,18 @@
+{
+    "name": "jake/php_test",
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jake\\PhpTest\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "codingKeydet",
+            "email": "johnstonjr24@mail.vmi.edu"
+        }
+    ],
+    "require": {}
+}

@@ -363,6 +363,9 @@ table.sortable tbody tr:nth-child(odd) {
   background-color: #ddd;
 }
 
+@media print {
+body {-webkit-print-color-adjust: exact;}
+}
 
 
 

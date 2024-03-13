@@ -377,6 +377,10 @@ width: 40%;
 .commHome th{
   background-color: #ffcd00;
 }
+table.sortable tbody tr:nth-child(odd) {
+  /*background-color:  #DBD7D2;*/
+  background-color:  #DDD;
+}
 
 @media print {
 body {-webkit-print-color-adjust: exact;}

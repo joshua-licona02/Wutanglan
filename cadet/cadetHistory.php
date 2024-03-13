@@ -156,7 +156,7 @@
             ?>
             
             
-            <table class = "cadet_courses" style = "width: 50%;">
+            <table class = "cadet_courses sortable" style = "width: 50%;">
                 <tr>
                     <th>Date</th>
                     <th>Time Submitted</th>
