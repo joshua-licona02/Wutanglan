@@ -75,6 +75,7 @@ $sql = "SELECT cadet_id, section_marcher, semester, cadets.first_name as cadet_f
         </div> 
         <a href="cadetHistory.php">History</a>
         <a class = "active">Instructions</a>
+        <a href="cadetAttendance.php">Attendance</a>
         <a href="cadetInfo.php">Cadet Info</a>
         <a id = "logout" href="../logout.php">Logout</a>
     </div>

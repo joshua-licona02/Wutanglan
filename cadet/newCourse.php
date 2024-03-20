@@ -154,6 +154,7 @@
         </div> 
         <a href="cadetHistory.php">History</a>
         <a href="cadetInstructions.php">Instructions</a>
+        <a href="cadetAttendance.php">Attendance</a>
         <a href = "cadetInfo.php">Cadet Info</a>
         <a id = "logout" href="../logout.php">Logout</a>
     </div>

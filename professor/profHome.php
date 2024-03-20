@@ -135,7 +135,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
                        $section_time = $section_start."-".$section_end;
        
                         echo "<tr><td><a href = 'courseResults.php?a=$course_id'>$full_code</a></td>";
-                        echo "<td>$course</td>";
+                        echo "<td><a href = 'courseResults.php?a=$course_id'>$course</a></td>";
                         echo "<td>$section_day</td>";
                         echo "<td>$section_time</td>";
                         echo "</tr>";

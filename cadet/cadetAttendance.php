@@ -110,9 +110,9 @@
             ?>
             </div>
         </div> 
-        <a class = "active">History</a>
+        <a href = "cadetHistory.php">History</a>
         <a href = "cadetInstructions.php">Instructions</a>
-        <a href="cadetAttendance.php">Attendance</a>
+        <a class = "active">Attendance</a>
         <a href="cadetInfo.php">Cadet Info</a>
         <a id = "logout" href="../logout.php">Logout</a>
     </div>
@@ -152,17 +152,17 @@
                 }
             }
 
-            echo "<h2>Reports submitted by Cadet $cadet_name</h2>";
+            echo "<h2 style = 'background-color: black; color: white'> Cadet $cadet_name Attendance Report</h2>";
 
             ?>
             
             
             <table class = "cadet_courses sortable" style = "width: 50%;">
                 <tr>
-                    <th>Date</th>
-                    <th>Time Submitted</th>
                     <th>Course</th>
                     <th>Faculty</th>
+                    <th>Attendance Rate</th>
+                    <th>Overall Attendance</th>
                 </tr>
                 
            
@@ -170,7 +170,7 @@
 
             //$sql = "select * from accountability join courses on accountability.course_id = courses.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$id' group by date";
             
-            $sql = "select * from accountability join courses on accountability.course_id = courses.course_id join professor on courses.professor_id = professor.professor_id where submitted_by = '$id' group by courses.course_id, date order by date desc, time desc ";
+            $sql = "select courses.course_title, courses.course_code, courses.department, courses.section, professor.first_name, professor.last_name, professor.title, courses.course_id, courses.section_day from course_enrollment join accountability on course_enrollment.cadet_id = accountability.cadet_id join courses on courses.course_id = course_enrollment.course_id join professor on professor.professor_id = courses.professor_id where course_enrollment.cadet_id = '$id' group by course_enrollment.course_id";
 
 
             $result = $conn->query($sql);
@@ -178,12 +178,10 @@
             if($result->num_rows > 0){
                 while($row = $result->fetch_assoc()) {
 
-                    $date = $row['date'];
-                    $time = $row['time'];
-                    $course_id = $row['course_id'];
                     $course_title = $row['course_title'];
                     $course_code = $row['course_code'];
                     $course_section = $row['section'];
+                    $section_day = $row['section_day'];
                     if($course_section < 10){
                         $course_section = "0".$course_section;
                     }
@@ -192,22 +190,91 @@
                     $course = $department . " ".$course_code."-".$course_section;
 
                     $faculty = $row['title'] . " " . $row['first_name']. " " . $row['last_name'];
-                    $account_id = $row['accountability_id'];
 
-                    echo "<tr><td><a href = 'courseHistory.php?a=$account_id&b=$course_id&c=$date'>$date</a></td>";
+                    $course_id = $row['course_id'];
 
-                    //need this to happen on click
-                    //$_SESSION['course_id'] = $course_id;
-                    //$_accountabilityount_date'] = $date;
+                    $sql = "select * from accountability where cadet_id = '$id' and course_id = '$course_id'";
+
+                    $new_result = $conn->query($sql);
+
+                    $cadet_present = 0;
+                    $cadet_absent = 0;
+                    $cadet_total = 0;
+
+                    $isNoAttendance = "False";
+
+                    if($new_result->num_rows > 0){
+                    while($row = $new_result->fetch_assoc()) {
+                        $status = $row['status'];
+                        if($status == "Absent"){
+                            $cadet_absent++;
+                        }
+                        else{
+                            $cadet_present++;
+                        }
+                        $cadet_total++;
+                    }
+                }
+                else{
+                    $isNoAttendance = "True";
+                }
+
+
+                if ($isNoAttendance == "True"){
+                    echo "<tr><td>No Attendance Recorded.</td></tr>";
+                }
+
+                else{
+
+                    echo "<tr><td><a href = 'courseAttendance.php?a=$course_id'>$course</a></td>";
+                    echo "<td>$faculty</td>";
+                    $percent = ($cadet_present/$cadet_total) * 100;
+                    $percent = number_format($percent, 2);
                     
-                    echo "<td>$time</td>";
-                    echo "<td>$course</td>";
-                    echo "<td>$faculty</td></tr>";
+                    if($percent > 80){
+                        echo "<td style = 'background-color: green'><a style = 'color: white'>$cadet_present/$cadet_total ($percent%)</a></td>";
+                    }
+                    else if($percent <= 80 && $percent > 70){
+                        echo "<td style = 'background-color: yellow'>$cadet_present/$cadet_total ($percent%)</td>";
+                    }
+                    else{
+                        echo "<td style = 'background-color: red'><a style = 'color: white'>$cadet_present/$cadet_total ($percent%)</a></td>";
+                    }
+                    
+                        
+                    
+
+                    //algorithm to count total number of class days
+
+                    //1. Check each letter
+                    //2. For each day of class + 1
+                    //3. Consider days where there are no classes
+
+                    $numOfClassWeekly = strlen($section_day);
+
+                    $totalMeetings = $numOfClassWeekly * 14;
+
+                   
+                    $overall_percent = (($totalMeetings - $cadet_absent) / $totalMeetings) * 100;
+                    $overall_percent = number_format($overall_percent, 2);
+
+                    // Apply conditional formatting based on the overall attendance percentage
+                    if ($overall_percent < 80 && $overall_percent > 70) {
+                        echo "<td style='background-color: yellow'>$cadet_present/$cadet_total ($overall_percent%)</td>";
+                    } else if ($overall_percent <= 70) {
+                        echo "<td style='background-color: red; color: white'>$cadet_present/$cadet_total ($overall_percent%)</td>";
+                    } else if ($overall_percent > 80) {
+                        echo "<td style='background-color: green;'><a style = 'color: white'>$cadet_present/$cadet_total ($overall_percent%)</a></td>";
+                    }
+                }
                 }
             }
-            
+
+
             ?>
         </table>
+
+        <h3 style = 'color: white; margin-left: 10%; margin-right: 10%; background-color: #ae122a;'>Note: Overall attendance shows your current progress towards the 30% rule. The maximum allowed percentage of class absences is 30%. No categories of absences (academic, athletic, guard, 3.2 cuts, etc.) will be exempt from that percentage. When a cadet reaches 20% absences, the instructor issues a written warning. Upon reaching 30% absences the cadet is referred to the Dean for appropriate action (Administrative Report of Excessive Absences form). Normally a cadet who exceeds the 30% absences will be required to withdraw from the course with a W or a WF.</h3>
         </center>
     </div>
 </body>

@@ -288,6 +288,8 @@ input{
 
 .cadet_courses td{
   padding: 3px;
+  white-space: nowrap;
+
 }
 
 .cadet_courses th{

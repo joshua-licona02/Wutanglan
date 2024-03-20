@@ -152,13 +152,12 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
                
                 <?php
 
-                $sql = "SELECT accountability.course_id, date, time, course_title, courses.department, course_code, section, section_day, section_time, section_end, cadets.first_name, cadets.last_name, submitted_by, submitted_by_role from accountability join cadets on accountability.submitted_by = cadets.id_number join courses on courses.course_id = accountability.course_id join professor on courses.professor_id = professor.professor_id where accountability.course_id = '$course_id' group by date order by date desc, time desc";
+                $sql = "SELECT accountability.course_id, date, time, course_title, courses.department, course_code, section, section_day, section_time, section_end, submitted_by, submitted_by_role from accountability join courses on courses.course_id = accountability.course_id join professor on courses.professor_id = professor.professor_id where accountability.course_id = '$course_id' group by date order by date desc, time desc";
 
-
+                
 
                 $result = $conn->query($sql);
 
-        
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()) {
                         $course_id = $row['course_id'];
@@ -186,7 +185,6 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
 
                         $course = $course_department." ".$course_code. "-".$course_section.": ".$course_title;
 
-                       
                         echo "<td>$course</td>";
 
                         $course_time = str_replace(':', '', $course_time);
@@ -198,12 +196,22 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
 
                         
                         //submitted by
-                        $first_name = $row['first_name'];
-                        $last_name = $row['last_name'];
+                        
                         $cadet_id = $row['submitted_by'];
                         $submitted_by_role = $row['submitted_by_role'];
 
                         if($submitted_by_role == "Cadet"){
+
+                            $new_sql = "Select * from cadets where id_number = '$cadet_id'";
+                            $new_result = $conn->query($new_sql);
+
+                            if($new_result->num_rows > 0){
+                                while($row = $new_result->fetch_assoc()){
+                                    $first_name = $row['first_name'];
+                                    $last_name = $row['last_name'];
+                                }
+                            }
+
                             $cadet = "CDT ".$first_name." ".$last_name;
                             echo "<td>$cadet</td>";
                         }
@@ -211,11 +219,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Professor") {
                             $prof_name = $_SESSION['prof_name'];
                             echo "<td>$prof_name</td>";
                         }
-
-                        
-
-                    
-                        
+   
                     }
                 }
                 else{

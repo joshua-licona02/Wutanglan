@@ -74,7 +74,7 @@ $num_of_students = $result->num_rows;
  		$current_status = $status[$i];
  		$current_comment = $comments[$i];
  		
- 		$sql = "UPDATE accountability SET date = '$date', time = '$time', course_id = '$course_id', cadet_id = '$current_cadet', status = '$current_status', comments = '$current_comment', submitted_by = '$id_number' WHERE accountability.accountability_id='$current_id'";
+ 		$sql = "UPDATE accountability SET date = '$date', time = '$time', course_id = '$course_id', cadet_id = '$current_cadet', status = '$current_status', comments = '$current_comment', submitted_by = '$id_number', submitted_by_role = 'Cadet' WHERE accountability.accountability_id='$current_id'";
  		if($conn->query($sql)){
  			continue;
 		}
