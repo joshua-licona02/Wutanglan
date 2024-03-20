@@ -11,6 +11,10 @@ include ("../config.php");
 
 
     if ($conn->query($sql) === TRUE) {
+
+        header("adminOrderSM.php");
+
+
         echo "<script> alert('Account Successfully Created.)</script>";
         header('Location: enrollCadets.php');
     

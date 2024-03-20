@@ -73,6 +73,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Cadet") {
         </div> 
         <a href="cadetHistory.php">History</a>
         <a href="cadetInstructions.php">Instructions</a>
+        <a href="cadetAttendance.php">Attendance</a>
         <a href="cadetInfo.php">Cadet Info</a>
         <a id = "logout" href="../logout.php">Logout</a>
     </div>
@@ -187,7 +188,7 @@ if($result->num_rows > 0){
                        }
                    }
                    else{
-                    echo "<tr><td colspan = '5'>You are not a section marcher in any of your registered courses.</td></tr>";
+                    echo "<tr><td colspan = '6'>You are not a section marcher in any of your registered courses.</td></tr>";
                 }
 
  ?>

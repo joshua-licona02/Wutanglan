@@ -44,7 +44,9 @@ $sql = "SELECT * FROM cadets JOIN rank on cadets.rank=rank.rank join course_enro
 	
 	$cadet_status = $status[$count++];
 
-	$sql = "INSERT INTO `accountability` (`accountability_id`, `date`, `time`, `course_id`, `cadet_id`, `status`, `comments`, `submitted_by`) VALUES (NULL, '$date', '$time', '$course_id', '$cadet_id', '$cadet_status', '$comment', '$id_number');";
+	$sql = "INSERT INTO `accountability` (`accountability_id`, `date`, `time`, `course_id`, `cadet_id`, `status`, `comments`, `submitted_by`, `submitted_by_role`) VALUES (NULL, '$date', '$time', '$course_id', '$cadet_id', '$cadet_status', '$comment', '$id_number', 'Cadet')";
+
+
 	
 	
 	if($conn->query($sql)){

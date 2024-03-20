@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
+if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "Cadet") {
 //allow
 }else{
     
@@ -17,6 +17,21 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
     //user_id
     $id = $_SESSION['id_number'];
 
+    $sql = "SELECT * FROM `cadets` where id_number = '$cadet_id'";
+
+    $result = $conn->query($sql);
+
+    if($result->num_rows > 0){
+        while($row = $result->fetch_assoc()) {
+            $cadet_first = $row['first_name'];
+            $cadet_last = $row['last_name'];
+            $cadet_class = $row['class'];
+            $cadet_rank = $row['rank'];
+            $cadet_email = $row['email'];
+
+        }
+
+    }
 
 ?>
 <!DOCTYPE html>
@@ -79,7 +94,7 @@ if($_SESSION['loggedIn'] && $_SESSION['privilege'] == "COMM") {
         
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()) {
-                        
+                        $course_id = $row['course_id'];
                         $account_date = $row['date'];
                         $account_time = $row['time'];
                         $account_status = $row['status'];
