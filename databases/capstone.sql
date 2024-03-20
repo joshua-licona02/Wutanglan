@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 12, 2024 at 03:11 PM
+-- Generation Time: Mar 14, 2024 at 03:09 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -170,7 +170,17 @@ INSERT INTO `accountability` (`accountability_id`, `date`, `time`, `course_id`, 
 (145, '03/07/2024', '10:10:46', 1, '10675729', 'Present', 'N/A', '1', 'Professor'),
 (146, '03/07/2024', '10:10:46', 1, '24356312', 'Present', 'N/A', '1', 'Professor'),
 (147, '03/07/2024', '10:10:46', 1, '0619046', 'Present', 'N/A', '1', 'Professor'),
-(148, '03/07/2024', '10:10:46', 1, '7635123', 'Present', 'N/A', '1', 'Professor');
+(148, '03/07/2024', '10:10:46', 1, '7635123', 'Present', 'N/A', '1', 'Professor'),
+(149, '03/12/2024', '10:27:23', 1, '1234543', 'Absent', 'N/A', '1', 'Professor'),
+(150, '03/12/2024', '10:27:23', 1, '0609724', 'Present', 'N/A', '1', 'Professor'),
+(151, '03/12/2024', '10:27:23', 1, '10675729', 'Present', 'N/A', '1', 'Professor'),
+(152, '03/12/2024', '10:27:23', 1, '24356312', 'Present', 'N/A', '1', 'Professor'),
+(153, '03/12/2024', '10:27:23', 1, '0619046', 'Present', 'N/A', '1', 'Professor'),
+(154, '03/12/2024', '10:27:23', 1, '7635123', 'Present', 'N/A', '1', 'Professor'),
+(155, '03/12/2024', '21:30:14', 10, '0609724', 'Present', 'N/A', '0609724', 'Cadet'),
+(156, '03/12/2024', '21:30:14', 10, '10675729', 'Absent', '3.2 Cut', '0609724', 'Cadet'),
+(157, '03/12/2024', '21:30:14', 10, '0345632', 'Present', 'N/A', '0609724', 'Cadet'),
+(158, '03/12/2024', '21:30:14', 10, '0655502', 'Present', 'N/A', '0609724', 'Cadet');
 
 -- --------------------------------------------------------
 
@@ -320,7 +330,7 @@ INSERT INTO `courses` (`course_id`, `course_title`, `course_code`, `section`, `s
 (6, 'Comparative Religion', '211-WX', 3, 'MWF', '11:00:00', '11:50:00', '2024-01-17', '2024-05-06', 6, 'Scott Ship Hall', 406, 'ERH'),
 (8, 'Intro to CS', '101', 1, 'MWF', '09:00:00', '09:50:00', '2024-01-17', '2024-05-06', 4, 'Mallory Hall', 316, 'CIS'),
 (9, 'National Security Prep II', '404', 1, 'MWF', '09:00:00', '09:50:00', '2024-01-17', '2024-05-06', 7, 'Kilbourne Hall', 4004, 'AS'),
-(10, 'Test Course', '679', 1, 'MTWRF', '13:30:00', '14:00:00', '2024-01-16', '2024-05-16', 2, 'Mallory Hall', 310, 'CIS');
+(10, 'Test Course', '679', 1, 'MTWRF', '21:00:00', '21:50:00', '2024-01-16', '2024-05-16', 2, 'Mallory Hall', 310, 'CIS');
 
 -- --------------------------------------------------------
 
@@ -342,7 +352,6 @@ CREATE TABLE `course_enrollment` (
 
 INSERT INTO `course_enrollment` (`enrollment_id`, `cadet_id`, `course_id`, `section_marcher`, `semester`) VALUES
 (29, '0609724', 9, 1, 'SP24'),
-(30, '0345632', 9, 2, 'SP24'),
 (31, '10675728', 9, 0, 'SP24'),
 (32, '5555432', 9, 2, 'SP24'),
 (33, '0655505', 9, 0, 'SP24'),
@@ -356,14 +365,31 @@ INSERT INTO `course_enrollment` (`enrollment_id`, `cadet_id`, `course_id`, `sect
 (41, '0619046', 1, 0, 'SP24'),
 (43, '0609724', 1, 2, 'SP24'),
 (44, '1234543', 1, 1, 'SP24'),
-(45, '7635123', 1, 0, 'SP24'),
 (46, '24356312', 1, 0, 'SP24'),
 (47, '0609724', 10, 1, 'SP24'),
-(48, '0345632', 10, 3, 'SP24'),
 (49, '10675729', 10, 2, 'SP24'),
-(50, '7635123', 10, 0, 'SP24'),
-(51, '0655502', 10, 0, 'SP24'),
-(52, '3437261', 10, 0, 'SP24');
+(59, '0655502', 10, 0, 'SP24'),
+(60, '0345632', 10, 0, 'SP24'),
+(61, '4321234', 9, 0, 'SP24'),
+(63, '1234543', 10, 0, 'SP24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course_schedule`
+--
+
+CREATE TABLE `course_schedule` (
+  `id` int(255) NOT NULL,
+  `isClassNormal` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `course_schedule`
+--
+
+INSERT INTO `course_schedule` (`id`, `isClassNormal`) VALUES
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -538,6 +564,12 @@ ALTER TABLE `course_enrollment`
   ADD UNIQUE KEY `cadet_id` (`cadet_id`,`course_id`);
 
 --
+-- Indexes for table `course_schedule`
+--
+ALTER TABLE `course_schedule`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `professor`
 --
 ALTER TABLE `professor`
@@ -563,7 +595,7 @@ ALTER TABLE `secretary`
 -- AUTO_INCREMENT for table `accountability`
 --
 ALTER TABLE `accountability`
-  MODIFY `accountability_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `accountability_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -587,7 +619,13 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `course_enrollment`
 --
 ALTER TABLE `course_enrollment`
-  MODIFY `enrollment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `enrollment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
+--
+-- AUTO_INCREMENT for table `course_schedule`
+--
+ALTER TABLE `course_schedule`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `professor`
