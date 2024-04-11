@@ -1,7 +1,7 @@
 body{
 	font-family:sans-serif;
 	-webkit-text-size-adjust:100%;
-	ms-text-size-adjust:100%
+	ms-text-size-adjust:100%;
   font-family: sans-serif;
 }
 
@@ -354,4 +354,24 @@ input{
 
 .search td{
 width: 40%;
+}
+
+ul{
+
+}
+
+li{
+  text-align: left;
+  margin-left: 38%;
+}
+
+.aboutImages{
+  border: solid;
+}
+caption{
+  margin-bottom: 4%;
+}
+
+hr.solid {
+  border-top: 3px solid black;
 }
