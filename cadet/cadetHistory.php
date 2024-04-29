@@ -205,6 +205,9 @@
                     echo "<td>$faculty</td></tr>";
                 }
             }
+            else{
+                echo "<tr><td colspan = '4'>No reports have been submitted.</td></tr>";
+            }
             
             ?>
         </table>

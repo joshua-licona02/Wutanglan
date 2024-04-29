@@ -304,10 +304,7 @@
             $end_edits_time = $end_edits_time->format('H:i:s');
 
             if($current_time > $end_edits_time || $current_time < $section_start_time){
-
-                echo $end_edits_time;
-               
-
+            
             //if(5>6){
 
                 echo "<h1 style = 'background-color: #ae122a; color: white'>Course Locked</h1>";
