@@ -294,7 +294,7 @@
             }
 
             $section_start_time = new DateTime($section_start);
-            $section_start_time->modify('-2 minutes');
+            $section_start_time->modify('-5 minutes');
             $section_start_time = $section_start_time->format('H:i:s');
 
             $section_end_time = new DateTime($section_end);
@@ -303,8 +303,10 @@
             $end_edits_time = (clone $section_end_time)->add(new DateInterval("PT{$hours}H")); 
             $end_edits_time = $end_edits_time->format('H:i:s');
 
-        
             if($current_time > $end_edits_time || $current_time < $section_start_time){
+
+                echo $end_edits_time;
+               
 
             //if(5>6){
 

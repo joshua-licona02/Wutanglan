@@ -221,7 +221,7 @@
 
 
                 if ($isNoAttendance == "True"){
-                    echo "<tr><td>No Attendance Recorded.</td></tr>";
+                    echo "<tr><td colspan = '4'>No Attendance Recorded.</td></tr>";
                 }
 
                 else{
